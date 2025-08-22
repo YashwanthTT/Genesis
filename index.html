@@ -50,7 +50,7 @@
             <!-- RESTORED: Main Navigation Links -->
             <div class="hidden md:flex items-center space-x-8">
                 <a href="#home-page-section" data-action="show-home" class="nav-link text-slate-600 hover:text-orange-500 font-medium">Home</a>
-                <a href="#art-forms" data-action="show-home-and-scroll" class="nav-link text-slate-600 hover:text-orange-500 font-medium">Art Forms</a>
+                <a href="#" data-action="show-art-forms" class="nav-link text-slate-600 hover:text-orange-500 font-medium">Art Forms</a>
             </div>
 
             <!-- Search Bar -->
@@ -73,7 +73,7 @@
         <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
             <!-- RESTORED: Mobile Navigation Links -->
             <a href="#home-page-section" data-action="show-home" class="block py-2 text-slate-600 hover:text-orange-500">Home</a>
-            <a href="#art-forms" data-action="show-home-and-scroll" class="block py-2 text-slate-600 hover:text-orange-500">Art Forms</a>
+            <a href="#" data-action="show-art-forms" class="block py-2 text-slate-600 hover:text-orange-500">Art Forms</a>
             <div id="nav-right-mobile" class="mt-4 border-t pt-4">
                  <button data-action="login" class="block w-full text-left py-2 text-slate-600 hover:text-orange-500">Login</button>
                  <button data-action="creator-hub" class="block w-full mt-2 bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-full text-center">Creator Hub</button>
@@ -93,20 +93,281 @@
                 <div class="text-center max-w-3xl mx-auto px-4">
                     <h1 class="text-4xl md:text-6xl font-bold mb-4 leading-tight">Rediscover the Soul of India</h1>
                     <p class="text-lg md:text-xl mb-8">A digital canvas preserving and promoting the vibrant legacy of India's traditional folk art.</p>
-                    <a href="#art-forms" data-action="show-home-and-scroll" class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-8 rounded-full text-lg transition duration-300">Explore Art Forms</a>
+                    <a href="#" data-action="show-art-forms" class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-8 rounded-full text-lg transition duration-300">Explore Art Forms</a>
                 </div>
             </section>
+        </main>
 
-            <!-- Featured Art Forms -->
-            <section id="art-forms" class="py-20 bg-white">
-                <div class="container mx-auto px-6 text-center">
-                    <h2 class="text-3xl font-bold mb-4">Featured Art Forms</h2>
-                    <p class="text-slate-600 max-w-2xl mx-auto mb-12">Journey through a curated selection of India's most cherished artistic traditions.</p>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        <!-- Art Form Cards will be populated here -->
+        <!-- =================================== -->
+        <!-- ==      ART FORMS PAGE CONTENT     == -->
+        <!-- =================================== -->
+        <main id="art-forms-page" class="hidden bg-white">
+            <div class="container mx-auto px-6 py-20">
+                <div class="max-w-3xl mx-auto text-center">
+                    <h1 class="text-4xl font-bold mb-4">India's Endangered Artistic Heritage</h1>
+                    <p class="text-slate-600 mb-12">Discover the stories behind traditional art forms that are on the brink of extinction. Your appreciation and support can help keep these invaluable cultural treasures alive.</p>
+                </div>
+
+                <!-- NEW: Filter Section -->
+                <div class="bg-slate-50 p-6 rounded-lg shadow-md mb-12 sticky top-24 z-40">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <select id="status-filter" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 transition">
+                            <option value="all">All Statuses</option>
+                            <option value="critically-endangered">Critically Endangered</option>
+                            <option value="severely-endangered">Severely Endangered</option>
+                            <option value="endangered">Endangered</option>
+                            <option value="vulnerable">Vulnerable</option>
+                            <option value="nearly-extinct">Nearly Extinct</option>
+                        </select>
+                        <select id="state-filter" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 transition">
+                            <option value="all">All States</option>
+                            <option value="Gujarat">Gujarat</option>
+                            <option value="Jharkhand">Jharkhand</option>
+                            <option value="Goa">Goa</option>
+                            <option value="Kerala">Kerala</option>
+                            <option value="Karnataka">Karnataka</option>
+                            <option value="Tamil Nadu">Tamil Nadu</option>
+                            <option value="Bihar">Bihar</option>
+                            <option value="Odisha">Odisha</option>
+                            <option value="West Bengal">West Bengal</option>
+                            <option value="Telangana">Telangana</option>
+                            <option value="Rajasthan">Rajasthan</option>
+                            <option value="Uttar Pradesh">Uttar Pradesh</option>
+                            <option value="Maharashtra">Maharashtra</option>
+                            <option value="Andhra Pradesh">Andhra Pradesh</option>
+                            <option value="Madhya Pradesh">Madhya Pradesh</option>
+                        </select>
+                        <button id="filter-btn" class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-filter mr-2"></i> Filter Results
+                        </button>
                     </div>
                 </div>
-            </section>
+
+                <div id="art-forms-container" class="space-y-16">
+                    <!-- Art Form: Rogan Art -->
+                    <div class="art-form-item" data-name="Rogan Art" data-state="Gujarat" data-status="critically-endangered">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                            <img src="https://placehold.co/600x400/C87D2E/ffffff?text=Rogan+Art" alt="Rogan Art" class="rounded-lg shadow-lg w-full">
+                            <div>
+                                <h2 class="text-3xl font-bold mb-4">Rogan Art</h2>
+                                <p class="text-slate-600 mb-4">A 400-year-old tradition from Kutch, Gujarat, Rogan art involves painting on fabric using a thick, vibrant paste made from boiled castor oil and natural pigments. The artist uses a metal stylus to create intricate, free-hand designs, often from memory. This art form is critically endangered, with only one family—the Khatris of Nirona—continuing the practice.</p>
+                                <span class="font-semibold text-red-600">Status: Critically Endangered</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Art Form: Paitkar Painting -->
+                    <div class="art-form-item" data-name="Paitkar Painting" data-state="Jharkhand" data-status="severely-endangered">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                            <div class="md:order-2">
+                                <img src="https://placehold.co/600x400/8B3A3A/ffffff?text=Paitkar+Painting" alt="Paitkar Painting" class="rounded-lg shadow-lg w-full">
+                            </div>
+                            <div class="md:order-1">
+                                <h2 class="text-3xl font-bold mb-4">Paitkar Painting</h2>
+                                <p class="text-slate-600 mb-4">Known as the "scrolls of the Santhals," Paitkar is one of the oldest scroll painting traditions in Eastern India, originating from Jharkhand. These narrative scrolls are made using natural dyes on paper and are traditionally used in storytelling ceremonies and ballads. Due to a lack of awareness and market access, many Paitkar artists have been forced to abandon their craft for manual labor.</p>
+                                <span class="font-semibold text-red-600">Status: Severely Endangered</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Art Form: Kaavi Art -->
+                    <div class="art-form-item" data-name="Kaavi Art" data-state="Goa" data-status="nearly-extinct">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                            <img src="https://placehold.co/600x400/5A4D4C/ffffff?text=Kaavi+Art" alt="Kaavi Art" class="rounded-lg shadow-lg w-full">
+                            <div>
+                                <h2 class="text-3xl font-bold mb-4">Kaavi Art</h2>
+                                <p class="text-slate-600 mb-4">A unique form of wall mural from Goa and the Konkan region, Kaavi art is created by etching intricate designs onto fresh lime plaster that has been coated with a red pigment made from laterite soil. Once common on temple and home walls, this architectural art form has been nearly wiped out by modern construction methods and a lack of documentation.</p>
+                                <span class="font-semibold text-red-600">Status: Nearly Extinct</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Art Form: Tholpavakoothu -->
+                    <div class="art-form-item" data-name="Tholpavakoothu" data-state="Kerala" data-status="endangered">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                            <div class="md:order-2"><img src="https://placehold.co/600x400/C3867A/ffffff?text=Tholpavakoothu" alt="Tholpavakoothu" class="rounded-lg shadow-lg w-full"></div>
+                            <div class="md:order-1">
+                                <h2 class="text-3xl font-bold mb-4">Tholpavakoothu</h2>
+                                <p class="text-slate-600 mb-4">A ritualistic shadow puppet theatre from Kerala, using leather puppets to enact the Kamba Ramayana. Performed in temples over 7 to 21 nights, it's threatened by declining temple patronage and modern entertainment.</p>
+                                <span class="font-semibold text-red-600">Status: Endangered</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Art Form: Chittara Art -->
+                    <div class="art-form-item" data-name="Chittara Art" data-state="Karnataka" data-status="critically-endangered">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                            <img src="https://placehold.co/600x400/D0DDE3/000000?text=Chittara+Art" alt="Chittara Art" class="rounded-lg shadow-lg w-full">
+                            <div>
+                                <h2 class="text-3xl font-bold mb-4">Chittara Art</h2>
+                                <p class="text-slate-600 mb-4">A tribal floor and wall painting tradition by the Devaru women of Karnataka. Using natural pigments, it depicts geometric patterns and fertility symbols. It is critically endangered as younger generations migrate and abandon the practice.</p>
+                                <span class="font-semibold text-red-600">Status: Critically Endangered</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Art Form: Toda Embroidery -->
+                    <div class="art-form-item" data-name="Toda Embroidery" data-state="Tamil Nadu" data-status="endangered">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                            <div class="md:order-2"><img src="https://placehold.co/600x400/8B4513/ffffff?text=Toda+Embroidery" alt="Toda Embroidery" class="rounded-lg shadow-lg w-full"></div>
+                            <div class="md:order-1">
+                                <h2 class="text-3xl font-bold mb-4">Toda Embroidery</h2>
+                                <p class="text-slate-600 mb-4">An intricate needlework from the Toda tribe of the Nilgiri Hills, Tamil Nadu. Woven on white cloth with red and black threads, it features geometric motifs. With a very small tribal population, the art form is highly vulnerable.</p>
+                                <span class="font-semibold text-red-600">Status: Endangered</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Art Form: Manjusha Painting -->
+                    <div class="art-form-item" data-name="Manjusha Painting" data-state="Bihar" data-status="vulnerable">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                            <img src="https://placehold.co/600x400/A0522D/ffffff?text=Manjusha+Painting" alt="Manjusha Painting" class="rounded-lg shadow-lg w-full">
+                            <div>
+                                <h2 class="text-3xl font-bold mb-4">Manjusha Painting</h2>
+                                <p class="text-slate-600 mb-4">Dating back to the 7th century in Bhagalpur, Bihar, this art form uses only three colors (pink, yellow, green) and depicts folktales. It is the only art form in India displayed in a sequential, scroll-like format.</p>
+                                <span class="font-semibold text-orange-500">Status: Vulnerable</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Art Form: Dhokra Art -->
+                    <div class="art-form-item" data-name="Dhokra Art" data-state="West Bengal" data-status="vulnerable">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                            <div class="md:order-2"><img src="https://placehold.co/600x400/CD853F/ffffff?text=Dhokra+Art" alt="Dhokra Art" class="rounded-lg shadow-lg w-full"></div>
+                            <div class="md:order-1">
+                                <h2 class="text-3xl font-bold mb-4">Dhokra Art</h2>
+                                <p class="text-slate-600 mb-4">An ancient metal casting technique practiced for over 4,000 years by tribal communities in Odisha and West Bengal. The number of skilled artisans is declining, threatening this historic craft.</p>
+                                <span class="font-semibold text-orange-500">Status: Vulnerable</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Art Form: Parsi Embroidery -->
+                    <div class="art-form-item" data-name="Parsi Embroidery" data-state="Gujarat" data-status="endangered">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                            <img src="https://placehold.co/600x400/E1C699/000000?text=Parsi+Embroidery" alt="Parsi Embroidery" class="rounded-lg shadow-lg w-full">
+                            <div>
+                                <h2 class="text-3xl font-bold mb-4">Parsi Embroidery</h2>
+                                <p class="text-slate-600 mb-4">A beautiful needlework with multicultural influences, found on 'Gara' sarees. With the decline of the Parsi community and the rise of machine-made textiles, this intricate art form is at risk.</p>
+                                <span class="font-semibold text-red-600">Status: Endangered</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Art Form: Cherial Scrolls -->
+                    <div class="art-form-item" data-name="Cherial Scrolls" data-state="Telangana" data-status="critically-endangered">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                            <div class="md:order-2"><img src="https://placehold.co/600x400/8B3A3A/ffffff?text=Cherial+Scrolls" alt="Cherial Scrolls" class="rounded-lg shadow-lg w-full"></div>
+                            <div class="md:order-1">
+                                <h2 class="text-3xl font-bold mb-4">Cherial Scrolls</h2>
+                                <p class="text-slate-600 mb-4">A stylized narrative art form from Telangana, painted in panels on long scrolls of cloth. These scrolls are used by storytellers to narrate myths and epics. The tradition is now practiced by only a handful of families.</p>
+                                <span class="font-semibold text-red-600">Status: Critically Endangered</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Art Form: Kavad Art -->
+                    <div class="art-form-item" data-name="Kavad Art" data-state="Rajasthan" data-status="endangered">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                            <img src="https://placehold.co/600x400/C87D2E/ffffff?text=Kavad+Art" alt="Kavad Art" class="rounded-lg shadow-lg w-full">
+                            <div>
+                                <h2 class="text-3xl font-bold mb-4">Kavad Art</h2>
+                                <p class="text-slate-600 mb-4">A unique tradition from Rajasthan where stories are painted on a portable wooden temple with multiple folding doors. A storyteller, the 'Kavadiya Bhat', recites the tales as they open each panel. This blend of carpentry, painting, and narration is fading.</p>
+                                <span class="font-semibold text-red-600">Status: Endangered</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Art Form: Sanjhi Art -->
+                    <div class="art-form-item" data-name="Sanjhi Art" data-state="Uttar Pradesh" data-status="vulnerable">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                            <div class="md:order-2"><img src="https://placehold.co/600x400/5A4D4C/ffffff?text=Sanjhi+Art" alt="Sanjhi Art" class="rounded-lg shadow-lg w-full"></div>
+                            <div class="md:order-1">
+                                <h2 class="text-3xl font-bold mb-4">Sanjhi Art</h2>
+                                <p class="text-slate-600 mb-4">The ancient art of paper cutting from Mathura, Uttar Pradesh. Intricate stencils depicting stories of Krishna are cut from paper and used for rangolis. The skill required for this delicate art is becoming increasingly rare.</p>
+                                <span class="font-semibold text-orange-500">Status: Vulnerable</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Art Form: Ganjifa Cards -->
+                    <div class="art-form-item" data-name="Ganjifa Cards" data-state="Odisha" data-status="endangered">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                            <img src="https://placehold.co/600x400/C3867A/ffffff?text=Ganjifa+Cards" alt="Ganjifa Cards" class="rounded-lg shadow-lg w-full">
+                            <div>
+                                <h2 class="text-3xl font-bold mb-4">Ganjifa Cards</h2>
+                                <p class="text-slate-600 mb-4">An ancient art of creating hand-painted playing cards, once popular in the Mughal courts. The tradition survives in small pockets of Odisha and Nashik, but the complex skill is known to very few artists today.</p>
+                                <span class="font-semibold text-red-600">Status: Endangered</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Art Form: Patola Weaving -->
+                    <div class="art-form-item" data-name="Patola Weaving" data-state="Gujarat" data-status="endangered">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                            <div class="md:order-2"><img src="https://placehold.co/600x400/D0DDE3/000000?text=Patola+Weaving" alt="Patola Weaving" class="rounded-lg shadow-lg w-full"></div>
+                            <div class="md:order-1">
+                                <h2 class="text-3xl font-bold mb-4">Patola Weaving</h2>
+                                <p class="text-slate-600 mb-4">A highly complex double-ikat weaving technique from Patan, Gujarat, where both warp and weft threads are dyed before weaving. A single Patola saree can take months to create, and the skill is held by only a few master weavers.</p>
+                                <span class="font-semibold text-red-600">Status: Endangered</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Art Form: Warli Painting -->
+                    <div class="art-form-item" data-name="Warli Painting" data-state="Maharashtra" data-status="vulnerable">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                            <img src="https://placehold.co/600x400/8B4513/ffffff?text=Warli+Painting" alt="Warli Painting" class="rounded-lg shadow-lg w-full">
+                            <div>
+                                <h2 class="text-3xl font-bold mb-4">Warli Painting</h2>
+                                <p class="text-slate-600 mb-4">A tribal art form from Maharashtra characterized by its simple, geometric shapes depicting scenes of daily life. While popular, the authentic, ritualistic form of Warli painting is being replaced by commercialized versions, endangering the original tradition.</p>
+                                <span class="font-semibold text-orange-500">Status: Vulnerable</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Art Form: Kalamkari -->
+                    <div class="art-form-item" data-name="Kalamkari" data-state="Andhra Pradesh" data-status="vulnerable">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                            <div class="md:order-2"><img src="https://placehold.co/600x400/A0522D/ffffff?text=Kalamkari" alt="Kalamkari" class="rounded-lg shadow-lg w-full"></div>
+                            <div class="md:order-1">
+                                <h2 class="text-3xl font-bold mb-4">Kalamkari</h2>
+                                <p class="text-slate-600 mb-4">An ancient art of hand-painting or block-printing on cotton textiles from Andhra Pradesh. The traditional, free-flowing pen (kalam) style is becoming less common than the block-printed version.</p>
+                                <span class="font-semibold text-orange-500">Status: Vulnerable</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Art Form: Pattachitra -->
+                    <div class="art-form-item" data-name="Pattachitra" data-state="Odisha" data-status="vulnerable">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                            <img src="https://placehold.co/600x400/CD853F/ffffff?text=Pattachitra" alt="Pattachitra" class="rounded-lg shadow-lg w-full">
+                            <div>
+                                <h2 class="text-3xl font-bold mb-4">Pattachitra</h2>
+                                <p class="text-slate-600 mb-4">A cloth-based scroll painting tradition from Odisha and West Bengal, known for its intricate details and mythological narratives. The traditional process of preparing the canvas and natural colors is being abandoned for faster, modern materials.</p>
+                                <span class="font-semibold text-orange-500">Status: Vulnerable</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Art Form: Madhubani Painting -->
+                    <div class="art-form-item" data-name="Madhubani Painting" data-state="Bihar" data-status="vulnerable">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                            <div class="md:order-2"><img src="https://placehold.co/600x400/E1C699/000000?text=Madhubani" alt="Madhubani" class="rounded-lg shadow-lg w-full"></div>
+                            <div class="md:order-1">
+                                <h2 class="text-3xl font-bold mb-4">Madhubani Painting</h2>
+                                <p class="text-slate-600 mb-4">Originating from Bihar, this art form is known for its intricate patterns and vibrant colors. While it has gained global recognition, the authentic practice on walls and floors for rituals is declining.</p>
+                                <span class="font-semibold text-orange-500">Status: Vulnerable</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Art Form: Phad Painting -->
+                    <div class="art-form-item" data-name="Phad Painting" data-state="Rajasthan" data-status="endangered">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                            <img src="https://placehold.co/600x400/8B3A3A/ffffff?text=Phad+Painting" alt="Phad Painting" class="rounded-lg shadow-lg w-full">
+                            <div>
+                                <h2 class="text-3xl font-bold mb-4">Phad Painting</h2>
+                                <p class="text-slate-600 mb-4">A scroll-painting tradition from Rajasthan, depicting the heroic tales of local deities. These large scrolls are traditionally used in all-night musical performances. The number of artists and performers has dwindled significantly.</p>
+                                <span class="font-semibold text-red-600">Status: Endangered</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Art Form: Gond Painting -->
+                    <div class="art-form-item" data-name="Gond Painting" data-state="Madhya Pradesh" data-status="vulnerable">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                            <div class="md:order-2"><img src="https://placehold.co/600x400/C87D2E/ffffff?text=Gond+Painting" alt="Gond Painting" class="rounded-lg shadow-lg w-full"></div>
+                            <div class="md:order-1">
+                                <h2 class="text-3xl font-bold mb-4">Gond Painting</h2>
+                                <p class="text-slate-600 mb-4">A vibrant tribal art from Madhya Pradesh, characterized by its use of dots and dashes to create intricate patterns. While commercially popular, the ritualistic context and traditional knowledge are being lost.</p>
+                                <span class="font-semibold text-orange-500">Status: Vulnerable</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </main>
 
         <!-- =================================== -->
@@ -285,6 +546,7 @@
 
         // Page containers
         const homePage = document.getElementById('home-page');
+        const artFormsPage = document.getElementById('art-forms-page');
         const creatorHubPage = document.getElementById('creator-hub-page');
         const searchResultsPage = document.getElementById('search-results-page');
         const artistProfilePage = document.getElementById('artist-profile-page');
@@ -297,8 +559,16 @@
         const searchInput = document.getElementById('search-input');
         const searchQuerySpan = document.getElementById('search-query');
 
+        // Art Form Filter Elements
+        const statusFilter = document.getElementById('status-filter');
+        const stateFilter = document.getElementById('state-filter');
+        const filterBtn = document.getElementById('filter-btn');
+        const artFormsContainer = document.getElementById('art-forms-container');
+        const artFormItems = artFormsContainer.querySelectorAll('.art-form-item');
+
         function hideAllPages() {
             homePage.classList.add('hidden');
+            artFormsPage.classList.add('hidden');
             creatorHubPage.classList.add('hidden');
             searchResultsPage.classList.add('hidden');
             artistProfilePage.classList.add('hidden');
@@ -313,6 +583,12 @@
         function showHomePage() {
             hideAllPages();
             homePage.classList.remove('hidden');
+        }
+        
+        function showArtFormsPage() {
+            hideAllPages();
+            artFormsPage.classList.remove('hidden');
+            window.scrollTo(0, 0);
         }
 
         function showLoginPage() {
@@ -338,6 +614,25 @@
                 showSearchResultsPage(query);
             }
         }
+
+        function filterArtForms() {
+            const selectedStatus = statusFilter.value;
+            const selectedState = stateFilter.value;
+
+            artFormItems.forEach(item => {
+                const status = item.dataset.status;
+                const state = item.dataset.state;
+
+                const statusMatch = selectedStatus === 'all' || status === selectedStatus;
+                const stateMatch = selectedState === 'all' || state === selectedState;
+
+                if (statusMatch && stateMatch) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
         
         // --- GLOBAL EVENT LISTENER (EVENT DELEGAITON) ---
         document.addEventListener('click', (e) => {
@@ -352,13 +647,9 @@
                 e.preventDefault();
                 showHomePage();
             }
-            if (action === 'show-home-and-scroll') {
+            if (action === 'show-art-forms') {
                  e.preventDefault();
-                 showHomePage();
-                 // We need to wait a moment for the page to become visible before scrolling
-                 setTimeout(() => {
-                     document.getElementById('art-forms').scrollIntoView();
-                 }, 100);
+                 showArtFormsPage();
             }
         });
 
@@ -378,6 +669,9 @@
                 handleSearch();
             }
         });
+
+        // Art Form Filter Listeners
+        filterBtn.addEventListener('click', filterArtForms);
     </script>
 </body>
 </html>
