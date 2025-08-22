@@ -51,7 +51,8 @@
                 <a href="#art-forms" class="nav-link text-slate-600 hover:text-orange-500 font-medium">Art Forms</a>
             </div>
             <div class="hidden md:flex items-center space-x-4" id="nav-right-desktop">
-                <!-- This content is managed by JavaScript -->
+                 <button data-action="login" class="text-slate-600 hover:text-orange-500 font-medium">Login</button>
+                 <button data-action="creator-hub" class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-full transition duration-300">Creator Hub</button>
             </div>
             <button id="mobile-menu-button" class="md:hidden">
                 <i class="fas fa-bars text-2xl"></i>
@@ -60,7 +61,8 @@
         <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
             <div id="nav-right-mobile">
-                <!-- This content is managed by JavaScript -->
+                 <button data-action="login" class="block w-full text-left py-2 text-slate-600 hover:text-orange-500">Login</button>
+                 <button data-action="creator-hub" class="block w-full mt-2 bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-full text-center">Creator Hub</button>
             </div>
         </div>
     </header>
@@ -118,6 +120,63 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- NEW: My Services (Gigs) Card -->
+                    <div class="bg-slate-50 p-8 rounded-lg shadow-md">
+                        <h2 class="text-2xl font-bold mb-6">2. My Services (Gigs)</h2>
+                        <p class="text-slate-600 mb-6">Create specific services that clients can order. This is the core of your artist profile.</p>
+                        
+                        <!-- List of existing gigs -->
+                        <div class="space-y-4 mb-6">
+                            <div class="flex justify-between items-center bg-white p-4 rounded-lg border">
+                                <p class="font-medium">Custom Warli Wedding Invitation</p>
+                                <div>
+                                    <button class="text-slate-500 hover:text-blue-600 mr-2"><i class="fas fa-edit"></i></button>
+                                    <button class="text-slate-500 hover:text-red-600"><i class="fas fa-trash-alt"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button class="w-full bg-orange-100 text-orange-600 font-bold py-3 px-4 rounded-lg hover:bg-orange-200 transition duration-300">
+                            + Add a New Service
+                        </button>
+
+                        <!-- Form for adding/editing a gig (could be in a modal) -->
+                        <div class="mt-8 space-y-6 border-t pt-6">
+                            <h3 class="text-xl font-bold">Create a New Service</h3>
+                             <div>
+                                <label for="gig-title" class="block font-medium text-slate-700 mb-2">Service Title</label>
+                                <input type="text" id="gig-title" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 transition" placeholder="e.g., I will create a custom Madhubani painting for your home">
+                            </div>
+                            <div>
+                                <label for="gig-description" class="block font-medium text-slate-700 mb-2">Service Description</label>
+                                <textarea id="gig-description" rows="4" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 transition" placeholder="Describe what you offer, the process, and what the client will receive."></textarea>
+                            </div>
+                            
+                            <h4 class="text-lg font-bold pt-4 border-b pb-2">Pricing Tiers</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <!-- Basic Tier -->
+                                <div class="border p-4 rounded-lg">
+                                    <h5 class="font-bold text-center mb-2">Basic</h5>
+                                    <input type="text" class="w-full mb-2 px-3 py-1 border border-slate-300 rounded-md text-sm" placeholder="Price (e.g., 3000)">
+                                    <textarea rows="3" class="w-full px-3 py-1 border border-slate-300 rounded-md text-sm" placeholder="Description (e.g., 1 concept, 2 revisions)"></textarea>
+                                </div>
+                                <!-- Standard Tier -->
+                                <div class="border-2 border-orange-400 p-4 rounded-lg">
+                                    <h5 class="font-bold text-center mb-2 text-orange-500">Standard</h5>
+                                    <input type="text" class="w-full mb-2 px-3 py-1 border border-slate-300 rounded-md text-sm" placeholder="Price (e.g., 5000)">
+                                    <textarea rows="3" class="w-full px-3 py-1 border border-slate-300 rounded-md text-sm" placeholder="Description (e.g., 2 concepts, 4 revisions)"></textarea>
+                                </div>
+                                <!-- Premium Tier -->
+                                <div class="border p-4 rounded-lg">
+                                    <h5 class="font-bold text-center mb-2">Premium</h5>
+                                    <input type="text" class="w-full mb-2 px-3 py-1 border border-slate-300 rounded-md text-sm" placeholder="Price (e.g., 8000)">
+                                    <textarea rows="3" class="w-full px-3 py-1 border border-slate-300 rounded-md text-sm" placeholder="Description (e.g., 3 concepts, unlimited revisions)"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- Save Button -->
                     <div class="flex justify-center pt-8">
                         <button id="save-profile-btn" class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-8 rounded-full transition duration-300 text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1">
@@ -129,8 +188,9 @@
         </main>
 
         <!-- =================================== -->
-        <!-- ==         LOGIN PAGE CONTENT      == -->
+        <!-- ==         LOGIN PAGE CONTENT (COMMENTED OUT)      == -->
         <!-- =================================== -->
+        <!--
         <main id="login-page" class="hidden">
             <div class="min-h-[calc(100vh-128px)] flex items-center justify-center bg-slate-50 py-12 px-4 sm:px-6 lg:px-8">
                 <div class="max-w-md w-full space-y-8 bg-white p-10 rounded-xl shadow-lg">
@@ -145,11 +205,11 @@
                             Sign in with Google
                         </button>
                     </div>
-                    <!-- NEW: Error message display -->
                     <div id="login-error" class="text-red-500 text-center text-sm font-medium mt-4 hidden"></div>
                 </div>
             </div>
         </main>
+        -->
     </div>
 
     <!-- Footer -->
@@ -161,6 +221,7 @@
 
     <!-- SCRIPT BLOCK -->
     <script type="module">
+        /*
         // Your web app's Firebase configuration
         const firebaseConfig = {
         //   apiKey: "AIzaSyAxG2Mv4v5_igF-9GSStQRoM1ggSX4or30",
@@ -189,40 +250,43 @@
         const auth = getAuth(app);
         const db = getFirestore(app);
         const provider = new GoogleAuthProvider();
+        */
         
         // --- All application logic is now inside this single module script ---
 
         // Page containers
         const homePage = document.getElementById('home-page');
         const creatorHubPage = document.getElementById('creator-hub-page');
-        const loginPage = document.getElementById('login-page');
+        // const loginPage = document.getElementById('login-page'); // Commented out
         
         // Buttons and Links
         const homeLink = document.getElementById('home-link');
         const navLinks = document.querySelectorAll('.nav-link');
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
-        const googleSignInBtn = document.getElementById('google-signin-btn');
+        // const googleSignInBtn = document.getElementById('google-signin-btn'); // Commented out
         const saveProfileBtn = document.getElementById('save-profile-btn');
-        const loginErrorDiv = document.getElementById('login-error');
+        // const loginErrorDiv = document.getElementById('login-error'); // Commented out
 
         // UI containers for Auth State
         const navRightDesktop = document.getElementById('nav-right-desktop');
         const navRightMobile = document.getElementById('nav-right-mobile');
 
-        let currentUser = null;
+        // let currentUser = null; // Commented out
 
         function hideAllPages() {
             homePage.classList.add('hidden');
             creatorHubPage.classList.add('hidden');
-            loginPage.classList.add('hidden');
+            // loginPage.classList.add('hidden'); // Commented out
         }
 
         function showCreatorHub() {
+            /*
             if (!currentUser) {
                 showLoginPage();
                 return;
             }
+            */
             hideAllPages();
             creatorHubPage.classList.remove('hidden');
             window.scrollTo(0, 0);
@@ -235,10 +299,12 @@
 
         function showLoginPage() {
             hideAllPages();
-            loginPage.classList.remove('hidden');
+            // loginPage.classList.remove('hidden'); // Commented out
             window.scrollTo(0, 0);
+            alert("Login functionality is currently disabled.");
         }
 
+        /*
         function updateUIForLoggedInUser(user) {
             navRightDesktop.innerHTML = `
                 <span class="font-medium text-slate-700">Welcome, ${user.displayName.split(' ')[0]}</span>
@@ -342,18 +408,19 @@
                 updateUIForLoggedOutUser();
             }
         });
+        */
         
-        // --- GLOBAL EVENT LISTENER (EVENT DELEGATION) ---
+        // --- GLOBAL EVENT LISTENER (EVENT DELEGAITON) ---
         document.addEventListener('click', (e) => {
             const action = e.target.closest('[data-action]')?.dataset.action;
             if (action === 'login') showLoginPage();
             if (action === 'creator-hub') showCreatorHub();
-            if (action === 'logout') handleSignOut();
+            // if (action === 'logout') handleSignOut(); // Commented out
         });
 
         // --- INITIAL EVENT LISTENERS ---
-        googleSignInBtn.addEventListener('click', handleGoogleSignIn);
-        saveProfileBtn.addEventListener('click', handleSaveProfile);
+        // googleSignInBtn.addEventListener('click', handleGoogleSignIn); // Commented out
+        // saveProfileBtn.addEventListener('click', handleSaveProfile); // Commented out
         homeLink.addEventListener('click', (e) => {
             e.preventDefault();
             showHomePage();
