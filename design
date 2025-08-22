@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kala Sanskriti - Indian Art & Culture</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#7F3B38',
+                        secondary: '#C7823E',
+                        accent1: '#5B4841',
+                        accent2: '#C27E6C',
+                        bgColor: '#CBDAE2'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .masonry {
+            columns: 4;
+            column-gap: 1rem;
+            column-fill: balance;
+        }
+        .masonry-item {
+            break-inside: avoid;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+        .masonry-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        @media (max-width: 1024px) {
+            .masonry { columns: 3; }
+        }
+        @media (max-width: 768px) {
+            .masonry { columns: 2; }
+        }
+        @media (max-width: 480px) {
+            .masonry { columns: 1; }
+        }
+        .fade-in {
+            animation: fadeIn 0.6s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .overlay {
+            background: linear-gradient(45deg, rgba(127, 59, 56, 0.8), rgba(199, 130, 62, 0.8));
+        }
+        .glass-effect {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .hover-zoom {
+            transition: transform 0.3s ease;
+        }
+        .hover-zoom:hover {
+            transform: scale(1.05);
+        }
+        .pin-hover {
+            position: relative;
+            overflow: hidden;
+        }
+        .pin-hover::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1;
+        }
+        .pin-hover:hover::before {
+            opacity: 1;
+        }
+        .pin-content {
+            position: relative;
+            z-index: 2;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Modern Navigation -->
+    <nav class="bg-white shadow-sm sticky top-0 z-50 border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <h1 class="text-2xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Kala Sanskriti</h1>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <button onclick="showPage('home')" class="nav-btn text-gray-700 hover:text-primary font-medium transition-colors">Home</button>
+                    <button onclick="showPage('artists')" class="nav-btn text-gray-700 hover:text-primary font-medium transition-colors">Artists</button>
+                    <button onclick="showPage('events')" class="nav-btn text-gray-700 hover:text-primary font-medium transition-colors">Events</button>
+                    <button onclick="showPage('marketplace')" class="nav-btn text-gray-700 hover:text-primary font-medium transition-colors">Shop</button>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button class="p-2 rounded-full hover:bg-gray-100 transition-colors">
+                        <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                    </button>
+                    <button class="md:hidden p-2 rounded-full hover:bg-gray-100 transition-colors" onclick="toggleMobileMenu()">
+                        <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="md:hidden hidden bg-white border-t border-gray-100">
+            <div class="px-4 py-3 space-y-2">
+                <button onclick="showPage('home')" class="block w-full text-left px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-md">Home</button>
+                <button onclick="showPage('artists')" class="block w-full text-left px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-md">Artists</button>
+                <button onclick="showPage('events')" class="block w-full text-left px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-md">Events</button>
+                <button onclick="showPage('marketplace')" class="block w-full text-left px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-md">Shop</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page 1: Landing Page -->
+    <div id="home-page" class="page">
+        <!-- Hero Section with Video Background -->
+        <section class="relative h-screen flex items-center justify-center overflow-hidden">
+            <div class="absolute inset-0 z-0">
+                <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" 
+                     alt="Indian Art Background" 
+                     class="w-full h-full object-cover"
+                     onerror="this.src=''; this.style.background='linear-gradient(45deg, #7F3B38, #C7823E)'; this.alt='Background gradient';">
+                <div class="absolute inset-0 bg-black bg-opacity-40"></div>
+            </div>
+            <div class="relative z-10 text-center text-white px-4 max-w-4xl mx-auto">
+                <h1 class="text-5xl md:text-7xl font-bold mb-6 leading-tight">Discover India's<br><span class="text-secondary">Living Heritage</span></h1>
+                <p class="text-xl md:text-2xl mb-8 opacity-90">Connect with authentic artists, explore cultural events, and shop original masterpieces</p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <button onclick="showPage('marketplace')" class="bg-primary hover:bg-accent1 text-white px-8 py-4 rounded-full text-lg font-semibold transition-all hover:scale-105">Shop Art</button>
+                    <button onclick="showPage('artists')" class="bg-transparent border-2 border-white text-white hover:bg-white hover:text-primary px-8 py-4 rounded-full text-lg font-semibold transition-all">Meet Artists</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pinterest-style Masonry Grid -->
+        <section class="py-16 px-4 max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center text-primary mb-12">Explore Indian Art & Culture</h2>
+            <div class="masonry">
+                <!-- Madhubani Art -->
+                <div class="masonry-item pin-hover rounded-2xl overflow-hidden bg-white shadow-sm">
+                    <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                         alt="Madhubani Art" 
+                         class="w-full h-auto object-cover"
+                         onerror="this.src=''; this.style.background='linear-gradient(45deg, #C7823E, #C27E6C)'; this.style.height='300px'; this.alt='Madhubani Art Pattern';">
+                    <div class="pin-content p-4">
+                        <h3 class="font-bold text-lg text-gray-800 mb-2">Madhubani Folk Art</h3>
+                        <p class="text-gray-600 text-sm">Traditional paintings from Bihar featuring intricate patterns and vibrant colors</p>
+                        <div class="flex items-center mt-3">
+                            <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white text-xs font-bold">PA</div>
+                            <span class="ml-2 text-sm text-gray-500">Priya Sharma</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Classical Dance -->
+                <div class="masonry-item pin-hover rounded-2xl overflow-hidden bg-white shadow-sm">
+                    <img src="https://images.unsplash.com/photo-1524863479829-916d8e77f114?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                         alt="Indian Classical Dance" 
+                         class="w-full h-auto object-cover"
+                         onerror="this.src=''; this.style.background='linear-gradient(45deg, #7F3B38, #5B4841)'; this.style.height='400px'; this.alt='Classical Dance Performance';">
+                    <div class="pin-content p-4">
+                        <h3 class="font-bold text-lg text-gray-800 mb-2">Bharatanatyam Performance</h3>
+                        <p class="text-gray-600 text-sm">Graceful classical dance form expressing stories through movement</p>
+                        <div class="flex items-center justify-between mt-3">
+                            <div class="flex items-center">
+                                <div class="w-8 h-8 bg-secondary rounded-full flex items-center justify-center text-white text-xs font-bold">AD</div>
+                                <span class="ml-2 text-sm text-gray-500">Anita Devi</span>
+                            </div>
+                            <span class="text-xs text-gray-400">2.1k views</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pottery -->
+                <div class="masonry-item pin-hover rounded-2xl overflow-hidden bg-white shadow-sm">
+                    <img src="https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                         alt="Indian Pottery" 
+                         class="w-full h-auto object-cover"
+                         onerror="this.src=''; this.style.background='linear-gradient(45deg, #C27E6C, #C7823E)'; this.style.height='350px'; this.alt='Traditional Pottery';">
+                    <div class="pin-content p-4">
+                        <h3 class="font-bold text-lg text-gray-800 mb-2">Blue Pottery Collection</h3>
+                        <p class="text-gray-600 text-sm">Handcrafted ceramic pieces with traditional Jaipur blue pottery techniques</p>
+                        <div class="flex items-center mt-3">
+                            <div class="w-8 h-8 bg-accent1 rounded-full flex items-center justify-center text-white text-xs font-bold">MP</div>
+                            <span class="ml-2 text-sm text-gray-500">Mohan Patel</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Textiles -->
+                <div class="masonry-item pin-hover rounded-2xl overflow-hidden bg-white shadow-sm">
+                    <img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                         alt="Indian Textiles" 
+                         class="w-full h-auto object-cover"
+                         onerror="this.src=''; this.style.background='linear-gradient(45deg, #5B4841, #7F3B38)'; this.style.height='450px'; this.alt='Traditional Textiles';">
+                    <div class="pin-content p-4">
+                        <h3 class="font-bold text-lg text-gray-800 mb-2">Handwoven Silk Sarees</h3>
+                        <p class="text-gray-600 text-sm">Exquisite silk sarees with traditional weaving patterns from South India</p>
+                        <div class="flex items-center justify-between mt-3">
+                            <div class="flex items-center">
+                                <div class="w-8 h-8 bg-accent2 rounded-full flex items-center justify-center text-white text-xs font-bold">LR</div>
+                                <span class="ml-2 text-sm text-gray-500">Lakshmi Reddy</span>
+                            </div>
+                            <span class="bg-primary text-white px-2 py-1 rounded-full text-xs">Featured</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Musical Instruments -->
+                <div class="masonry-item pin-hover rounded-2xl overflow-hidden bg-white shadow-sm">
+                    <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                         alt="Indian Musical Instruments" 
+                         class="w-full h-auto object-cover"
+                         onerror="this.src=''; this.style.background='linear-gradient(45deg, #C7823E, #C27E6C)'; this.style.height='300px'; this.alt='Traditional Instruments';">
+                    <div class="pin-content p-4">
+                        <h3 class="font-bold text-lg text-gray-800 mb-2">Classical Sitar Music</h3>
+                        <p class="text-gray-600 text-sm">Melodious sitar performances showcasing Indian classical ragas</p>
+                        <div class="flex items-center mt-3">
+                            <div class="w-8 h-8 bg-secondary rounded-full flex items-center justify-center text-white text-xs font-bold">RK</div>
+                            <span class="ml-2 text-sm text-gray-500">Ravi Kumar</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Jewelry -->
+                <div class="masonry-item pin-hover rounded-2xl overflow-hidden bg-white shadow-sm">
+                    <img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                         alt="Indian Jewelry" 
+                         class="w-full h-auto object-cover"
+                         onerror="this.src=''; this.style.background='linear-gradient(45deg, #7F3B38, #C27E6C)'; this.style.height='380px'; this.alt='Traditional Jewelry';">
+                    <div class="pin-content p-4">
+                        <h3 class="font-bold text-lg text-gray-800 mb-2">Kundan Jewelry Set</h3>
+                        <p class="text-gray-600 text-sm">Intricate gold jewelry with precious stones in traditional Kundan style</p>
+                        <div class="flex items-center justify-between mt-3">
+                            <div class="flex items-center">
+                                <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white text-xs font-bold">SA</div>
+                                <span class="ml-2 text-sm text-gray-500">Suresh Agarwal</span>
+                            </div>
+                            <span class="text-xs text-gray-400">₹25,000</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Warli Art -->
+                <div class="masonry-item pin-hover rounded-2xl overflow-hidden bg-white shadow-sm">
+                    <img src="https://images.unsplash.com/photo-1582555172866-f73bb12a2ab3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                         alt="Warli Art" 
+                         class="w-full h-auto object-cover"
+                         onerror="this.src=''; this.style.background='linear-gradient(45deg, #5B4841, #C7823E)'; this.style.height='320px'; this.alt='Warli Tribal Art';">
+                    <div class="pin-content p-4">
+                        <h3 class="font-bold text-lg text-gray-800 mb-2">Warli Tribal Art</h3>
+                        <p class="text-gray-600 text-sm">Ancient tribal art form depicting daily life with geometric patterns</p>
+                        <div class="flex items-center mt-3">
+                            <div class="w-8 h-8 bg-accent1 rounded-full flex items-center justify-center text-white text-xs font-bold">RK</div>
+                            <span class="ml-2 text-sm text-gray-500">Rajesh Kumar</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Temple Architecture -->
+                <div class="masonry-item pin-hover rounded-2xl overflow-hidden bg-white shadow-sm">
+                    <img src="https://images.unsplash.com/photo-1564507592333-c60657eea523?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                         alt="Indian Temple Architecture" 
+                         class="w-full h-auto object-cover"
+                         onerror="this.src=''; this.style.background='linear-gradient(45deg, #C27E6C, #7F3B38)'; this.style.height='500px'; this.alt='Temple Architecture';">
+                    <div class="pin-content p-4">
+                        <h3 class="font-bold text-lg text-gray-800 mb-2">Temple Stone Carvings</h3>
+                        <p class="text-gray-600 text-sm">Intricate stone sculptures showcasing ancient Indian architectural mastery</p>
+                        <div class="flex items-center justify-between mt-3">
+                            <div class="flex items-center">
+                                <div class="w-8 h-8 bg-secondary rounded-full flex items-center justify-center text-white text-xs font-bold">HS</div>
+                                <span class="ml-2 text-sm text-gray-500">Heritage Sites</span>
+                            </div>
+                            <span class="text-xs text-gray-400">5.2k views</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Page 2: Artists Profile -->
+    <div id="artists-page" class="page hidden">
+        <section class="py-16 px-4 max-w-7xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-primary mb-4">Meet Our Artists</h2>
+                <p class="text-gray-600 text-lg max-w-2xl mx-auto">Connect with talented artists preserving India's rich cultural heritage</p>
+            </div>
+            
+            <div class="masonry">
+                <!-- Artist 1 -->
+                <div class="masonry-item bg-white rounded-2xl shadow-sm overflow-hidden hover:shadow-lg transition-all">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                             alt="Artist Portrait" 
+                             class="w-full h-64 object-cover"
+                             onerror="this.src=''; this.style.background='linear-gradient(45deg, #7F3B38, #C7823E)'; this.alt='Artist Profile';">
+                        <div class="absolute top-4 right-4 bg-green-500 text-white px-3 py-1 rounded-full text-sm font-medium">Available</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Priya Sharma</h3>
+                        <p class="text-secondary font-medium mb-3">Madhubani Artist</p>
+                        <p class="text-gray-600 text-sm mb-4">Master of traditional Madhubani art with 15+ years of experience. Specializes in mythological themes and contemporary adaptations.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm">Paintings</span>
+                            <span class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm">Workshops</span>
+                            <span class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm">Commissions</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-1">
+                                <span class="text-yellow-400">★★★★★</span>
+                                <span class="text-sm text-gray-500">(4.9)</span>
+                            </div>
+                            <button class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-accent1 transition-colors">Contact</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Artist 2 -->
+                <div class="masonry-item bg-white rounded-2xl shadow-sm overflow-hidden hover:shadow-lg transition-all">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                             alt="Artist Portrait" 
+                             class="w-full h-64 object-cover"
+                             onerror="this.src=''; this.style.background='linear-gradient(45deg, #C7823E, #C27E6C)'; this.alt='Artist Profile';">
+                        <div class="absolute top-4 right-4 bg-green-500 text-white px-3 py-1 rounded-full text-sm font-medium">Available</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Rajesh Kumar</h3>
+                        <p class="text-secondary font-medium mb-3">Warli Artist</p>
+                        <p class="text-gray-600 text-sm mb-4">Renowned tribal artist from Maharashtra creating authentic Warli paintings and teaching traditional techniques to preserve cultural heritage.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm">Tribal Art</span>
+                            <span class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm">Cultural Tours</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-1">
+                                <span class="text-yellow-400">★★★★★</span>
+                                <span class="text-sm text-gray-500">(4.8)</span>
+                            </div>
+                            <button class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-accent1 transition-colors">Contact</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Artist 3 -->
+                <div class="masonry-item bg-white rounded-2xl shadow-sm overflow-hidden hover:shadow-lg transition-all">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1494790108755-2616c9c0e8e0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                             alt="Artist Portrait" 
+                             class="w-full h-64 object-cover"
+                             onerror="this.src=''; this.style.background='linear-gradient(45deg, #5B4841, #7F3B38)'; this.alt='Artist Profile';">
+                        <div class="absolute top-4 right-4 bg-yellow-500 text-white px-3 py-1 rounded-full text-sm font-medium">Busy</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Anita Devi</h3>
+                        <p class="text-secondary font-medium mb-3">Classical Musician</p>
+                        <p class="text-gray-600 text-sm mb-4">Accomplished sitar player and music teacher. Performs at cultural events and offers personalized music lessons for all skill levels.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm">Sitar</span>
+                            <span class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm">Performances</span>
+                            <span class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm">Teaching</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-1">
+                                <span class="text-yellow-400">★★★★★</span>
+                                <span class="text-sm text-gray-500">(5.0)</span>
+                            </div>
+                            <button class="bg-gray-300 text-gray-600 px-4 py-2 rounded-lg cursor-not-allowed">Busy</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Artist 4 -->
+                <div class="masonry-item bg-white rounded-2xl shadow-sm overflow-hidden hover:shadow-lg transition-all">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1507591064344-4c6ce005b128?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                             alt="Artist Portrait" 
+                             class="w-full h-64 object-cover"
+                             onerror="this.src=''; this.style.background='linear-gradient(45deg, #C27E6C, #C7823E)'; this.alt='Artist Profile';">
+                        <div class="absolute top-4 right-4 bg-green-500 text-white px-3 py-1 rounded-full text-sm font-medium">Available</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Mohan Patel</h3>
+                        <p class="text-secondary font-medium mb-3">Master Potter</p>
+                        <p class="text-gray-600 text-sm mb-4">Expert in traditional blue pottery and contemporary ceramic art. Creates unique pieces blending ancient techniques with modern aesthetics.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm">Pottery</span>
+                            <span class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm">Ceramics</span>
+                            <span class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm">Workshops</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-1">
+                                <span class="text-yellow-400">★★★★☆</span>
+                                <span class="text-sm text-gray-500">(4.7)</span>
+                            </div>
+                            <button class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-accent1 transition-colors">Contact</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Artist 5 -->
+                <div class="masonry-item bg-white rounded-2xl shadow-sm overflow-hidden hover:shadow-lg transition-all">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                             alt="Artist Portrait" 
+                             class="w-full h-64 object-cover"
+                             onerror="this.src=''; this.style.background='linear-gradient(45deg, #7F3B38, #5B4841)'; this.alt='Artist Profile';">
+                        <div class="absolute top-4 right-4 bg-green-500 text-white px-3 py-1 rounded-full text-sm font-medium">Available</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Lakshmi Reddy</h3>
+                        <p class="text-secondary font-medium mb-3">Textile Artist</p>
+                        <p class="text-gray-600 text-sm mb-4">Expert weaver creating beautiful handloom textiles and traditional sarees. Specializes in intricate patterns and natural dye techniques.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm">Handloom</span>
+                            <span class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm">Sarees</span>
+                            <span class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm">Natural Dyes</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-1">
+                                <span class="text-yellow-400">★★★★★</span>
+                                <span class="text-sm text-gray-500">(4.9)</span>
+                            </div>
+                            <button class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-accent1 transition-colors">Contact</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Artist 6 -->
+                <div class="masonry-item bg-white rounded-2xl shadow-sm overflow-hidden hover:shadow-lg transition-all">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                             alt="Artist Portrait" 
+                             class="w-full h-64 object-cover"
+                             onerror="this.src=''; this.style.background='linear-gradient(45deg, #C7823E, #C27E6C)'; this.alt='Artist Profile';">
+                        <div class="absolute top-4 right-4 bg-green-500 text-white px-3 py-1 rounded-full text-sm font-medium">Available</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Suresh Agarwal</h3>
+                        <p class="text-secondary font-medium mb-3">Jewelry Craftsman</p>
+                        <p class="text-gray-600 text-sm mb-4">Traditional jewelry craftsman specializing in silver work and precious stone setting. Creates custom pieces using ancient techniques.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm">Silver Work</span>
+                            <span class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm">Custom Jewelry</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-1">
+                                <span class="text-yellow-400">★★★★☆</span>
+                                <span class="text-sm text-gray-500">(4.6)</span>
+                            </div>
+                            <button class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-accent1 transition-colors">Contact</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Page 3: Cultural Events -->
+    <div id="events-page" class="page hidden">
+        <section class="py-16 px-4 max-w-7xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-primary mb-4">Cultural Events</h2>
+                <p class="text-gray-600 text-lg max-w-2xl mx-auto">Immerse yourself in India's vibrant cultural celebrations</p>
+            </div>
+
+            <div class="masonry">
+                <!-- Event 1 -->
+                <div class="masonry-item bg-white rounded-2xl shadow-sm overflow-hidden hover:shadow-lg transition-all">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1524863479829-916d8e77f114?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                             alt="Classical Dance Festival" 
+                             class="w-full h-64 object-cover"
+                             onerror="this.src=''; this.style.background='linear-gradient(45deg, #7F3B38, #C7823E)'; this.alt='Dance Festival';">
+                        <div class="absolute top-4 left-4 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-medium">Featured</div>
+                        <div class="absolute bottom-4 left-4 bg-black bg-opacity-50 text-white px-3 py-1 rounded-full text-sm">Mar 15-17</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Bharatanatyam & Kathak Festival</h3>
+                        <p class="text-gray-600 text-sm mb-4">Experience the grace and beauty of Indian classical dance forms performed by renowned artists from across the country.</p>
+                        <div class="space-y-2 text-sm text-gray-600 mb-4">
+                            <div class="flex items-center">
+                                <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path>
+                                </svg>
+                                Cultural Center, Delhi
+                            </div>
+                            <div class="flex items-center">
+                                <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"></path>
+                                </svg>
+                                6:00 PM - 9:00 PM
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-lg font-bold text-secondary">₹500 - ₹2000</span>
+                            <button class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-accent1 transition-colors">Book Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Event 2 -->
+                <div class="masonry-item bg-white rounded-2xl shadow-sm overflow-hidden hover:shadow-lg transition-all">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                             alt="Art Exhibition" 
+                             class="w-full h-80 object-cover"
+                             onerror="this.src=''; this.style.background='linear-gradient(45deg, #C7823E, #C27E6C)'; this.alt='Art Exhibition';">
+                        <div class="absolute bottom-4 left-4 bg-black bg-opacity-50 text-white px-3 py-1 rounded-full text-sm">Mar 20-30</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Traditional Art Showcase</h3>
+                        <p class="text-gray-600 text-sm mb-4">Discover masterpieces of Madhubani, Warli, and Pattachitra art in this comprehensive exhibition featuring works from master artists.</p>
+                        <div class="space-y-2 text-sm text-gray-600 mb-4">
+                            <div class="flex items-center">
+                                <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path>
+                                </svg>
+                                Art Gallery, Mumbai
+                            </div>
+                            <div class="flex items-center">
+                                <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"></path>
+                                </svg>
+                                10:00 AM - 7:00 PM
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-lg font-bold text-secondary">₹200 - ₹500</span>
+                            <button class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-accent1 transition-colors">Book Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Event 3 -->
+                <div class="masonry-item bg-white rounded-2xl shadow-sm overflow-hidden hover:shadow-lg transition-all">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                             alt="Music Concert" 
+                             class="w-full h-72 object-cover"
+                             onerror="this.src=''; this.style.background='linear-gradient(45deg, #5B4841, #7F3B38)'; this.alt='Music Concert';">
+                        <div class="absolute bottom-4 left-4 bg-black bg-opacity-50 text-white px-3 py-1 rounded-full text-sm">Apr 5</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Classical Music Evening</h3>
+                        <p class="text-gray-600 text-sm mb-4">An enchanting evening of Indian classical music featuring sitar, tabla, and vocal performances by acclaimed musicians.</p>
+                        <div class="space-y-2 text-sm text-gray-600 mb-4">
+                            <div class="flex items-center">
+                                <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path>
+                                </svg>
+                                Music Hall, Kolkata
+                            </div>
+                            <div class="flex items-center">
+                                <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"></path>
+                                </svg>
+                                7:00 PM - 10:00 PM
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-lg font-bold text-secondary">₹800 - ₹3000</span>
+                            <button class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-accent1 transition-colors">Book Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Event 4 -->
+                <div class="masonry-item bg-white rounded-2xl shadow-sm overflow-hidden hover:shadow-lg transition-all">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                             alt="Craft Fair" 
+                             class="w-full h-64 object-cover"
+                             onerror="this.src=''; this.style.background='linear-gradient(45deg, #C27E6C, #C7823E)'; this.alt='Craft Fair';">
+                        <div class="absolute top-4 left-4 bg-green-500 text-white px-3 py-1 rounded-full text-sm font-medium">Free Entry</div>
+                        <div class="absolute bottom-4 left-4 bg-black bg-opacity-50 text-white px-3 py-1 rounded-full text-sm">Apr 12-14</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Handcraft & Textile Fair</h3>
+                        <p class="text-gray-600 text-sm mb-4">Shop authentic handmade crafts, textiles, and jewelry directly from skilled artisans. Support local craftspeople and take home unique pieces.</p>
+                        <div class="space-y-2 text-sm text-gray-600 mb-4">
+                            <div class="flex items-center">
+                                <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path>
+                                </svg>
+                                Exhibition Ground, Jaipur
+                            </div>
+                            <div class="flex items-center">
+                                <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"></path>
+                                </svg>
+                                9:00 AM - 8:00 PM
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-lg font-bold text-green-600">Free Entry</span>
+                            <button class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-accent1 transition-colors">Get Directions</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Event 5 -->
+                <div class="masonry-item bg-white rounded-2xl shadow-sm overflow-hidden hover:shadow-lg transition-all">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1564507592333-c60657eea523?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                             alt="Heritage Walk" 
+                             class="w-full h-96 object-cover"
+                             onerror="this.src=''; this.style.background='linear-gradient(45deg, #7F3B38, #5B4841)'; this.alt='Heritage Walk';">
+                        <div class="absolute bottom-4 left-4 bg-black bg-opacity-50 text-white px-3 py-1 rounded-full text-sm">Apr 20</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Heritage Architecture Walk</h3>
+                        <p class="text-gray-600 text-sm mb-4">Guided tour exploring ancient temples, palaces, and architectural marvels. Learn about the rich history and cultural significance of Indian monuments.</p>
+                        <div class="space-y-2 text-sm text-gray-600 mb-4">
+                            <div class="flex items-center">
+                                <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path>
+                                </svg>
+                                Old City, Udaipur
+                            </div>
+                            <div class="flex items-center">
+                                <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"></path>
+                                </svg>
+                                8:00 AM - 12:00 PM
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-lg font-bold text-secondary">₹300</span>
+                            <button class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-accent1 transition-colors">Join Tour</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Page 4: Marketplace -->
+    <div id="marketplace-page" class="page hidden">
+        <section class="py-16 px-4 max-w-7xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-primary mb-4">Authentic Art Marketplace</h2>
+                <p class="text-gray-600 text-lg max-w-2xl mx-auto">Shop original artworks and handcrafted pieces directly from talented Indian artists</p>
+            </div>
+
+            <div class="masonry">
+                <!-- Product 1 -->
+                <div class="masonry-item bg-white rounded-2xl shadow-sm overflow-hidden hover:shadow-lg transition-all">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1582555172866-f73bb12a2ab3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                             alt="Warli Painting" 
+                             class="w-full h-64 object-cover"
+                             onerror="this.src=''; this.style.background='linear-gradient(45deg, #7F3B38, #C7823E)'; this.alt='Warli Art';">
+                        <div class="absolute top-4 right-4 bg-red-500 text-white p-2 rounded-full">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"></path>
+                            </svg>
+                        </div>
+                        <div class="absolute bottom-4 left-4 bg-black bg-opacity-50 text-white px-2 py-1 rounded text-sm">Original</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-gray-800 mb-2">Warli Village Life Painting</h3>
+                        <p class="text-gray-600 text-sm mb-3">Authentic Warli art depicting traditional village scenes with geometric patterns</p>
+                        <div class="flex items-center mb-3">
+                            <div class="w-6 h-6 bg-primary rounded-full flex items-center justify-center text-white text-xs font-bold mr-2">RK</div>
+                            <span class="text-sm text-gray-500">Rajesh Kumar</span>
+                            <div class="ml-auto flex items-center">
+                                <span class="text-yellow-400 text-sm">★★★★★</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-xl font-bold text-secondary">₹2,500</span>
+                            <button class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-accent1 transition-colors">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="masonry-item bg-white rounded-2xl shadow-sm overflow-hidden hover:shadow-lg transition-all">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                             alt="Blue Pottery" 
+                             class="w-full h-80 object-cover"
+                             onerror="this.src=''; this.style.background='linear-gradient(45deg, #C7823E, #C27E6C)'; this.alt='Blue Pottery';">
+                        <div class="absolute top-4 right-4 bg-red-500 text-white p-2 rounded-full">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"></path>
+                            </svg>
+                        </div>
+                        <div class="absolute bottom-4 left-4 bg-green-500 text-white px-2 py-1 rounded text-sm">Bestseller</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-gray-800 mb-2">Blue Pottery Vase Set</h3>
+                        <p class="text-gray-600 text-sm mb-3">Handcrafted ceramic vases with traditional Jaipur blue pottery design</p>
+                        <div class="flex items-center mb-3">
+                            <div class="w-6 h-6 bg-accent1 rounded-full flex items-center justify-center text-white text-xs font-bold mr-2">MP</div>
+                            <span class="text-sm text-gray-500">Mohan Patel</span>
+                            <div class="ml-auto flex items-center">
+                                <span class="text-yellow-400 text-sm">★★★★☆</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-xl font-bold text-secondary">₹1,800</span>
+                            <button class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-accent1 transition-colors">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="masonry-item bg-white rounded-2xl shadow-sm overflow-hidden hover:shadow-lg transition-all">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                             alt="Madhubani Painting" 
+                             class="w-full h-72 object-cover"
+                             onerror="this.src=''; this.style.background='linear-gradient(45deg, #5B4841, #7F3B38)'; this.alt='Madhubani Art';">
+                        <div class="absolute top-4 right-4 bg-red-500 text-white p-2 rounded-full">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"></path>
+                            </svg>
+                        </div>
+                        <div class="absolute bottom-4 left-4 bg-purple-500 text-white px-2 py-1 rounded text-sm">Limited Edition</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-gray-800 mb-2">Madhubani Canvas Art</h3>
+                        <p class="text-gray-600 text-sm mb-3">Colorful Madhubani painting featuring traditional motifs and mythological themes</p>
+                        <div class="flex items-center mb-3">
+                            <div class="w-6 h-6 bg-secondary rounded-full flex items-center justify-center text-white text-xs font-bold mr-2">PS</div>
+                            <span class="text-sm text-gray-500">Priya Sharma</span>
+                            <div class="ml-auto flex items-center">
+                                <span class="text-yellow-400 text-sm">★★★★★</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-xl font-bold text-secondary">₹3,200</span>
+                            <button class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-accent1 transition-colors">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 4 -->
+                <div class="masonry-item bg-white rounded-2xl shadow-sm overflow-hidden hover:shadow-lg transition-all">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                             alt="Silver Jewelry" 
+                             class="w-full h-64 object-cover"
+                             onerror="this.src=''; this.style.background='linear-gradient(45deg, #C27E6C, #C7823E)'; this.alt='Silver Jewelry';">
+                        <div class="absolute top-4 right-4 bg-red-500 text-white p-2 rounded-full">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-gray-800 mb-2">Silver Jhumka Earrings</h3>
+                        <p class="text-gray-600 text-sm mb-3">Traditional silver earrings with intricate filigree work and oxidized finish</p>
+                        <div class="flex items-center mb-3">
+                            <div class="w-6 h-6 bg-accent2 rounded-full flex items-center justify-center text-white text-xs font-bold mr-2">SA</div>
+                            <span class="text-sm text-gray-500">Suresh Agarwal</span>
+                            <div class="ml-auto flex items-center">
+                                <span class="text-yellow-400 text-sm">★★★★☆</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-xl font-bold text-secondary">₹1,200</span>
+                            <button class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-accent1 transition-colors">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 5 -->
+                <div class="masonry-item bg-white rounded-2xl shadow-sm overflow-hidden hover:shadow-lg transition-all">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                             alt="Silk Scarf" 
+                             class="w-full h-68 object-cover"
+                             onerror="this.src=''; this.style.background='linear-gradient(45deg, #7F3B38, #5B4841)'; this.alt='Silk Scarf';">
+                        <div class="absolute top-4 right-4 bg-red-500 text-white p-2 rounded-full">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"></path>
+                            </svg>
+                        </div>
+                        <div class="absolute bottom-4 left-4 bg-blue-500 text-white px-2 py-1 rounded text-sm">Eco-Friendly</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-gray-800 mb-2">Handwoven Silk Scarf</h3>
+                        <p class="text-gray-600 text-sm mb-3">Pure silk scarf with traditional block print patterns using natural dyes</p>
+                        <div class="flex items-center mb-3">
+                            <div class="w-6 h-6 bg-primary rounded-full flex items-center justify-center text-white text-xs font-bold mr-2">LR</div>
+                            <span class="text-sm text-gray-500">Lakshmi Reddy</span>
+                            <div class="ml-auto flex items-center">
+                                <span class="text-yellow-400 text-sm">★★★★★</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-xl font-bold text-secondary">₹2,800</span>
+                            <button class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-accent1 transition-colors">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 6 -->
+                <div class="masonry-item bg-white rounded-2xl shadow-sm overflow-hidden hover:shadow-lg transition-all">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1564507592333-c60657eea523?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                             alt="Brass Items" 
+                             class="w-full h-56 object-cover"
+                             onerror="this.src=''; this.style.background='linear-gradient(45deg, #C7823E, #C27E6C)'; this.alt='Brass Items';">
+                        <div class="absolute top-4 right-4 bg-red-500 text-white p-2 rounded-full">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-gray-800 mb-2">Brass Diya Set</h3>
+                        <p class="text-gray-600 text-sm mb-3">Set of 5 traditional brass oil lamps perfect for festivals and ceremonies</p>
+                        <div class="flex items-center mb-3">
+                            <div class="w-6 h-6 bg-accent1 rounded-full flex items-center justify-center text-white text-xs font-bold mr-2">VA</div>
+                            <span class="text-sm text-gray-500">Various Artists</span>
+                            <div class="ml-auto flex items-center">
+                                <span class="text-yellow-400 text-sm">★★★★☆</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-xl font-bold text-secondary">₹800</span>
+                            <button class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-accent1 transition-colors">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 7 -->
+                <div class="masonry-item bg-white rounded-2xl shadow-sm overflow-hidden hover:shadow-lg transition-all">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1609205807107-e8ec2120f9de?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                             alt="Wooden Crafts" 
+                             class="w-full h-72 object-cover"
+                             onerror="this.src=''; this.style.background='linear-gradient(45deg, #5B4841, #C27E6C)'; this.alt='Wooden Crafts';">
+                        <div class="absolute top-4 right-4 bg-red-500 text-white p-2 rounded-full">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"></path>
+                            </svg>
+                        </div>
+                        <div class="absolute bottom-4 left-4 bg-orange-500 text-white px-2 py-1 rounded text-sm">Handmade</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-gray-800 mb-2">Carved Wooden Elephant</h3>
+                        <p class="text-gray-600 text-sm mb-3">Intricately carved wooden elephant with traditional patterns and natural finish</p>
+                        <div class="flex items-center mb-3">
+                            <div class="w-6 h-6 bg-secondary rounded-full flex items-center justify-center text-white text-xs font-bold mr-2">WA</div>
+                            <span class="text-sm text-gray-500">Wood Artisans</span>
+                            <div class="ml-auto flex items-center">
+                                <span class="text-yellow-400 text-sm">★★★★★</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-xl font-bold text-secondary">₹1,500</span>
+                            <button class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-accent1 transition-colors">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 8 -->
+                <div class="masonry-item bg-white rounded-2xl shadow-sm overflow-hidden hover:shadow-lg transition-all">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                             alt="Traditional Mask" 
+                             class="w-full h-64 object-cover"
+                             onerror="this.src=''; this.style.background='linear-gradient(45deg, #C27E6C, #7F3B38)'; this.alt='Traditional Mask';">
+                        <div class="absolute top-4 right-4 bg-red-500 text-white p-2 rounded-full">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"></path>
+                            </svg>
+                        </div>
+                        <div class="absolute bottom-4 left-4 bg-red-500 text-white px-2 py-1 rounded text-sm">Authentic</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-gray-800 mb-2">Kathakali Dance Mask</h3>
+                        <p class="text-gray-600 text-sm mb-3">Traditional Kerala dance mask with authentic colors and intricate facial expressions</p>
+                        <div class="flex items-center mb-3">
+                            <div class="w-6 h-6 bg-accent2 rounded-full flex items-center justify-center text-white text-xs font-bold mr-2">KA</div>
+                            <span class="text-sm text-gray-500">Kerala Artists</span>
+                            <div class="ml-auto flex items-center">
+                                <span class="text-yellow-400 text-sm">★★★★☆</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-xl font-bold text-secondary">₹2,200</span>
+                            <button class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-accent1 transition-colors">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Modern Footer -->
+    <footer class="bg-gray-900 text-white py-16 mt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="col-span-1 md:col-span-2">
+                    <h3 class="text-2xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent mb-4">Kala Sanskriti</h3>
+                    <p class="text-gray-300 mb-6 max-w-md">Celebrating India's rich artistic heritage and connecting you with authentic cultural experiences. Discover, learn, and shop from talented artists preserving traditional crafts.</p>
+                    <div class="flex space-x-4">
+                        <button class="bg-gray-800 hover:bg-gray-700 p-3 rounded-full transition-colors">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
+                            </svg>
+                        </button>
+                        <button class="bg-gray-800 hover:bg-gray-700 p-3 rounded-full transition-colors">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 0 1-1.93.07 4.28 4.28 0 0 0 4 2.98 8.521 8.521 0 0 1-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21 16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56.84-.6 1.56-1.36 2.14-2.23z"/>
+                            </svg>
+                        </button>
+                        <button class="bg-gray-800 hover:bg-gray-700 p-3 rounded-full transition-colors">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.174-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.402.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.357-.629-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24.009 12.017 24.009c6.624 0 11.99-5.367 11.99-11.988C24.007 5.367 18.641.001.012.001z"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4 text-lg">Quick Links</h4>
+                    <ul class="space-y-3 text-gray-300">
+                        <li><button onclick="showPage('home')" class="hover:text-white transition-colors">Home</button></li>
+                        <li><button onclick="showPage('artists')" class="hover:text-white transition-colors">Artists</button></li>
+                        <li><button onclick="showPage('events')" class="hover:text-white transition-colors">Events</button></li>
+                        <li><button onclick="showPage('marketplace')" class="hover:text-white transition-colors">Shop</button></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4 text-lg">Art Forms</h4>
+                    <ul class="space-y-3 text-gray-300">
+                        <li>Madhubani Paintings</li>
+                        <li>Warli Art</li>
+                        <li>Classical Music</li>
+                        <li>Blue Pottery</li>
+                        <li>Handloom Textiles</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400">&copy; 2024 Kala Sanskriti. Preserving India's Cultural Heritage.</p>
+                <div class="flex space-x-6 mt-4 md:mt-0 text-gray-400">
+                    <button class="hover:text-white transition-colors">Privacy Policy</button>
+                    <button class="hover:text-white transition-colors">Terms of Service</button>
+                    <button class="hover:text-white transition-colors">Contact Us</button>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function showPage(pageId) {
+            // Hide all pages
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => {
+                page.classList.add('hidden');
+                page.classList.remove('fade-in');
+            });
+            
+            // Show selected page
+            const targetPage = document.getElementById(pageId + '-page');
+            if (targetPage) {
+                targetPage.classList.remove('hidden');
+                targetPage.classList.add('fade-in');
+            }
+            
+            // Update navigation active state
+            const navButtons = document.querySelectorAll('.nav-btn');
+            navButtons.forEach(btn => {
+                btn.classList.remove('text-primary', 'font-bold');
+                btn.classList.add('text-gray-700');
+            });
+            
+            // Highlight active nav button
+            const activeButtons = document.querySelectorAll(`[onclick="showPage('${pageId}')"]`);
+            activeButtons.forEach(btn => {
+                if (btn.classList.contains('nav-btn')) {
+                    btn.classList.remove('text-gray-700');
+                    btn.classList.add('text-primary', 'font-bold');
+                }
+            });
+            
+            // Close mobile menu
+            document.getElementById('mobile-menu').classList.add('hidden');
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            showPage('home');
+        });
+
+        // Add smooth scrolling and modern interactions
+        document.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                nav.classList.add('backdrop-blur-md', 'bg-white/90');
+            } else {
+                nav.classList.remove('backdrop-blur-md', 'bg-white/90');
+            }
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'973347ebd71b178a',t:'MTc1NTg3NTI1OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
