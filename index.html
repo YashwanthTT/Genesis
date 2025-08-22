@@ -31,10 +31,36 @@
         .nav-link:hover::after, .nav-link.active::after {
             width: 100%;
         }
-        .hero-section {
-            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('https://placehold.co/1920x1080/d1d5db/374151?text=explore+india');
-            background-size: cover;
-            background-position: center;
+        
+        /* UPDATED SLIDESHOW STYLES */
+        .slider {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            position: relative;
+            border-radius: 1rem; /* This makes the border curved */
+        }
+        .slider img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            animation: slide 9s infinite; /* Total duration is now 6 images * 1.5s = 9s */
+        }
+        .slider img:nth-child(2) { animation-delay: 1.5s; }
+        .slider img:nth-child(3) { animation-delay: 3s; }
+        .slider img:nth-child(4) { animation-delay: 4.5s; }
+        .slider img:nth-child(5) { animation-delay: 6s; }
+        .slider img:nth-child(6) { animation-delay: 7.5s; }
+
+        @keyframes slide {
+            0% { opacity: 0; }
+            16.66% { opacity: 1; } /* Each image is visible for 1.5s / 9s = 16.66% of the time */
+            33.33% { opacity: 0; }
+            100% { opacity: 0; }
         }
     </style>
 </head>
@@ -89,9 +115,19 @@
         <!-- =================================== -->
         <main id="home-page">
             <!-- Hero Section -->
-            <section id="home-page-section" class="hero-section text-white h-[calc(100vh-64px)] flex items-center justify-center">
-                <!-- Content removed as requested -->
+            <section id="home-page-section" class="h-[50vh] p-8">
+                <div class="slider">
+                    <!-- INSERT YOUR 6 IMAGE URLS HERE -->
+                    <img src="warli.edit.landing.jpg" alt="Indian Art Slide 1">
+                    <img src="pithora.landing.jpg" alt="Indian Art Slide 2">
+                    <img src="madhubani.landing.jpg" alt="Indian Art Slide 3">
+                    <img src="art.landing.png" alt="Indian Art Slide 4">
+                    <img src="embroidery.landing.png" alt="Indian Art Slide 5">
+                    <img src="chitara.landing.jpg" alt="Indian Art Slide 6">
+                </div>
             </section>
+            <!-- NEW: Empty space section -->
+            <section class="h-[50vh] bg-slate-50"></section>
         </main>
 
         <!-- =================================== -->
@@ -198,7 +234,7 @@
     <!-- Footer -->
     <footer class="bg-slate-800 text-white py-12">
         <div class="container mx-auto px-6 text-center">
-            <p class="text-slate-400">&copy; 2025 Kalakriti. All Rights Reserved.</p>
+            <p class="text-slate-400 mt-12">&copy; 2025 Kalakriti. All Rights Reserved.</p>
         </div>
     </footer>
 
