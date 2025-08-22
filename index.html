@@ -32,13 +32,13 @@
             width: 100%;
         }
         
-        /* UPDATED SLIDESHOW STYLES */
+        /* SLIDESHOW STYLES */
         .slider {
             width: 100%;
             height: 100%;
             overflow: hidden;
             position: relative;
-            border-radius: 1rem; /* This makes the border curved */
+            border-radius: 1rem;
         }
         .slider img {
             position: absolute;
@@ -48,7 +48,7 @@
             height: 100%;
             object-fit: cover;
             opacity: 0;
-            animation: slide 9s infinite; /* Total duration is now 6 images * 1.5s = 9s */
+            animation: slide 9s infinite;
         }
         .slider img:nth-child(2) { animation-delay: 1.5s; }
         .slider img:nth-child(3) { animation-delay: 3s; }
@@ -57,9 +57,9 @@
         .slider img:nth-child(6) { animation-delay: 7.5s; }
 
         @keyframes slide {
-            0% { opacity: 0; }
-            16.66% { opacity: 1; } /* Each image is visible for 1.5s / 9s = 16.66% of the time */
-            33.33% { opacity: 0; }
+            0% { opacity: 0; transform: scale(1.05); }
+            16.66% { opacity: 1; transform: scale(1); }
+            33.33% { opacity: 0; transform: scale(1.05); }
             100% { opacity: 0; }
         }
     </style>
@@ -81,7 +81,7 @@
 
             <!-- Search Bar -->
             <div class="hidden md:flex flex-grow max-w-lg mx-4">
-                <input type="search" id="search-input" placeholder="Search for Artists..." class="w-full px-4 py-2 border border-slate-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-orange-500 transition">
+                <input type="search" id="search-input" placeholder="Search for Art Forms..." class="w-full px-4 py-2 border border-slate-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-orange-500 transition">
                 <button id="search-btn" class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-r-lg">
                     <i class="fas fa-search"></i>
                 </button>
@@ -115,19 +115,33 @@
         <!-- =================================== -->
         <main id="home-page">
             <!-- Hero Section -->
-            <section id="home-page-section" class="h-[50vh] p-8">
-                <div class="slider">
-                    <!-- INSERT YOUR 6 IMAGE URLS HERE -->
-                    <img src="warli.edit.landing.jpg" alt="Indian Art Slide 1">
-                    <img src="pithora.landing.jpg" alt="Indian Art Slide 2">
-                    <img src="madhubani.landing.jpg" alt="Indian Art Slide 3">
-                    <img src="art.landing.png" alt="Indian Art Slide 4">
-                    <img src="embroidery.landing.png" alt="Indian Art Slide 5">
-                    <img src="chitara.landing.jpg" alt="Indian Art Slide 6">
+            <section id="home-page-section" class="h-[50vh] md:h-[70vh] p-4 md:p-8 relative">
+                 <div class="slider h-full">
+                    <img src="chitara.landing.jpg" alt="Indian Art Slide 1" onerror="this.onerror=null;this.src='https://placehold.co/1200x800/f97316/ffffff?text=Warli+Art';">
+                    <img src="art.landing.png" alt="Indian Art Slide 2" onerror="this.onerror=null;this.src='https://placehold.co/1200x800/f97316/ffffff?text=Pithora+Art';">
+                    <img src="embroidery.landing.png" alt="Indian Art Slide 3" onerror="this.onerror=null;this.src='https://placehold.co/1200x800/f97316/ffffff?text=Madhubani+Art';">
+                    <img src="madhubani.landing.jpg" alt="Indian Art Slide 4" onerror="this.onerror=null;this.src='https://placehold.co/1200x800/f97316/ffffff?text=Indian+Pottery';">
+                    <img src="pithora.landing.jpg" alt="Indian Art Slide 5" onerror="this.onerror=null;this.src='https://placehold.co/1200x800/f97316/ffffff?text=Embroidery';">
+                    <img src="warli.edit.landing.jpg" alt="Indian Art Slide 6" onerror="this.onerror=null;this.src='https://placehold.co/1200x800/f97316/ffffff?text=Chitara+Art';">
+                </div>
+                 <div class="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center text-center rounded-2xl">
+                    <div>
+                        <h1 class="text-white text-4xl md:text-6xl font-bold drop-shadow-lg">Kalakriti</h1>
+                        <p class="text-white text-lg md:text-2xl mt-4 drop-shadow-md">A Digital Sanctuary for India's Folk & Tribal Art</p>
+                    </div>
                 </div>
             </section>
-            <!-- NEW: Empty space section -->
-            <section class="h-[50vh] bg-slate-50"></section>
+
+            <!-- Featured Art Forms Section -->
+            <section id="featured-art-forms" class="py-16 bg-white">
+                <div class="container mx-auto px-6 text-center">
+                    <h2 class="text-3xl font-bold mb-4">Featured Art Forms</h2>
+                    <p class="text-slate-600 max-w-2xl mx-auto mb-12">A glimpse into the rich tapestry of India's artistic heritage.</p>
+                    <div id="featured-art-container" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <!-- Featured art cards will be injected here by JS -->
+                    </div>
+                </div>
+            </section>
         </main>
 
         <!-- =================================== -->
@@ -140,11 +154,11 @@
                     <p class="text-slate-600 mb-12">Discover the stories behind traditional art forms that are on the brink of extinction. Your appreciation and support can help keep these invaluable cultural treasures alive.</p>
                 </div>
 
-                <!-- NEW: Filter Section -->
+                <!-- UPDATED: Filter Section -->
                 <div class="bg-slate-50 p-6 rounded-lg shadow-md mb-12 sticky top-24 z-40">
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                         <select id="status-filter" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 transition">
-                            <option value="all">All Statuses</option>
+                            <option value="all">Filter by Status</option>
                             <option value="critically-endangered">Critically Endangered</option>
                             <option value="severely-endangered">Severely Endangered</option>
                             <option value="endangered">Endangered</option>
@@ -152,22 +166,7 @@
                             <option value="nearly-extinct">Nearly Extinct</option>
                         </select>
                         <select id="state-filter" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 transition">
-                            <option value="all">All States</option>
-                            <option value="Gujarat">Gujarat</option>
-                            <option value="Jharkhand">Jharkhand</option>
-                            <option value="Goa">Goa</option>
-                            <option value="Kerala">Kerala</option>
-                            <option value="Karnataka">Karnataka</option>
-                            <option value="Tamil Nadu">Tamil Nadu</option>
-                            <option value="Bihar">Bihar</option>
-                            <option value="Odisha">Odisha</option>
-                            <option value="West Bengal">West Bengal</option>
-                            <option value="Telangana">Telangana</option>
-                            <option value="Rajasthan">Rajasthan</option>
-                            <option value="Uttar Pradesh">Uttar Pradesh</option>
-                            <option value="Maharashtra">Maharashtra</option>
-                            <option value="Andhra Pradesh">Andhra Pradesh</option>
-                            <option value="Madhya Pradesh">Madhya Pradesh</option>
+                            <option value="all">Filter by State</option>
                         </select>
                         <button id="filter-btn" class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-lg flex items-center justify-center">
                             <i class="fas fa-filter mr-2"></i> Filter Results
@@ -176,7 +175,7 @@
                 </div>
 
                 <div id="art-forms-container" class="space-y-16">
-                    <!-- Art forms content -->
+                    <!-- Art forms content will be populated here -->
                 </div>
             </div>
         </main>
@@ -204,31 +203,93 @@
         <!-- ==      CREATOR HUB CONTENT      == -->
         <!-- =================================== -->
         <main id="creator-hub-page" class="hidden bg-white">
-            <!-- Creator Hub content -->
-        </main>
+            <div class="container mx-auto px-6 py-20">
+                <div class="max-w-3xl mx-auto text-center">
+                    <h1 class="text-4xl font-bold mb-4">Creator Hub</h1>
+                    <p class="text-slate-600 mb-12">This is your creative space. Fill out the sections below to build and publish your public artist profile.</p>
+                </div>
 
-        <!-- =================================== -->
-        <!-- ==      SEARCH RESULTS PAGE      == -->
-        <!-- =================================== -->
-        <main id="search-results-page" class="hidden bg-white">
-            <!-- Search results content -->
-        </main>
-        
-        <!-- =================================== -->
-        <!-- ==     ARTIST PROFILE PAGE (VIEW)  == -->
-        <!-- =================================== -->
-        <main id="artist-profile-page" class="hidden bg-white">
-            <!-- Artist profile content -->
-        </main>
+                <div class="max-w-3xl mx-auto space-y-12">
+                    <!-- Artist Details Card -->
+                    <div class="bg-slate-50 p-8 rounded-lg shadow-md">
+                        <h2 class="text-2xl font-bold mb-6">1. My Details</h2>
+                        <div class="space-y-6">
+                            <div>
+                                <label for="full-name" class="block font-medium text-slate-700 mb-2">Full Name</label>
+                                <input type="text" id="full-name" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 transition" placeholder="e.g., Sunita Devi">
+                            </div>
+                            <div>
+                                <label for="artist-quote" class="block font-medium text-slate-700 mb-2">Short Quote or Bio</label>
+                                <textarea id="artist-quote" rows="3" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 transition" placeholder="e.g., 'I paint the stories my grandmother told me...'"></textarea>
+                            </div>
+                        </div>
+                    </div>
 
-        <!-- =================================== -->
-        <!-- ==         LOGIN PAGE CONTENT (COMMENTED OUT)      == -->
-        <!-- =================================== -->
-        <!--
-        <main id="login-page" class="hidden">
-            ...
+                    <!-- NEW: My Services (Gigs) Card -->
+                    <div class="bg-slate-50 p-8 rounded-lg shadow-md">
+                        <h2 class="text-2xl font-bold mb-6">2. My Services (Gigs)</h2>
+                        <p class="text-slate-600 mb-6">Create specific services that clients can order. This is the core of your artist profile.</p>
+                        
+                        <!-- List of existing gigs -->
+                        <div class="space-y-4 mb-6">
+                            <div class="flex justify-between items-center bg-white p-4 rounded-lg border">
+                                <p class="font-medium">Custom Warli Wedding Invitation</p>
+                                <div>
+                                    <button class="text-slate-500 hover:text-blue-600 mr-2"><i class="fas fa-edit"></i></button>
+                                    <button class="text-slate-500 hover:text-red-600"><i class="fas fa-trash-alt"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button class="w-full bg-orange-100 text-orange-600 font-bold py-3 px-4 rounded-lg hover:bg-orange-200 transition duration-300">
+                            + Add a New Service
+                        </button>
+
+                        <!-- Form for adding/editing a gig (could be in a modal) -->
+                        <div class="mt-8 space-y-6 border-t pt-6">
+                            <h3 class="text-xl font-bold">Create a New Service</h3>
+                             <div>
+                                <label for="gig-title" class="block font-medium text-slate-700 mb-2">Service Title</label>
+                                <input type="text" id="gig-title" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 transition" placeholder="e.g., I will create a custom Madhubani painting for your home">
+                            </div>
+                            <div>
+                                <label for="gig-description" class="block font-medium text-slate-700 mb-2">Service Description</label>
+                                <textarea id="gig-description" rows="4" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 transition" placeholder="Describe what you offer, the process, and what the client will receive."></textarea>
+                            </div>
+                            
+                            <h4 class="text-lg font-bold pt-4 border-b pb-2">Pricing Tiers</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <!-- Basic Tier -->
+                                <div class="border p-4 rounded-lg">
+                                    <h5 class="font-bold text-center mb-2">Basic</h5>
+                                    <input type="text" class="w-full mb-2 px-3 py-1 border border-slate-300 rounded-md text-sm" placeholder="Price (e.g., 3000)">
+                                    <textarea rows="3" class="w-full px-3 py-1 border border-slate-300 rounded-md text-sm" placeholder="Description (e.g., 1 concept, 2 revisions)"></textarea>
+                                </div>
+                                <!-- Standard Tier -->
+                                <div class="border-2 border-orange-400 p-4 rounded-lg">
+                                    <h5 class="font-bold text-center mb-2 text-orange-500">Standard</h5>
+                                    <input type="text" class="w-full mb-2 px-3 py-1 border border-slate-300 rounded-md text-sm" placeholder="Price (e.g., 5000)">
+                                    <textarea rows="3" class="w-full px-3 py-1 border border-slate-300 rounded-md text-sm" placeholder="Description (e.g., 2 concepts, 4 revisions)"></textarea>
+                                </div>
+                                <!-- Premium Tier -->
+                                <div class="border p-4 rounded-lg">
+                                    <h5 class="font-bold text-center mb-2">Premium</h5>
+                                    <input type="text" class="w-full mb-2 px-3 py-1 border border-slate-300 rounded-md text-sm" placeholder="Price (e.g., 8000)">
+                                    <textarea rows="3" class="w-full px-3 py-1 border border-slate-300 rounded-md text-sm" placeholder="Description (e.g., 3 concepts, unlimited revisions)"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Save Button -->
+                    <div class="flex justify-center pt-8">
+                        <button id="save-profile-btn" class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-8 rounded-full transition duration-300 text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                            Save & Publish Profile
+                        </button>
+                    </div>
+                </div>
+            </div>
         </main>
-        -->
     </div>
 
     <!-- Footer -->
@@ -240,20 +301,45 @@
 
     <!-- SCRIPT BLOCK -->
     <script type="module">
-        /*
-        // Your web app's Firebase configuration
-        ...
-        */
-        
         // --- All application logic is now inside this single module script ---
+
+        // In-memory data for art forms
+        const allArtForms = [
+            { name: "Warli Painting", state: "Maharashtra", status: "vulnerable", practitioners: 5000, description: "Monochromatic tribal art known for its geometric shapes representing the circle, triangle, and square.", imageUrl: "warli.vdo.img.png", videoUrl: "warli.vdo.mp4" },
+            { name: "Madhubani Painting", state: "Bihar", status: "endangered", practitioners: 2000, description: "Famous for its intricate patterns and vibrant colors, traditionally created by women in the Mithila region.", imageUrl: "madhu.vdo.image.png", videoUrl: "madhubani.vdo.mp4" },
+            { name: "Pattachitra", state: "Odisha", status: "vulnerable", practitioners: 3000, description: "A traditional, cloth-based scroll painting, known for its mythological narratives and folktales.", imageUrl: "https://placehold.co/600x400/1e293b/ffffff?text=Pattachitra", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
+            { name: "Kalamkari", state: "Andhra Pradesh", status: "endangered", practitioners: 1500, description: "A type of hand-painted or block-printed cotton textile, produced in Isfahan and Indian states.", imageUrl: "https://placehold.co/600x400/1e293b/ffffff?text=Kalamkari", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
+            { name: "Gond Painting", state: "Madhya Pradesh", status: "vulnerable", practitioners: 4000, description: "A folk and tribal art form by the Gondi people, characterized by a sense of movement and detail.", imageUrl: "https://placehold.co/600x400/1e293b/ffffff?text=Gond", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
+            { name: "Tanjore Painting", state: "Tamil Nadu", status: "endangered", practitioners: 1000, description: "A classical South Indian painting style, distinguished by its dense composition, surface richness and vibrant colors.", imageUrl: "https://placehold.co/600x400/1e293b/ffffff?text=Tanjore", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
+            { name: "Phad Painting", state: "Rajasthan", status: "severely-endangered", practitioners: 200, description: "A religious, scroll-type art that narrates elaborate religious stories of local deities and gods.", imageUrl: "https://placehold.co/600x400/1e293b/ffffff?text=Phad", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
+            { name: "Cheriyal Scrolls", state: "Telangana", status: "critically-endangered", practitioners: 50, description: "A stylized version of Nakashi art, rich in the local motifs that are peculiar to the Telangana region.", imageUrl: "https://placehold.co/600x400/1e293b/ffffff?text=Cheriyal", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
+            { name: "Kalighat Painting", state: "West Bengal", status: "nearly-extinct", practitioners: 20, description: "Originated in the 19th century as a local style that developed in the vicinity of Kalighat Kali Temple.", imageUrl: "https://placehold.co/600x400/1e293b/ffffff?text=Kalighat", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
+            { name: "Pithora Painting", state: "Gujarat", status: "critically-endangered", practitioners: 100, description: "A ritualistic art form of the Rathwa tribe, characterized by vibrant colors and depictions of nature.", imageUrl: "pithora.vdo.img.png", videoUrl: "pithora.vdo.mp4" },
+            { name: "Saura Painting", state: "Odisha", status: "endangered", practitioners: 800, description: "A style of wall mural painting associated with the Saura tribe, it has a religious significance.", imageUrl: "https://placehold.co/600x400/1e293b/ffffff?text=Saura", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
+            { name: "Mughal Miniature", state: "Uttar Pradesh", status: "endangered", practitioners: 500, description: "A small, brightly colored, and highly detailed painting, which grew from Persian miniature painting.", imageUrl: "https://placehold.co/600x400/1e293b/ffffff?text=Mughal", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
+            { name: "Mysore Painting", state: "Karnataka", status: "endangered", practitioners: 600, description: "An important form of classical South Indian painting that originated in and around the town of Mysore.", imageUrl: "https://placehold.co/600x400/1e293b/ffffff?text=Mysore", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
+            { name: "Kerala Murals", state: "Kerala", status: "vulnerable", practitioners: 2500, description: "The frescos depicting Hindu mythology and legends, which are drawn on the walls of temples and churches.", imageUrl: "https://placehold.co/600x400/1e293b/ffffff?text=Kerala+Murals", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
+            { name: "Jadupatua Painting", state: "Jharkhand", status: "severely-endangered", practitioners: 30, description: "Scroll paintings by the Jadu Patuas, depicting stories of creation, mythology, and the afterlife.", imageUrl: "https://placehold.co/600x400/1e293b/ffffff?text=Jadupatua", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
+            { name: "Kaavad Art", state: "Rajasthan", status: "endangered", practitioners: 400, description: "A portable wooden temple that has visual narratives of deities, which are hinged together.", imageUrl: "https://placehold.co/600x400/1e293b/ffffff?text=Kaavad", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
+            { name: "Rogan Painting", state: "Gujarat", status: "critically-endangered", practitioners: 80, description: "A form of cloth printing practiced in the Kutch District of Gujarat, India.", imageUrl: "https://placehold.co/600x400/1e293b/ffffff?text=Rogan", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
+            { name: "Chittara Art", state: "Karnataka", status: "severely-endangered", practitioners: 150, description: "An art form practiced by the Deevaru community, living in Sagar, Karnataka.", imageUrl: "https://placehold.co/600x400/1e293b/ffffff?text=Chittara", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
+            { name: "Manjusha Art", state: "Bihar", status: "endangered", practitioners: 700, description: "A traditional Indian art form from Bhagalpur, also known as Angika art.", imageUrl: "https://placehold.co/600x400/1e293b/ffffff?text=Manjusha", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
+            { name: "Thangka Painting", state: "Goa", status: "vulnerable", practitioners: 1200, description: "A Tibetan Buddhist painting on cotton, or silk appliqué, usually depicting a Buddhist deity, scene, or mandala.", imageUrl: "https://placehold.co/600x400/1e293b/ffffff?text=Thangka", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" }
+        ];
+
+        const sampleEvents = [
+            { name: "Warli Art Workshop", city: "Bengaluru", date: "2025-09-15", description: "Learn the basics of Warli painting from master artists.", lat: 12.9716, lon: 77.5946 },
+            { name: "Madhubani Exhibition", city: "Delhi", date: "2025-10-05", description: "A grand exhibition showcasing the finest Madhubani artworks.", lat: 28.7041, lon: 77.1025 },
+            { name: "Pattachitra Fair", city: "Bhubaneswar", date: "2025-11-20", description: "Explore the vibrant scroll paintings of Odisha.", lat: 20.2961, lon: 85.8245 },
+            { name: "Gond Art Festival", city: "Bhopal", date: "2025-12-01", description: "Celebrate the tribal art of the Gond community.", lat: 23.2599, lon: 77.4126 },
+        ];
+
 
         // Page containers
         const homePage = document.getElementById('home-page');
         const artFormsPage = document.getElementById('art-forms-page');
         const eventsPage = document.getElementById('events-page');
         const creatorHubPage = document.getElementById('creator-hub-page');
-        const searchResultsPage = document.getElementById('search-results-page');
-        const artistProfilePage = document.getElementById('artist-profile-page');
         
         // Buttons and Links
         const homeLink = document.getElementById('home-link');
@@ -261,7 +347,6 @@
         const mobileMenu = document.getElementById('mobile-menu');
         const searchBtn = document.getElementById('search-btn');
         const searchInput = document.getElementById('search-input');
-        const searchQuerySpan = document.getElementById('search-query');
         const findEventsBtn = document.getElementById('find-events-btn');
 
         // Art Form Filter Elements
@@ -269,15 +354,14 @@
         const stateFilter = document.getElementById('state-filter');
         const filterBtn = document.getElementById('filter-btn');
         const artFormsContainer = document.getElementById('art-forms-container');
-        const artFormItems = artFormsContainer.querySelectorAll('.art-form-item');
+        const eventsContainer = document.getElementById('events-container');
+        const featuredArtContainer = document.getElementById('featured-art-container');
 
         function hideAllPages() {
             homePage.classList.add('hidden');
             artFormsPage.classList.add('hidden');
             eventsPage.classList.add('hidden');
             creatorHubPage.classList.add('hidden');
-            searchResultsPage.classList.add('hidden');
-            artistProfilePage.classList.add('hidden');
         }
 
         function showCreatorHub() {
@@ -307,92 +391,162 @@
             alert("Login functionality is currently disabled.");
         }
 
-        function showSearchResultsPage(query) {
-            hideAllPages();
-            searchQuerySpan.textContent = query;
-            searchResultsPage.classList.remove('hidden');
-            window.scrollTo(0, 0);
-        }
-
-        function showArtistProfilePage() {
-            hideAllPages();
-            artistProfilePage.classList.remove('hidden');
-            window.scrollTo(0, 0);
-        }
-        
-        function handleSearch() {
-            const query = searchInput.value.trim();
-            if (query) {
-                showSearchResultsPage(query);
-            }
-        }
-
-        function filterArtForms() {
-            const selectedStatus = statusFilter.value;
-            const selectedState = stateFilter.value;
-
-            artFormItems.forEach(item => {
-                const status = item.dataset.status;
-                const state = item.dataset.state;
-
-                const statusMatch = selectedStatus === 'all' || status === selectedStatus;
-                const stateMatch = selectedState === 'all' || state === selectedState;
-
-                if (statusMatch && stateMatch) {
-                    item.style.display = 'block';
-                } else {
-                    item.style.display = 'none';
-                }
-            });
-        }
-
-        function displayEvents(events) {
-            const eventsContainer = document.getElementById('events-container');
-            eventsContainer.innerHTML = ''; // Clear previous results
-            if (events.length === 0) {
-                eventsContainer.innerHTML = `<p class="text-slate-600 text-center md:col-span-3">No cultural events found for your location. Please try again later.</p>`;
+        function renderArtForms(forms) {
+            artFormsContainer.innerHTML = '';
+            if (forms.length === 0) {
+                artFormsContainer.innerHTML = '<p class="text-center text-slate-500 col-span-full">No art forms match your criteria.</p>';
                 return;
             }
-            events.forEach(event => {
-                const eventCard = `
-                    <div class="bg-slate-50 rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-2 transition duration-300">
-                        <img src="${event.image}" alt="${event.title}" class="w-full h-56 object-cover">
-                        <div class="p-6 text-left">
-                            <h3 class="text-xl font-bold mb-2">${event.title}</h3>
-                            <p class="text-slate-600 mb-2"><i class="fas fa-calendar-alt mr-2"></i>${event.date}</p>
-                            <p class="text-slate-600 mb-4"><i class="fas fa-map-marker-alt mr-2"></i>${event.location}</p>
-                            <a href="#" class="text-orange-500 hover:text-orange-600 font-semibold">View Details &rarr;</a>
+            forms.forEach(art => {
+                const artEl = document.createElement('div');
+                artEl.className = 'art-form-item';
+                artEl.dataset.status = art.status;
+                artEl.dataset.state = art.state;
+                artEl.innerHTML = `
+                    <div class="flex flex-col md:flex-row items-center bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+                        <div class="w-full md:w-1/3 h-64 rounded-lg mb-6 md:mb-0 md:mr-8 overflow-hidden">
+                            <video class="w-full h-full object-cover" poster="${art.imageUrl}" muted loop>
+                                <source src="${art.videoUrl}" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+                        <div class="flex-1 text-left">
+                            <span class="inline-block bg-orange-100 text-orange-600 text-sm font-semibold px-3 py-1 rounded-full mb-2 capitalize">${art.status.replace('-', ' ')}</span>
+                            <h2 class="text-3xl font-bold mb-2">${art.name}</h2>
+                            <p class="text-slate-600 mb-4"><i class="fas fa-map-marker-alt mr-2 text-slate-400"></i>${art.state}</p>
+                            <p class="text-slate-700 mb-4">${art.description}</p>
+                            <p class="text-sm text-red-600 font-semibold">Estimated Practitioners Left: ~${art.practitioners}</p>
                         </div>
                     </div>
                 `;
-                eventsContainer.innerHTML += eventCard;
+                artFormsContainer.appendChild(artEl);
+                
+                const video = artEl.querySelector('video');
+                artEl.addEventListener('mouseover', () => video.play());
+                artEl.addEventListener('mouseout', () => video.pause());
+            });
+        }
+        
+        function populateFilters() {
+            const states = [...new Set(allArtForms.map(art => art.state))].sort();
+            stateFilter.innerHTML = '<option value="all">Filter by State</option>';
+            states.forEach(state => {
+                const option = document.createElement('option');
+                option.value = state;
+                option.textContent = state;
+                stateFilter.appendChild(option);
             });
         }
 
-        function getNearbyEvents(position) {
-            console.log('Fetching events for:', position.coords.latitude, position.coords.longitude);
-            // In a real app, you would make an API call to Google here.
-            // For this demo, we'll show pre-filled data for Bengaluru.
-            const sampleEvents = [
-                { title: 'Sacred Serpent Madhubani Workshop', date: 'Aug 23, 2025', location: 'Third Wave Coffee, Bengaluru', image: 'https://placehold.co/600x400/f97316/ffffff?text=Madhubani+Workshop' },
-                { title: 'Pooja Kunita: A Sacred Spectacle', date: 'Aug 22, 2025', location: 'Bangalore International Centre', image: 'https://placehold.co/600x400/ec4899/ffffff?text=Pooja+Kunita' },
-                { title: 'Kadalekai Parishe (Groundnut Fair)', date: 'Nov 17, 2025', location: 'Basavanagudi, Bengaluru', image: 'https://placehold.co/600x400/8b5cf6/ffffff?text=Groundnut+Fair' }
-            ];
-            displayEvents(sampleEvents);
+        function handleSearchAndFilter() {
+            const searchQuery = searchInput.value.trim().toLowerCase();
+            const selectedStatus = statusFilter.value;
+            const selectedState = stateFilter.value;
+
+            let filteredForms = allArtForms;
+
+            // Apply search query first
+            if (searchQuery) {
+                filteredForms = filteredForms.filter(art => 
+                    art.name.toLowerCase().includes(searchQuery)
+                );
+            }
+
+            // Apply status filter
+            if (selectedStatus !== 'all') {
+                filteredForms = filteredForms.filter(art => art.status === selectedStatus);
+            }
+
+            // Apply state filter
+            if (selectedState !== 'all') {
+                filteredForms = filteredForms.filter(art => art.state === selectedState);
+            }
+            
+            showArtFormsPage();
+            renderArtForms(filteredForms);
         }
 
-        function handleLocationError(error) {
-            console.error("Error getting location:", error.code, error.message);
-            const eventsContainer = document.getElementById('events-container');
-            let errorMessage = "Could not get your location. Please try again.";
-            if (error.code === 1) {
-                errorMessage = "You denied the request for Geolocation. Please enable location services in your browser settings and try again.";
-            } else if (error.code === 2) {
-                errorMessage = "Location information is unavailable. Please check your connection and try again.";
-            } else if (error.code === 3) {
-                errorMessage = "The request to get user location timed out. Please try again.";
+        function renderEvents(events) {
+            eventsContainer.innerHTML = '';
+            if (events.length === 0) {
+                eventsContainer.innerHTML = '<p class="text-center text-slate-500 col-span-full">No events found.</p>';
+                return;
             }
-            eventsContainer.innerHTML = `<p class="text-red-500 text-center md:col-span-3">${errorMessage}</p>`;
+            events.forEach(event => {
+                const eventCard = document.createElement('div');
+                eventCard.className = 'bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow';
+                eventCard.innerHTML = `
+                    <h3 class="text-xl font-bold mb-2">${event.name}</h3>
+                    <p class="text-slate-500 mb-2"><i class="fas fa-calendar-alt mr-2"></i>${new Date(event.date).toDateString()}</p>
+                    <p class="text-slate-500 mb-4"><i class="fas fa-map-marker-alt mr-2"></i>${event.city}</p>
+                    <p class="text-slate-700">${event.description}</p>
+                    ${event.distance ? `<p class="text-sm text-orange-600 font-semibold mt-4">Distance: ${event.distance.toFixed(2)} km away</p>` : ''}
+                `;
+                eventsContainer.appendChild(eventCard);
+            });
+        }
+
+        function calculateDistance(lat1, lon1, lat2, lon2) {
+            const R = 6371; // Radius of the Earth in km
+            const dLat = (lat2 - lat1) * Math.PI / 180;
+            const dLon = (lon2 - lon1) * Math.PI / 180;
+            const a =
+                0.5 - Math.cos(dLat) / 2 +
+                Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+                (1 - Math.cos(dLon)) / 2;
+            return R * 2 * Math.asin(Math.sqrt(a));
+        }
+
+        function findNearbyEvents() {
+            if (!navigator.geolocation) {
+                alert("Geolocation is not supported by your browser.");
+                return;
+            }
+
+            navigator.geolocation.getCurrentPosition(position => {
+                const { latitude, longitude } = position.coords;
+                
+                const eventsWithDistance = sampleEvents.map(event => ({
+                    ...event,
+                    distance: calculateDistance(latitude, longitude, event.lat, event.lon)
+                }));
+
+                eventsWithDistance.sort((a, b) => a.distance - b.distance);
+                
+                renderEvents(eventsWithDistance);
+
+            }, () => {
+                alert("Unable to retrieve your location. Please enable location services.");
+            });
+        }
+
+        function renderFeaturedArtForms() {
+            const featuredArtNames = ["Warli Painting", "Pithora Painting", "Madhubani Painting"];
+            const featuredForms = allArtForms.filter(art => featuredArtNames.includes(art.name));
+
+            featuredArtContainer.innerHTML = '';
+            featuredForms.forEach(art => {
+                const card = document.createElement('div');
+                card.className = "bg-white rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300 text-left";
+                card.innerHTML = `
+                    <div class="w-full h-56 overflow-hidden">
+                        <video class="w-full h-full object-cover" poster="${art.imageUrl}" muted loop>
+                            <source src="${art.videoUrl}" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">${art.name}</h3>
+                        <p class="text-slate-600 text-sm mb-4">${art.state}</p>
+                        <p class="text-slate-700 text-base">${art.description}</p>
+                    </div>
+                `;
+                featuredArtContainer.appendChild(card);
+                
+                const video = card.querySelector('video');
+                card.addEventListener('mouseover', () => video.play());
+                card.addEventListener('mouseout', () => video.pause());
+            });
         }
         
         // --- GLOBAL EVENT LISTENER (EVENT DELEGAITON) ---
@@ -400,20 +554,18 @@
             const action = e.target.closest('[data-action]')?.dataset.action;
             if (action === 'login') showLoginPage();
             if (action === 'creator-hub') showCreatorHub();
-            if (action === 'view-profile') {
-                e.preventDefault();
-                showArtistProfilePage();
-            }
             if (action === 'show-home') {
                 e.preventDefault();
                 showHomePage();
             }
             if (action === 'show-art-forms') {
                  e.preventDefault();
+                 renderArtForms(allArtForms); // Show all forms
                  showArtFormsPage();
             }
             if (action === 'show-events') {
                 e.preventDefault();
+                renderEvents(sampleEvents);
                 showEventsPage();
             }
         });
@@ -428,24 +580,28 @@
         mobileMenuButton.addEventListener('click', () => {
             mobileMenu.classList.toggle('hidden');
         });
-        searchBtn.addEventListener('click', handleSearch);
+
+        searchBtn.addEventListener('click', handleSearchAndFilter);
         searchInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
-                handleSearch();
+                handleSearchAndFilter();
             }
         });
 
-        // Art Form Filter Listeners
-        filterBtn.addEventListener('click', filterArtForms);
+        filterBtn.addEventListener('click', handleSearchAndFilter);
+        findEventsBtn.addEventListener('click', findNearbyEvents);
+        
+        // --- INITIALIZATION ---
+        function init() {
+            showHomePage();
+            populateFilters();
+            renderArtForms(allArtForms); // Pre-render for when the page is shown
+            renderEvents(sampleEvents); // Pre-render events
+            renderFeaturedArtForms();
+        }
+        
+        init();
 
-        // Events Page Listener
-        findEventsBtn.addEventListener('click', () => {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(getNearbyEvents, handleLocationError);
-            } else {
-                alert("Geolocation is not supported by this browser.");
-            }
-        });
     </script>
 </body>
 </html>
