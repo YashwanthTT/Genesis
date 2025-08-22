@@ -25,7 +25,7 @@
             bottom: -4px;
             left: 50%;
             transform: translateX(-50%);
-            background-color: #fb923c;
+            background-color: #A45C40; /* Desert Sun */
             transition: width 0.3s;
         }
         .nav-link:hover::after, .nav-link.active::after {
@@ -64,45 +64,45 @@
         }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800">
+<body class="bg-[#F6EEE0] text-[#A45C40]">
 
     <!-- Header -->
-    <header class="bg-white shadow-md sticky top-0 z-50">
+    <header class="bg-white/80 backdrop-blur-sm shadow-md sticky top-0 z-50">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="#" id="home-link" class="text-2xl font-bold text-slate-800 cursor-pointer">
-                <i class="fas fa-palette text-orange-500"></i> Kalakriti
+            <a href="#" id="home-link" class="text-2xl font-bold text-[#A45C40] cursor-pointer">
+                <i class="fas fa-palette text-[#C38370]"></i> Kalakriti
             </a>
             
             <div class="hidden md:flex items-center space-x-8">
-                <a href="#home-page-section" data-action="show-home" class="nav-link text-slate-600 hover:text-orange-500 font-medium">Home</a>
-                <a href="#" data-action="show-art-forms" class="nav-link text-slate-600 hover:text-orange-500 font-medium">Art Forms</a>
-                <a href="#" data-action="show-events" class="nav-link text-slate-600 hover:text-orange-500 font-medium">Events</a>
+                <a href="#home-page-section" data-action="show-home" class="nav-link text-[#A45C40] hover:text-[#C38370] font-medium">Home</a>
+                <a href="#" data-action="show-art-forms" class="nav-link text-[#A45C40] hover:text-[#C38370] font-medium">Art Forms</a>
+                <a href="#" data-action="show-events" class="nav-link text-[#A45C40] hover:text-[#C38370] font-medium">Events</a>
             </div>
 
             <!-- Search Bar -->
             <div class="hidden md:flex flex-grow max-w-lg mx-4">
-                <input type="search" id="search-input" placeholder="Search for Art Forms..." class="w-full px-4 py-2 border border-slate-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-orange-500 transition">
-                <button id="search-btn" class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-r-lg">
+                <input type="search" id="search-input" placeholder="Search for Art Forms..." class="w-full px-4 py-2 border border-[#E4B7A0] rounded-l-lg focus:outline-none focus:ring-2 focus:ring-[#A45C40] transition bg-white">
+                <button id="search-btn" class="bg-[#A45C40] hover:bg-[#C38370] text-white font-bold py-2 px-4 rounded-r-lg">
                     <i class="fas fa-search"></i>
                 </button>
             </div>
 
             <div class="hidden md:flex items-center space-x-4" id="nav-right-desktop">
-                 <button data-action="login" class="text-slate-600 hover:text-orange-500 font-medium">Login</button>
-                 <button data-action="creator-hub" class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-full transition duration-300">Creator Hub</button>
+                 <button data-action="login" class="text-[#A45C40] hover:text-[#C38370] font-medium">Login</button>
+                 <button data-action="creator-hub" class="bg-[#A45C40] hover:bg-[#C38370] text-white font-bold py-2 px-4 rounded-full transition duration-300">Creator Hub</button>
             </div>
             <button id="mobile-menu-button" class="md:hidden">
-                <i class="fas fa-bars text-2xl"></i>
+                <i class="fas fa-bars text-2xl text-[#A45C40]"></i>
             </button>
         </nav>
         <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
-            <a href="#home-page-section" data-action="show-home" class="block py-2 text-slate-600 hover:text-orange-500">Home</a>
-            <a href="#" data-action="show-art-forms" class="block py-2 text-slate-600 hover:text-orange-500">Art Forms</a>
-            <a href="#" data-action="show-events" class="block py-2 text-slate-600 hover:text-orange-500">Events</a>
-            <div id="nav-right-mobile" class="mt-4 border-t pt-4">
-                 <button data-action="login" class="block w-full text-left py-2 text-slate-600 hover:text-orange-500">Login</button>
-                 <button data-action="creator-hub" class="block w-full mt-2 bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-full text-center">Creator Hub</button>
+            <a href="#home-page-section" data-action="show-home" class="block py-2 text-[#A45C40] hover:text-[#C38370]">Home</a>
+            <a href="#" data-action="show-art-forms" class="block py-2 text-[#A45C40] hover:text-[#C38370]">Art Forms</a>
+            <a href="#" data-action="show-events" class="block py-2 text-[#A45C40] hover:text-[#C38370]">Events</a>
+            <div id="nav-right-mobile" class="mt-4 border-t border-[#E4B7A0] pt-4">
+                 <button data-action="login" class="block w-full text-left py-2 text-[#A45C40] hover:text-[#C38370]">Login</button>
+                 <button data-action="creator-hub" class="block w-full mt-2 bg-[#A45C40] hover:bg-[#C38370] text-white font-bold py-2 px-4 rounded-full text-center">Creator Hub</button>
             </div>
         </div>
     </header>
@@ -117,14 +117,14 @@
             <!-- Hero Section -->
             <section id="home-page-section" class="h-[50vh] md:h-[70vh] p-4 md:p-8 relative">
                  <div class="slider h-full">
-                    <img src="chitara.landing.jpg" alt="Indian Art Slide 1" onerror="this.onerror=null;this.src='https://placehold.co/1200x800/f97316/ffffff?text=Warli+Art';">
-                    <img src="art.landing.png" alt="Indian Art Slide 2" onerror="this.onerror=null;this.src='https://placehold.co/1200x800/f97316/ffffff?text=Pithora+Art';">
-                    <img src="embroidery.landing.png" alt="Indian Art Slide 3" onerror="this.onerror=null;this.src='https://placehold.co/1200x800/f97316/ffffff?text=Madhubani+Art';">
-                    <img src="madhubani.landing.jpg" alt="Indian Art Slide 4" onerror="this.onerror=null;this.src='https://placehold.co/1200x800/f97316/ffffff?text=Indian+Pottery';">
-                    <img src="pithora.landing.jpg" alt="Indian Art Slide 5" onerror="this.onerror=null;this.src='https://placehold.co/1200x800/f97316/ffffff?text=Embroidery';">
-                    <img src="warli.edit.landing.jpg" alt="Indian Art Slide 6" onerror="this.onerror=null;this.src='https://placehold.co/1200x800/f97316/ffffff?text=Chitara+Art';">
+                    <img src="landing.chitara.jpg" alt="Indian Art Slide 1" onerror="this.onerror=null;this.src='https://placehold.co/1200x800/A45C40/F6EEE0?text=Chitara+Art';">
+                    <img src="landing.art.png" alt="Indian Art Slide 2" onerror="this.onerror=null;this.src='https://placehold.co/1200x800/A45C40/F6EEE0?text=Pithora+Art';">
+                    <img src="landing.embroidery.png" alt="Indian Art Slide 3" onerror="this.onerror=null;this.src='https://placehold.co/1200x800/A45C40/F6EEE0?text=Embroidery';">
+                    <img src="landing.madhubani.jpg" alt="Indian Art Slide 4" onerror="this.onerror=null;this.src='https://placehold.co/1200x800/A45C40/F6EEE0?text=Madhubani';">
+                    <img src="landing.pithora.jpg" alt="Indian Art Slide 5" onerror="this.onerror=null;this.src='https://placehold.co/1200x800/A45C40/F6EEE0?text=Pithora+Art';">
+                    <img src="landing.warli.jpg" alt="Indian Art Slide 6" onerror="this.onerror=null;this.src='https://placehold.co/1200x800/A45C40/F6EEE0?text=Warli+Art';">
                 </div>
-                 <div class="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center text-center rounded-2xl">
+                 <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center text-center rounded-2xl">
                     <div>
                         <h1 class="text-white text-4xl md:text-6xl font-bold drop-shadow-lg">Kalakriti</h1>
                         <p class="text-white text-lg md:text-2xl mt-4 drop-shadow-md">A Digital Sanctuary for India's Folk & Tribal Art</p>
@@ -133,10 +133,10 @@
             </section>
 
             <!-- Featured Art Forms Section -->
-            <section id="featured-art-forms" class="py-16 bg-white">
+            <section id="featured-art-forms" class="py-16 bg-white/70">
                 <div class="container mx-auto px-6 text-center">
                     <h2 class="text-3xl font-bold mb-4">Featured Art Forms</h2>
-                    <p class="text-slate-600 max-w-2xl mx-auto mb-12">A glimpse into the rich tapestry of India's artistic heritage.</p>
+                    <p class="text-[#C38370] max-w-2xl mx-auto mb-12">A glimpse into the rich tapestry of India's artistic heritage.</p>
                     <div id="featured-art-container" class="grid grid-cols-1 md:grid-cols-3 gap-8">
                         <!-- Featured art cards will be injected here by JS -->
                     </div>
@@ -147,17 +147,17 @@
         <!-- =================================== -->
         <!-- ==      ART FORMS PAGE CONTENT     == -->
         <!-- =================================== -->
-        <main id="art-forms-page" class="hidden bg-white">
+        <main id="art-forms-page" class="hidden bg-white/70">
             <div class="container mx-auto px-6 py-20">
                 <div class="max-w-3xl mx-auto text-center">
                     <h1 class="text-4xl font-bold mb-4">India's Endangered Artistic Heritage</h1>
-                    <p class="text-slate-600 mb-12">Discover the stories behind traditional art forms that are on the brink of extinction. Your appreciation and support can help keep these invaluable cultural treasures alive.</p>
+                    <p class="text-[#C38370] mb-12">Discover the stories behind traditional art forms that are on the brink of extinction. Your appreciation and support can help keep these invaluable cultural treasures alive.</p>
                 </div>
 
                 <!-- UPDATED: Filter Section -->
-                <div class="bg-slate-50 p-6 rounded-lg shadow-md mb-12 sticky top-24 z-40">
+                <div class="bg-[#F6EEE0]/80 backdrop-blur-sm p-6 rounded-lg shadow-md mb-12 sticky top-24 z-40">
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <select id="status-filter" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 transition">
+                        <select id="status-filter" class="w-full px-4 py-2 border border-[#E4B7A0] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#A45C40] transition">
                             <option value="all">Filter by Status</option>
                             <option value="critically-endangered">Critically Endangered</option>
                             <option value="severely-endangered">Severely Endangered</option>
@@ -165,10 +165,10 @@
                             <option value="vulnerable">Vulnerable</option>
                             <option value="nearly-extinct">Nearly Extinct</option>
                         </select>
-                        <select id="state-filter" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 transition">
+                        <select id="state-filter" class="w-full px-4 py-2 border border-[#E4B7A0] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#A45C40] transition">
                             <option value="all">Filter by State</option>
                         </select>
-                        <button id="filter-btn" class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-lg flex items-center justify-center">
+                        <button id="filter-btn" class="bg-[#A45C40] hover:bg-[#C38370] text-white font-bold py-2 px-4 rounded-lg flex items-center justify-center">
                             <i class="fas fa-filter mr-2"></i> Filter Results
                         </button>
                     </div>
@@ -183,12 +183,12 @@
         <!-- =================================== -->
         <!-- ==       EVENTS PAGE CONTENT       == -->
         <!-- =================================== -->
-        <main id="events-page" class="hidden bg-white">
+        <main id="events-page" class="hidden bg-white/70">
             <div class="container mx-auto px-6 py-20">
                 <div class="max-w-3xl mx-auto text-center">
                     <h1 class="text-4xl font-bold mb-4">Cultural Events</h1>
-                    <p class="text-slate-600 mb-8">Discover workshops, exhibitions, and performances happening around you.</p>
-                    <button id="find-events-btn" class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-8 rounded-full text-lg transition duration-300">
+                    <p class="text-[#C38370] mb-8">Discover workshops, exhibitions, and performances happening around you.</p>
+                    <button id="find-events-btn" class="bg-[#A45C40] hover:bg-[#C38370] text-white font-bold py-3 px-8 rounded-full text-lg transition duration-300">
                         <i class="fas fa-map-marker-alt mr-2"></i> Find Events Near Me
                     </button>
                 </div>
@@ -202,80 +202,80 @@
         <!-- =================================== -->
         <!-- ==      CREATOR HUB CONTENT      == -->
         <!-- =================================== -->
-        <main id="creator-hub-page" class="hidden bg-white">
+        <main id="creator-hub-page" class="hidden bg-white/70">
             <div class="container mx-auto px-6 py-20">
                 <div class="max-w-3xl mx-auto text-center">
                     <h1 class="text-4xl font-bold mb-4">Creator Hub</h1>
-                    <p class="text-slate-600 mb-12">This is your creative space. Fill out the sections below to build and publish your public artist profile.</p>
+                    <p class="text-[#C38370] mb-12">This is your creative space. Fill out the sections below to build and publish your public artist profile.</p>
                 </div>
 
                 <div class="max-w-3xl mx-auto space-y-12">
                     <!-- Artist Details Card -->
-                    <div class="bg-slate-50 p-8 rounded-lg shadow-md">
+                    <div class="bg-[#F6EEE0] p-8 rounded-lg shadow-md">
                         <h2 class="text-2xl font-bold mb-6">1. My Details</h2>
                         <div class="space-y-6">
                             <div>
-                                <label for="full-name" class="block font-medium text-slate-700 mb-2">Full Name</label>
-                                <input type="text" id="full-name" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 transition" placeholder="e.g., Sunita Devi">
+                                <label for="full-name" class="block font-medium text-[#A45C40] mb-2">Full Name</label>
+                                <input type="text" id="full-name" class="w-full px-4 py-2 border border-[#E4B7A0] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#A45C40] transition" placeholder="e.g., Sunita Devi">
                             </div>
                             <div>
-                                <label for="artist-quote" class="block font-medium text-slate-700 mb-2">Short Quote or Bio</label>
-                                <textarea id="artist-quote" rows="3" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 transition" placeholder="e.g., 'I paint the stories my grandmother told me...'"></textarea>
+                                <label for="artist-quote" class="block font-medium text-[#A45C40] mb-2">Short Quote or Bio</label>
+                                <textarea id="artist-quote" rows="3" class="w-full px-4 py-2 border border-[#E4B7A0] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#A45C40] transition" placeholder="e.g., 'I paint the stories my grandmother told me...'"></textarea>
                             </div>
                         </div>
                     </div>
 
                     <!-- NEW: My Services (Gigs) Card -->
-                    <div class="bg-slate-50 p-8 rounded-lg shadow-md">
+                    <div class="bg-[#F6EEE0] p-8 rounded-lg shadow-md">
                         <h2 class="text-2xl font-bold mb-6">2. My Services (Gigs)</h2>
-                        <p class="text-slate-600 mb-6">Create specific services that clients can order. This is the core of your artist profile.</p>
+                        <p class="text-[#C38370] mb-6">Create specific services that clients can order. This is the core of your artist profile.</p>
                         
                         <!-- List of existing gigs -->
                         <div class="space-y-4 mb-6">
-                            <div class="flex justify-between items-center bg-white p-4 rounded-lg border">
+                            <div class="flex justify-between items-center bg-white p-4 rounded-lg border border-[#E4B7A0]">
                                 <p class="font-medium">Custom Warli Wedding Invitation</p>
                                 <div>
-                                    <button class="text-slate-500 hover:text-blue-600 mr-2"><i class="fas fa-edit"></i></button>
-                                    <button class="text-slate-500 hover:text-red-600"><i class="fas fa-trash-alt"></i></button>
+                                    <button class="text-[#A45C40] hover:text-blue-600 mr-2"><i class="fas fa-edit"></i></button>
+                                    <button class="text-[#A45C40] hover:text-red-600"><i class="fas fa-trash-alt"></i></button>
                                 </div>
                             </div>
                         </div>
                         
-                        <button class="w-full bg-orange-100 text-orange-600 font-bold py-3 px-4 rounded-lg hover:bg-orange-200 transition duration-300">
+                        <button class="w-full bg-[#E4B7A0]/50 text-[#A45C40] font-bold py-3 px-4 rounded-lg hover:bg-[#E4B7A0] transition duration-300">
                             + Add a New Service
                         </button>
 
                         <!-- Form for adding/editing a gig (could be in a modal) -->
-                        <div class="mt-8 space-y-6 border-t pt-6">
+                        <div class="mt-8 space-y-6 border-t border-[#E4B7A0] pt-6">
                             <h3 class="text-xl font-bold">Create a New Service</h3>
                              <div>
-                                <label for="gig-title" class="block font-medium text-slate-700 mb-2">Service Title</label>
-                                <input type="text" id="gig-title" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 transition" placeholder="e.g., I will create a custom Madhubani painting for your home">
+                                <label for="gig-title" class="block font-medium text-[#A45C40] mb-2">Service Title</label>
+                                <input type="text" id="gig-title" class="w-full px-4 py-2 border border-[#E4B7A0] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#A45C40] transition" placeholder="e.g., I will create a custom Madhubani painting for your home">
                             </div>
                             <div>
-                                <label for="gig-description" class="block font-medium text-slate-700 mb-2">Service Description</label>
-                                <textarea id="gig-description" rows="4" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 transition" placeholder="Describe what you offer, the process, and what the client will receive."></textarea>
+                                <label for="gig-description" class="block font-medium text-[#A45C40] mb-2">Service Description</label>
+                                <textarea id="gig-description" rows="4" class="w-full px-4 py-2 border border-[#E4B7A0] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#A45C40] transition" placeholder="Describe what you offer, the process, and what the client will receive."></textarea>
                             </div>
                             
-                            <h4 class="text-lg font-bold pt-4 border-b pb-2">Pricing Tiers</h4>
+                            <h4 class="text-lg font-bold pt-4 border-b border-[#E4B7A0] pb-2">Pricing Tiers</h4>
                             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                                 <!-- Basic Tier -->
-                                <div class="border p-4 rounded-lg">
+                                <div class="border border-[#E4B7A0] p-4 rounded-lg">
                                     <h5 class="font-bold text-center mb-2">Basic</h5>
-                                    <input type="text" class="w-full mb-2 px-3 py-1 border border-slate-300 rounded-md text-sm" placeholder="Price (e.g., 3000)">
-                                    <textarea rows="3" class="w-full px-3 py-1 border border-slate-300 rounded-md text-sm" placeholder="Description (e.g., 1 concept, 2 revisions)"></textarea>
+                                    <input type="text" class="w-full mb-2 px-3 py-1 border border-[#E4B7A0] rounded-md text-sm" placeholder="Price (e.g., 3000)">
+                                    <textarea rows="3" class="w-full px-3 py-1 border border-[#E4B7A0] rounded-md text-sm" placeholder="Description (e.g., 1 concept, 2 revisions)"></textarea>
                                 </div>
                                 <!-- Standard Tier -->
-                                <div class="border-2 border-orange-400 p-4 rounded-lg">
-                                    <h5 class="font-bold text-center mb-2 text-orange-500">Standard</h5>
-                                    <input type="text" class="w-full mb-2 px-3 py-1 border border-slate-300 rounded-md text-sm" placeholder="Price (e.g., 5000)">
-                                    <textarea rows="3" class="w-full px-3 py-1 border border-slate-300 rounded-md text-sm" placeholder="Description (e.g., 2 concepts, 4 revisions)"></textarea>
+                                <div class="border-2 border-[#A45C40] p-4 rounded-lg">
+                                    <h5 class="font-bold text-center mb-2 text-[#A45C40]">Standard</h5>
+                                    <input type="text" class="w-full mb-2 px-3 py-1 border border-[#E4B7A0] rounded-md text-sm" placeholder="Price (e.g., 5000)">
+                                    <textarea rows="3" class="w-full px-3 py-1 border border-[#E4B7A0] rounded-md text-sm" placeholder="Description (e.g., 2 concepts, 4 revisions)"></textarea>
                                 </div>
                                 <!-- Premium Tier -->
-                                <div class="border p-4 rounded-lg">
+                                <div class="border border-[#E4B7A0] p-4 rounded-lg">
                                     <h5 class="font-bold text-center mb-2">Premium</h5>
-                                    <input type="text" class="w-full mb-2 px-3 py-1 border border-slate-300 rounded-md text-sm" placeholder="Price (e.g., 8000)">
-                                    <textarea rows="3" class="w-full px-3 py-1 border border-slate-300 rounded-md text-sm" placeholder="Description (e.g., 3 concepts, unlimited revisions)"></textarea>
+                                    <input type="text" class="w-full mb-2 px-3 py-1 border border-[#E4B7A0] rounded-md text-sm" placeholder="Price (e.g., 8000)">
+                                    <textarea rows="3" class="w-full px-3 py-1 border border-[#E4B7A0] rounded-md text-sm" placeholder="Description (e.g., 3 concepts, unlimited revisions)"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -283,7 +283,7 @@
 
                     <!-- Save Button -->
                     <div class="flex justify-center pt-8">
-                        <button id="save-profile-btn" class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-8 rounded-full transition duration-300 text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                        <button id="save-profile-btn" class="bg-[#A45C40] hover:bg-[#C38370] text-white font-bold py-3 px-8 rounded-full transition duration-300 text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1">
                             Save & Publish Profile
                         </button>
                     </div>
@@ -293,9 +293,9 @@
     </div>
 
     <!-- Footer -->
-    <footer class="bg-slate-800 text-white py-12">
+    <footer class="bg-[#A45C40] text-[#F6EEE0] py-12">
         <div class="container mx-auto px-6 text-center">
-            <p class="text-slate-400 mt-12">&copy; 2025 Kalakriti. All Rights Reserved.</p>
+            <p class="text-[#E4B7A0] mt-12">&copy; 2025 Kalakriti. All Rights Reserved.</p>
         </div>
     </footer>
 
@@ -306,7 +306,7 @@
         // In-memory data for art forms
         const allArtForms = [
             { name: "Warli Painting", state: "Maharashtra", status: "vulnerable", practitioners: 5000, description: "Monochromatic tribal art known for its geometric shapes representing the circle, triangle, and square.", imageUrl: "warli.vdo.img.png", videoUrl: "warli.vdo.mp4" },
-            { name: "Madhubani Painting", state: "Bihar", status: "endangered", practitioners: 2000, description: "Famous for its intricate patterns and vibrant colors, traditionally created by women in the Mithila region.", imageUrl: "madhu.vdo.image.png", videoUrl: "madhubani.vdo.mp4" },
+            { name: "Madhubani Painting", state: "Bihar", status: "endangered", practitioners: 2000, description: "Famous for its intricate patterns and vibrant colors, traditionally created by women in the Mithila region.", imageUrl: "vdo.image.madhu.png", videoUrl: "madhubani.vdo.mp4" },
             { name: "Pattachitra", state: "Odisha", status: "vulnerable", practitioners: 3000, description: "A traditional, cloth-based scroll painting, known for its mythological narratives and folktales.", imageUrl: "https://placehold.co/600x400/1e293b/ffffff?text=Pattachitra", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
             { name: "Kalamkari", state: "Andhra Pradesh", status: "endangered", practitioners: 1500, description: "A type of hand-painted or block-printed cotton textile, produced in Isfahan and Indian states.", imageUrl: "https://placehold.co/600x400/1e293b/ffffff?text=Kalamkari", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
             { name: "Gond Painting", state: "Madhya Pradesh", status: "vulnerable", practitioners: 4000, description: "A folk and tribal art form by the Gondi people, characterized by a sense of movement and detail.", imageUrl: "https://placehold.co/600x400/1e293b/ffffff?text=Gond", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
@@ -394,7 +394,7 @@
         function renderArtForms(forms) {
             artFormsContainer.innerHTML = '';
             if (forms.length === 0) {
-                artFormsContainer.innerHTML = '<p class="text-center text-slate-500 col-span-full">No art forms match your criteria.</p>';
+                artFormsContainer.innerHTML = '<p class="text-center text-[#C38370] col-span-full">No art forms match your criteria.</p>';
                 return;
             }
             forms.forEach(art => {
@@ -411,10 +411,10 @@
                             </video>
                         </div>
                         <div class="flex-1 text-left">
-                            <span class="inline-block bg-orange-100 text-orange-600 text-sm font-semibold px-3 py-1 rounded-full mb-2 capitalize">${art.status.replace('-', ' ')}</span>
+                            <span class="inline-block bg-[#E4B7A0]/40 text-[#A45C40] text-sm font-semibold px-3 py-1 rounded-full mb-2 capitalize">${art.status.replace('-', ' ')}</span>
                             <h2 class="text-3xl font-bold mb-2">${art.name}</h2>
-                            <p class="text-slate-600 mb-4"><i class="fas fa-map-marker-alt mr-2 text-slate-400"></i>${art.state}</p>
-                            <p class="text-slate-700 mb-4">${art.description}</p>
+                            <p class="text-[#C38370] mb-4"><i class="fas fa-map-marker-alt mr-2 text-[#E4B7A0]"></i>${art.state}</p>
+                            <p class="text-[#A45C40] mb-4">${art.description}</p>
                             <p class="text-sm text-red-600 font-semibold">Estimated Practitioners Left: ~${art.practitioners}</p>
                         </div>
                     </div>
@@ -469,7 +469,7 @@
         function renderEvents(events) {
             eventsContainer.innerHTML = '';
             if (events.length === 0) {
-                eventsContainer.innerHTML = '<p class="text-center text-slate-500 col-span-full">No events found.</p>';
+                eventsContainer.innerHTML = '<p class="text-center text-[#C38370] col-span-full">No events found.</p>';
                 return;
             }
             events.forEach(event => {
@@ -477,10 +477,10 @@
                 eventCard.className = 'bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow';
                 eventCard.innerHTML = `
                     <h3 class="text-xl font-bold mb-2">${event.name}</h3>
-                    <p class="text-slate-500 mb-2"><i class="fas fa-calendar-alt mr-2"></i>${new Date(event.date).toDateString()}</p>
-                    <p class="text-slate-500 mb-4"><i class="fas fa-map-marker-alt mr-2"></i>${event.city}</p>
-                    <p class="text-slate-700">${event.description}</p>
-                    ${event.distance ? `<p class="text-sm text-orange-600 font-semibold mt-4">Distance: ${event.distance.toFixed(2)} km away</p>` : ''}
+                    <p class="text-[#C38370] mb-2"><i class="fas fa-calendar-alt mr-2"></i>${new Date(event.date).toDateString()}</p>
+                    <p class="text-[#C38370] mb-4"><i class="fas fa-map-marker-alt mr-2"></i>${event.city}</p>
+                    <p class="text-[#A45C40]">${event.description}</p>
+                    ${event.distance ? `<p class="text-sm text-[#A45C40] font-semibold mt-4">Distance: ${event.distance.toFixed(2)} km away</p>` : ''}
                 `;
                 eventsContainer.appendChild(eventCard);
             });
@@ -537,8 +537,8 @@
                     </div>
                     <div class="p-6">
                         <h3 class="text-xl font-bold mb-2">${art.name}</h3>
-                        <p class="text-slate-600 text-sm mb-4">${art.state}</p>
-                        <p class="text-slate-700 text-base">${art.description}</p>
+                        <p class="text-[#C38370] text-sm mb-4">${art.state}</p>
+                        <p class="text-[#A45C40] text-base">${art.description}</p>
                     </div>
                 `;
                 featuredArtContainer.appendChild(card);
