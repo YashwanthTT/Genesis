@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kalakriti - A Celebration of Indian Folk Art</title>
+    <title>Akruti - A Celebration of Indian Folk Art</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -62,242 +62,280 @@
             33.33% { opacity: 0; transform: scale(1.05); }
             100% { opacity: 0; }
         }
+
+        /* Splash Screen Styles */
+        #splash-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #e4b7a0;
+            z-index: 100;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.5s ease-out;
+        }
+        #splash-logo {
+            width: 250px;
+            height: auto;
+            transition: all 0.5s ease-in-out;
+        }
+        .app-content {
+            opacity: 0;
+            transition: opacity 0.5s ease-in;
+        }
+        .loaded .app-content {
+            opacity: 1;
+        }
+        .loaded #splash-screen {
+            opacity: 0;
+            pointer-events: none;
+        }
     </style>
 </head>
 <body class="bg-[#F6EEE0] text-[#A45C40]">
 
-    <!-- Header -->
-    <header class="bg-white/80 backdrop-blur-sm shadow-md sticky top-0 z-50">
-        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="#" id="home-link" class="text-2xl font-bold text-[#A45C40] cursor-pointer">
-                <i class="fas fa-palette text-[#C38370]"></i> Kalakriti
-            </a>
-            
-            <div class="hidden md:flex items-center space-x-8">
-                <a href="#home-page-section" data-action="show-home" class="nav-link text-[#A45C40] hover:text-[#C38370] font-medium">Home</a>
-                <a href="#" data-action="show-art-forms" class="nav-link text-[#A45C40] hover:text-[#C38370] font-medium">Art Forms</a>
-                <a href="#" data-action="show-events" class="nav-link text-[#A45C40] hover:text-[#C38370] font-medium">Events</a>
-            </div>
+    <!-- Splash Screen -->
+    <div id="splash-screen">
+        <img id="splash-logo" src="a.logo.png" alt="Akruti Logo">
+    </div>
 
-            <!-- Search Bar -->
-            <div class="hidden md:flex flex-grow max-w-lg mx-4">
-                <input type="search" id="search-input" placeholder="Search for Art Forms..." class="w-full px-4 py-2 border border-[#E4B7A0] rounded-l-lg focus:outline-none focus:ring-2 focus:ring-[#A45C40] transition bg-white">
-                <button id="search-btn" class="bg-[#A45C40] hover:bg-[#C38370] text-white font-bold py-2 px-4 rounded-r-lg">
-                    <i class="fas fa-search"></i>
-                </button>
-            </div>
-
-            <div class="hidden md:flex items-center space-x-4" id="nav-right-desktop">
-                 <button data-action="login" class="text-[#A45C40] hover:text-[#C38370] font-medium">Login</button>
-                 <button data-action="creator-hub" class="bg-[#A45C40] hover:bg-[#C38370] text-white font-bold py-2 px-4 rounded-full transition duration-300">Creator Hub</button>
-            </div>
-            <button id="mobile-menu-button" class="md:hidden">
-                <i class="fas fa-bars text-2xl text-[#A45C40]"></i>
-            </button>
-        </nav>
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
-            <a href="#home-page-section" data-action="show-home" class="block py-2 text-[#A45C40] hover:text-[#C38370]">Home</a>
-            <a href="#" data-action="show-art-forms" class="block py-2 text-[#A45C40] hover:text-[#C38370]">Art Forms</a>
-            <a href="#" data-action="show-events" class="block py-2 text-[#A45C40] hover:text-[#C38370]">Events</a>
-            <div id="nav-right-mobile" class="mt-4 border-t border-[#E4B7A0] pt-4">
-                 <button data-action="login" class="block w-full text-left py-2 text-[#A45C40] hover:text-[#C38370]">Login</button>
-                 <button data-action="creator-hub" class="block w-full mt-2 bg-[#A45C40] hover:bg-[#C38370] text-white font-bold py-2 px-4 rounded-full text-center">Creator Hub</button>
-            </div>
-        </div>
-    </header>
-
-    <!-- MAIN CONTENT WRAPPER -->
-    <div id="main-content">
-        
-        <!-- =================================== -->
-        <!-- ==        HOME PAGE CONTENT      == -->
-        <!-- =================================== -->
-        <main id="home-page">
-            <!-- Hero Section -->
-            <section id="home-page-section" class="h-[50vh] md:h-[70vh] p-4 md:p-8 relative">
-                 <div class="slider h-full">
-                    <img src="landing.chitara.jpg" alt="Indian Art Slide 1" onerror="this.onerror=null;this.src='https://placehold.co/1200x800/A45C40/F6EEE0?text=Chitara+Art';">
-                    <img src="landing.art.png" alt="Indian Art Slide 2" onerror="this.onerror=null;this.src='https://placehold.co/1200x800/A45C40/F6EEE0?text=Pithora+Art';">
-                    <img src="landing.embroidery.png" alt="Indian Art Slide 3" onerror="this.onerror=null;this.src='https://placehold.co/1200x800/A45C40/F6EEE0?text=Embroidery';">
-                    <img src="landing.madhubani.jpg" alt="Indian Art Slide 4" onerror="this.onerror=null;this.src='https://placehold.co/1200x800/A45C40/F6EEE0?text=Madhubani';">
-                    <img src="landing.pithora.jpg" alt="Indian Art Slide 5" onerror="this.onerror=null;this.src='https://placehold.co/1200x800/A45C40/F6EEE0?text=Pithora+Art';">
-                    <img src="landing.warli.jpg" alt="Indian Art Slide 6" onerror="this.onerror=null;this.src='https://placehold.co/1200x800/A45C40/F6EEE0?text=Warli+Art';">
-                </div>
-                 <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center text-center rounded-2xl">
-                    <div>
-                        <h1 class="text-white text-4xl md:text-6xl font-bold drop-shadow-lg">Kalakriti</h1>
-                        <p class="text-white text-lg md:text-2xl mt-4 drop-shadow-md">A Digital Sanctuary for India's Folk & Tribal Art</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Featured Art Forms Section -->
-            <section id="featured-art-forms" class="py-16 bg-white/70">
-                <div class="container mx-auto px-6 text-center">
-                    <h2 class="text-3xl font-bold mb-4">Featured Art Forms</h2>
-                    <p class="text-[#C38370] max-w-2xl mx-auto mb-12">A glimpse into the rich tapestry of India's artistic heritage.</p>
-                    <div id="featured-art-container" class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        <!-- Featured art cards will be injected here by JS -->
-                    </div>
-                </div>
-            </section>
-        </main>
-
-        <!-- =================================== -->
-        <!-- ==      ART FORMS PAGE CONTENT     == -->
-        <!-- =================================== -->
-        <main id="art-forms-page" class="hidden bg-white/70">
-            <div class="container mx-auto px-6 py-20">
-                <div class="max-w-3xl mx-auto text-center">
-                    <h1 class="text-4xl font-bold mb-4">India's Endangered Artistic Heritage</h1>
-                    <p class="text-[#C38370] mb-12">Discover the stories behind traditional art forms that are on the brink of extinction. Your appreciation and support can help keep these invaluable cultural treasures alive.</p>
+    <div class="app-content">
+        <!-- Header -->
+        <header class="bg-white/80 backdrop-blur-sm shadow-md sticky top-0 z-50">
+            <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+                <a href="#" id="home-link" class="flex items-center text-2xl font-bold text-[#A45C40] cursor-pointer">
+                    <img src="a.logo.png" alt="Akruti Logo" class="h-16 mr-2">
+                </a>
+                
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#home-page-section" data-action="show-home" class="nav-link text-[#A45C40] hover:text-[#C38370] font-medium">Home</a>
+                    <a href="#" data-action="show-art-forms" class="nav-link text-[#A45C40] hover:text-[#C38370] font-medium">Art Forms</a>
+                    <a href="#" data-action="show-events" class="nav-link text-[#A45C40] hover:text-[#C38370] font-medium">Events</a>
                 </div>
 
-                <!-- UPDATED: Filter Section -->
-                <div class="bg-[#F6EEE0]/80 backdrop-blur-sm p-6 rounded-lg shadow-md mb-12 sticky top-24 z-40">
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <select id="status-filter" class="w-full px-4 py-2 border border-[#E4B7A0] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#A45C40] transition">
-                            <option value="all">Filter by Status</option>
-                            <option value="critically-endangered">Critically Endangered</option>
-                            <option value="severely-endangered">Severely Endangered</option>
-                            <option value="endangered">Endangered</option>
-                            <option value="vulnerable">Vulnerable</option>
-                            <option value="nearly-extinct">Nearly Extinct</option>
-                        </select>
-                        <select id="state-filter" class="w-full px-4 py-2 border border-[#E4B7A0] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#A45C40] transition">
-                            <option value="all">Filter by State</option>
-                        </select>
-                        <button id="filter-btn" class="bg-[#A45C40] hover:bg-[#C38370] text-white font-bold py-2 px-4 rounded-lg flex items-center justify-center">
-                            <i class="fas fa-filter mr-2"></i> Filter Results
-                        </button>
-                    </div>
-                </div>
-
-                <div id="art-forms-container" class="space-y-16">
-                    <!-- Art forms content will be populated here -->
-                </div>
-            </div>
-        </main>
-        
-        <!-- =================================== -->
-        <!-- ==       EVENTS PAGE CONTENT       == -->
-        <!-- =================================== -->
-        <main id="events-page" class="hidden bg-white/70">
-            <div class="container mx-auto px-6 py-20">
-                <div class="max-w-3xl mx-auto text-center">
-                    <h1 class="text-4xl font-bold mb-4">Cultural Events</h1>
-                    <p class="text-[#C38370] mb-8">Discover workshops, exhibitions, and performances happening around you.</p>
-                    <button id="find-events-btn" class="bg-[#A45C40] hover:bg-[#C38370] text-white font-bold py-3 px-8 rounded-full text-lg transition duration-300">
-                        <i class="fas fa-map-marker-alt mr-2"></i> Find Events Near Me
+                <!-- Search Bar -->
+                <div class="hidden md:flex flex-grow max-w-lg mx-4">
+                    <input type="search" id="search-input" placeholder="Search for Art Forms..." class="w-full px-4 py-2 border border-[#E4B7A0] rounded-l-lg focus:outline-none focus:ring-2 focus:ring-[#A45C40] transition bg-white">
+                    <button id="search-btn" class="bg-[#A45C40] hover:bg-[#C38370] text-white font-bold py-2 px-4 rounded-r-lg">
+                        <i class="fas fa-search"></i>
                     </button>
                 </div>
 
-                <div id="events-container" class="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- Event cards will be populated here by JavaScript -->
+                <div class="hidden md:flex items-center space-x-4" id="nav-right-desktop">
+                     <button data-action="login" class="text-[#A45C40] hover:text-[#C38370] font-medium">Login</button>
+                     <button data-action="creator-hub" class="bg-[#A45C40] hover:bg-[#C38370] text-white font-bold py-2 px-4 rounded-full transition duration-300">Creator Hub</button>
+                </div>
+                <button id="mobile-menu-button" class="md:hidden">
+                    <i class="fas fa-bars text-2xl text-[#A45C40]"></i>
+                </button>
+            </nav>
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
+                <a href="#home-page-section" data-action="show-home" class="block py-2 text-[#A45C40] hover:text-[#C38370]">Home</a>
+                <a href="#" data-action="show-art-forms" class="block py-2 text-[#A45C40] hover:text-[#C38370]">Art Forms</a>
+                <a href="#" data-action="show-events" class="block py-2 text-[#A45C40] hover:text-[#C38370]">Events</a>
+                <div id="nav-right-mobile" class="mt-4 border-t border-[#E4B7A0] pt-4">
+                     <button data-action="login" class="block w-full text-left py-2 text-[#A45C40] hover:text-[#C38370]">Login</button>
+                     <button data-action="creator-hub" class="block w-full mt-2 bg-[#A45C40] hover:bg-[#C38370] text-white font-bold py-2 px-4 rounded-full text-center">Creator Hub</button>
                 </div>
             </div>
-        </main>
+        </header>
 
-        <!-- =================================== -->
-        <!-- ==      CREATOR HUB CONTENT      == -->
-        <!-- =================================== -->
-        <main id="creator-hub-page" class="hidden bg-white/70">
-            <div class="container mx-auto px-6 py-20">
-                <div class="max-w-3xl mx-auto text-center">
-                    <h1 class="text-4xl font-bold mb-4">Creator Hub</h1>
-                    <p class="text-[#C38370] mb-12">This is your creative space. Fill out the sections below to build and publish your public artist profile.</p>
-                </div>
+        <!-- MAIN CONTENT WRAPPER -->
+        <div id="main-content">
+            
+            <!-- =================================== -->
+            <!-- ==        HOME PAGE CONTENT      == -->
+            <!-- =================================== -->
+            <main id="home-page">
+                <!-- Hero Section -->
+                <section id="home-page-section" class="h-[50vh] md:h-[70vh] p-4 md:p-8 relative">
+                     <div class="slider h-full">
+                        <img src="landing.chitara.jpg" alt="Indian Art Slide 1" onerror="this.onerror=null;this.src='https://placehold.co/1200x800/A45C40/F6EEE0?text=Chitara+Art';">
+                        <img src="landing.art.png" alt="Indian Art Slide 2" onerror="this.onerror=null;this.src='https://placehold.co/1200x800/A45C40/F6EEE0?text=Pithora+Art';">
+                        <img src="landing.embroidery.png" alt="Indian Art Slide 3" onerror="this.onerror=null;this.src='https://placehold.co/1200x800/A45C40/F6EEE0?text=Embroidery';">
+                        <img src="landing.madhubani.jpg" alt="Indian Art Slide 4" onerror="this.onerror=null;this.src='https://placehold.co/1200x800/A45C40/F6EEE0?text=Madhubani';">
+                        <img src="landing.pithora.jpg" alt="Indian Art Slide 5" onerror="this.onerror=null;this.src='https://placehold.co/1200x800/A45C40/F6EEE0?text=Pithora+Art';">
+                        <img src="landing.warli.jpg" alt="Indian Art Slide 6" onerror="this.onerror=null;this.src='https://placehold.co/1200x800/A45C40/F6EEE0?text=Warli+Art';">
+                    </div>
+                     <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center text-center rounded-2xl">
+                        <div>
+                            <h1 class="text-white text-4xl md:text-6xl font-bold drop-shadow-lg">Akruti</h1>
+                            <p class="text-white text-lg md:text-2xl mt-4 drop-shadow-md">A Digital Sanctuary for India's Folk & Tribal Art</p>
+                        </div>
+                    </div>
+                </section>
 
-                <div class="max-w-3xl mx-auto space-y-12">
-                    <!-- Artist Details Card -->
-                    <div class="bg-[#F6EEE0] p-8 rounded-lg shadow-md">
-                        <h2 class="text-2xl font-bold mb-6">1. My Details</h2>
-                        <div class="space-y-6">
-                            <div>
-                                <label for="full-name" class="block font-medium text-[#A45C40] mb-2">Full Name</label>
-                                <input type="text" id="full-name" class="w-full px-4 py-2 border border-[#E4B7A0] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#A45C40] transition" placeholder="e.g., Sunita Devi">
-                            </div>
-                            <div>
-                                <label for="artist-quote" class="block font-medium text-[#A45C40] mb-2">Short Quote or Bio</label>
-                                <textarea id="artist-quote" rows="3" class="w-full px-4 py-2 border border-[#E4B7A0] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#A45C40] transition" placeholder="e.g., 'I paint the stories my grandmother told me...'"></textarea>
-                            </div>
+                <!-- Featured Art Forms Section -->
+                <section id="featured-art-forms" class="py-16 bg-white/70">
+                    <div class="container mx-auto px-6 text-center">
+                        <h2 class="text-3xl font-bold mb-4">Featured Art Forms</h2>
+                        <p class="text-[#C38370] max-w-2xl mx-auto mb-12">A glimpse into the rich tapestry of India's artistic heritage.</p>
+                        <div id="featured-art-container" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                            <!-- Featured art cards will be injected here by JS -->
+                        </div>
+                    </div>
+                </section>
+            </main>
+
+            <!-- =================================== -->
+            <!-- ==      ART FORMS PAGE CONTENT     == -->
+            <!-- =================================== -->
+            <main id="art-forms-page" class="hidden bg-white/70">
+                <div class="container mx-auto px-6 py-20">
+                    <div class="max-w-3xl mx-auto text-center">
+                        <h1 class="text-4xl font-bold mb-4">India's Endangered Artistic Heritage</h1>
+                        <p class="text-[#C38370] mb-12">Discover the stories behind traditional art forms that are on the brink of extinction. Your appreciation and support can help keep these invaluable cultural treasures alive.</p>
+                    </div>
+
+                    <!-- UPDATED: Filter Section -->
+                    <div class="bg-[#F6EEE0]/80 backdrop-blur-sm p-6 rounded-lg shadow-md mb-12 sticky top-24 z-40">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <select id="status-filter" class="w-full px-4 py-2 border border-[#E4B7A0] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#A45C40] transition">
+                                <option value="all">Filter by Status</option>
+                                <option value="critically-endangered">Critically Endangered</option>
+                                <option value="severely-endangered">Severely Endangered</option>
+                                <option value="endangered">Endangered</option>
+                                <option value="vulnerable">Vulnerable</option>
+                                <option value="nearly-extinct">Nearly Extinct</option>
+                            </select>
+                            <select id="state-filter" class="w-full px-4 py-2 border border-[#E4B7A0] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#A45C40] transition">
+                                <option value="all">Filter by State</option>
+                            </select>
+                            <button id="filter-btn" class="bg-[#A45C40] hover:bg-[#C38370] text-white font-bold py-2 px-4 rounded-lg flex items-center justify-center">
+                                <i class="fas fa-filter mr-2"></i> Filter Results
+                            </button>
                         </div>
                     </div>
 
-                    <!-- NEW: My Services (Gigs) Card -->
-                    <div class="bg-[#F6EEE0] p-8 rounded-lg shadow-md">
-                        <h2 class="text-2xl font-bold mb-6">2. My Services (Gigs)</h2>
-                        <p class="text-[#C38370] mb-6">Create specific services that clients can order. This is the core of your artist profile.</p>
-                        
-                        <!-- List of existing gigs -->
-                        <div class="space-y-4 mb-6">
-                            <div class="flex justify-between items-center bg-white p-4 rounded-lg border border-[#E4B7A0]">
-                                <p class="font-medium">Custom Warli Wedding Invitation</p>
+                    <div id="art-forms-container" class="space-y-16">
+                        <!-- Art forms content will be populated here -->
+                    </div>
+                </div>
+            </main>
+            
+            <!-- =================================== -->
+            <!-- ==       EVENTS PAGE CONTENT       == -->
+            <!-- =================================== -->
+            <main id="events-page" class="hidden bg-white/70">
+                <div class="container mx-auto px-6 py-20">
+                    <div class="max-w-3xl mx-auto text-center">
+                        <h1 class="text-4xl font-bold mb-4">Cultural Events</h1>
+                        <p class="text-[#C38370] mb-8">Discover workshops, exhibitions, and performances happening around you.</p>
+                        <button id="find-events-btn" class="bg-[#A45C40] hover:bg-[#C38370] text-white font-bold py-3 px-8 rounded-full text-lg transition duration-300">
+                            <i class="fas fa-map-marker-alt mr-2"></i> Find Events Near Me
+                        </button>
+                    </div>
+
+                    <div id="events-container" class="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <!-- Event cards will be populated here by JavaScript -->
+                    </div>
+                </div>
+            </main>
+
+            <!-- =================================== -->
+            <!-- ==      CREATOR HUB CONTENT      == -->
+            <!-- =================================== -->
+            <main id="creator-hub-page" class="hidden bg-white/70">
+                <div class="container mx-auto px-6 py-20">
+                    <div class="max-w-3xl mx-auto text-center">
+                        <h1 class="text-4xl font-bold mb-4">Creator Hub</h1>
+                        <p class="text-[#C38370] mb-12">This is your creative space. Fill out the sections below to build and publish your public artist profile.</p>
+                    </div>
+
+                    <div class="max-w-3xl mx-auto space-y-12">
+                        <!-- Artist Details Card -->
+                        <div class="bg-[#F6EEE0] p-8 rounded-lg shadow-md">
+                            <h2 class="text-2xl font-bold mb-6">1. My Details</h2>
+                            <div class="space-y-6">
                                 <div>
-                                    <button class="text-[#A45C40] hover:text-blue-600 mr-2"><i class="fas fa-edit"></i></button>
-                                    <button class="text-[#A45C40] hover:text-red-600"><i class="fas fa-trash-alt"></i></button>
+                                    <label for="full-name" class="block font-medium text-[#A45C40] mb-2">Full Name</label>
+                                    <input type="text" id="full-name" class="w-full px-4 py-2 border border-[#E4B7A0] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#A45C40] transition" placeholder="e.g., Sunita Devi">
+                                </div>
+                                <div>
+                                    <label for="artist-quote" class="block font-medium text-[#A45C40] mb-2">Short Quote or Bio</label>
+                                    <textarea id="artist-quote" rows="3" class="w-full px-4 py-2 border border-[#E4B7A0] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#A45C40] transition" placeholder="e.g., 'I paint the stories my grandmother told me...'"></textarea>
                                 </div>
                             </div>
                         </div>
-                        
-                        <button class="w-full bg-[#E4B7A0]/50 text-[#A45C40] font-bold py-3 px-4 rounded-lg hover:bg-[#E4B7A0] transition duration-300">
-                            + Add a New Service
-                        </button>
 
-                        <!-- Form for adding/editing a gig (could be in a modal) -->
-                        <div class="mt-8 space-y-6 border-t border-[#E4B7A0] pt-6">
-                            <h3 class="text-xl font-bold">Create a New Service</h3>
-                             <div>
-                                <label for="gig-title" class="block font-medium text-[#A45C40] mb-2">Service Title</label>
-                                <input type="text" id="gig-title" class="w-full px-4 py-2 border border-[#E4B7A0] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#A45C40] transition" placeholder="e.g., I will create a custom Madhubani painting for your home">
-                            </div>
-                            <div>
-                                <label for="gig-description" class="block font-medium text-[#A45C40] mb-2">Service Description</label>
-                                <textarea id="gig-description" rows="4" class="w-full px-4 py-2 border border-[#E4B7A0] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#A45C40] transition" placeholder="Describe what you offer, the process, and what the client will receive."></textarea>
+                        <!-- NEW: My Services (Gigs) Card -->
+                        <div class="bg-[#F6EEE0] p-8 rounded-lg shadow-md">
+                            <h2 class="text-2xl font-bold mb-6">2. My Services (Gigs)</h2>
+                            <p class="text-[#C38370] mb-6">Create specific services that clients can order. This is the core of your artist profile.</p>
+                            
+                            <!-- List of existing gigs -->
+                            <div class="space-y-4 mb-6">
+                                <div class="flex justify-between items-center bg-white p-4 rounded-lg border border-[#E4B7A0]">
+                                    <p class="font-medium">Custom Warli Wedding Invitation</p>
+                                    <div>
+                                        <button class="text-[#A45C40] hover:text-blue-600 mr-2"><i class="fas fa-edit"></i></button>
+                                        <button class="text-[#A45C40] hover:text-red-600"><i class="fas fa-trash-alt"></i></button>
+                                    </div>
+                                </div>
                             </div>
                             
-                            <h4 class="text-lg font-bold pt-4 border-b border-[#E4B7A0] pb-2">Pricing Tiers</h4>
-                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                <!-- Basic Tier -->
-                                <div class="border border-[#E4B7A0] p-4 rounded-lg">
-                                    <h5 class="font-bold text-center mb-2">Basic</h5>
-                                    <input type="text" class="w-full mb-2 px-3 py-1 border border-[#E4B7A0] rounded-md text-sm" placeholder="Price (e.g., 3000)">
-                                    <textarea rows="3" class="w-full px-3 py-1 border border-[#E4B7A0] rounded-md text-sm" placeholder="Description (e.g., 1 concept, 2 revisions)"></textarea>
+                            <button class="w-full bg-[#E4B7A0]/50 text-[#A45C40] font-bold py-3 px-4 rounded-lg hover:bg-[#E4B7A0] transition duration-300">
+                                + Add a New Service
+                            </button>
+
+                            <!-- Form for adding/editing a gig (could be in a modal) -->
+                            <div class="mt-8 space-y-6 border-t border-[#E4B7A0] pt-6">
+                                <h3 class="text-xl font-bold">Create a New Service</h3>
+                                 <div>
+                                    <label for="gig-title" class="block font-medium text-[#A45C40] mb-2">Service Title</label>
+                                    <input type="text" id="gig-title" class="w-full px-4 py-2 border border-[#E4B7A0] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#A45C40] transition" placeholder="e.g., I will create a custom Madhubani painting for your home">
                                 </div>
-                                <!-- Standard Tier -->
-                                <div class="border-2 border-[#A45C40] p-4 rounded-lg">
-                                    <h5 class="font-bold text-center mb-2 text-[#A45C40]">Standard</h5>
-                                    <input type="text" class="w-full mb-2 px-3 py-1 border border-[#E4B7A0] rounded-md text-sm" placeholder="Price (e.g., 5000)">
-                                    <textarea rows="3" class="w-full px-3 py-1 border border-[#E4B7A0] rounded-md text-sm" placeholder="Description (e.g., 2 concepts, 4 revisions)"></textarea>
+                                <div>
+                                    <label for="gig-description" class="block font-medium text-[#A45C40] mb-2">Service Description</label>
+                                    <textarea id="gig-description" rows="4" class="w-full px-4 py-2 border border-[#E4B7A0] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#A45C40] transition" placeholder="Describe what you offer, the process, and what the client will receive."></textarea>
                                 </div>
-                                <!-- Premium Tier -->
-                                <div class="border border-[#E4B7A0] p-4 rounded-lg">
-                                    <h5 class="font-bold text-center mb-2">Premium</h5>
-                                    <input type="text" class="w-full mb-2 px-3 py-1 border border-[#E4B7A0] rounded-md text-sm" placeholder="Price (e.g., 8000)">
-                                    <textarea rows="3" class="w-full px-3 py-1 border border-[#E4B7A0] rounded-md text-sm" placeholder="Description (e.g., 3 concepts, unlimited revisions)"></textarea>
+                                
+                                <h4 class="text-lg font-bold pt-4 border-b border-[#E4B7A0] pb-2">Pricing Tiers</h4>
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                    <!-- Basic Tier -->
+                                    <div class="border border-[#E4B7A0] p-4 rounded-lg">
+                                        <h5 class="font-bold text-center mb-2">Basic</h5>
+                                        <input type="text" class="w-full mb-2 px-3 py-1 border border-[#E4B7A0] rounded-md text-sm" placeholder="Price (e.g., 3000)">
+                                        <textarea rows="3" class="w-full px-3 py-1 border border-[#E4B7A0] rounded-md text-sm" placeholder="Description (e.g., 1 concept, 2 revisions)"></textarea>
+                                    </div>
+                                    <!-- Standard Tier -->
+                                    <div class="border-2 border-[#A45C40] p-4 rounded-lg">
+                                        <h5 class="font-bold text-center mb-2 text-[#A45C40]">Standard</h5>
+                                        <input type="text" class="w-full mb-2 px-3 py-1 border border-[#E4B7A0] rounded-md text-sm" placeholder="Price (e.g., 5000)">
+                                        <textarea rows="3" class="w-full px-3 py-1 border border-[#E4B7A0] rounded-md text-sm" placeholder="Description (e.g., 2 concepts, 4 revisions)"></textarea>
+                                    </div>
+                                    <!-- Premium Tier -->
+                                    <div class="border border-[#E4B7A0] p-4 rounded-lg">
+                                        <h5 class="font-bold text-center mb-2">Premium</h5>
+                                        <input type="text" class="w-full mb-2 px-3 py-1 border border-[#E4B7A0] rounded-md text-sm" placeholder="Price (e.g., 8000)">
+                                        <textarea rows="3" class="w-full px-3 py-1 border border-[#E4B7A0] rounded-md text-sm" placeholder="Description (e.g., 3 concepts, unlimited revisions)"></textarea>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Save Button -->
-                    <div class="flex justify-center pt-8">
-                        <button id="save-profile-btn" class="bg-[#A45C40] hover:bg-[#C38370] text-white font-bold py-3 px-8 rounded-full transition duration-300 text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1">
-                            Save & Publish Profile
-                        </button>
+                        <!-- Save Button -->
+                        <div class="flex justify-center pt-8">
+                            <button id="save-profile-btn" class="bg-[#A45C40] hover:bg-[#C38370] text-white font-bold py-3 px-8 rounded-full transition duration-300 text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                                Save & Publish Profile
+                            </button>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </main>
-    </div>
-
-    <!-- Footer -->
-    <footer class="bg-[#A45C40] text-[#F6EEE0] py-12">
-        <div class="container mx-auto px-6 text-center">
-            <p class="text-[#E4B7A0] mt-12">&copy; 2025 Kalakriti. All Rights Reserved.</p>
+            </main>
         </div>
-    </footer>
+
+        <!-- Footer -->
+        <footer class="bg-[#A45C40] text-[#F6EEE0] py-12">
+            <div class="container mx-auto px-6 text-center">
+                <p class="text-[#E4B7A0] mt-12">&copy; 2025 Akruti. All Rights Reserved.</p>
+            </div>
+        </footer>
+    </div>
 
     <!-- SCRIPT BLOCK -->
     <script type="module">
@@ -593,6 +631,29 @@
         
         // --- INITIALIZATION ---
         function init() {
+            // Splash screen logic
+            window.addEventListener('load', () => {
+                setTimeout(() => {
+                    const navLogo = document.querySelector('#home-link img');
+                    const splashLogo = document.getElementById('splash-logo');
+                    const splashRect = splashLogo.getBoundingClientRect();
+                    const navRect = navLogo.getBoundingClientRect();
+
+                    const scale = navRect.width / splashRect.width;
+                    const translateX = navRect.left - splashRect.left;
+                    const translateY = navRect.top - splashRect.top;
+
+                    splashLogo.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+                    
+                    document.body.classList.add('loaded');
+
+                    setTimeout(() => {
+                        document.getElementById('splash-screen').style.display = 'none';
+                    }, 500); // Wait for transition to finish
+
+                }, 0); // 0 seconds delay + 0.5 second animation = 0.5 seconds total
+            });
+
             showHomePage();
             populateFilters();
             renderArtForms(allArtForms); // Pre-render for when the page is shown
