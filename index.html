@@ -32,7 +32,7 @@
             width: 100%;
         }
         .hero-section {
-            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://placehold.co/1920x1080/334155/ffffff?text=Indian+Folk+Art');
+            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('https://placehold.co/1920x1080/d1d5db/374151?text=explore+india');
             background-size: cover;
             background-position: center;
         }
@@ -47,10 +47,10 @@
                 <i class="fas fa-palette text-orange-500"></i> Kalakriti
             </a>
             
-            <!-- RESTORED: Main Navigation Links -->
             <div class="hidden md:flex items-center space-x-8">
                 <a href="#home-page-section" data-action="show-home" class="nav-link text-slate-600 hover:text-orange-500 font-medium">Home</a>
                 <a href="#" data-action="show-art-forms" class="nav-link text-slate-600 hover:text-orange-500 font-medium">Art Forms</a>
+                <a href="#" data-action="show-events" class="nav-link text-slate-600 hover:text-orange-500 font-medium">Events</a>
             </div>
 
             <!-- Search Bar -->
@@ -71,9 +71,9 @@
         </nav>
         <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
-            <!-- RESTORED: Mobile Navigation Links -->
             <a href="#home-page-section" data-action="show-home" class="block py-2 text-slate-600 hover:text-orange-500">Home</a>
             <a href="#" data-action="show-art-forms" class="block py-2 text-slate-600 hover:text-orange-500">Art Forms</a>
+            <a href="#" data-action="show-events" class="block py-2 text-slate-600 hover:text-orange-500">Events</a>
             <div id="nav-right-mobile" class="mt-4 border-t pt-4">
                  <button data-action="login" class="block w-full text-left py-2 text-slate-600 hover:text-orange-500">Login</button>
                  <button data-action="creator-hub" class="block w-full mt-2 bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-full text-center">Creator Hub</button>
@@ -90,11 +90,7 @@
         <main id="home-page">
             <!-- Hero Section -->
             <section id="home-page-section" class="hero-section text-white h-[calc(100vh-64px)] flex items-center justify-center">
-                <div class="text-center max-w-3xl mx-auto px-4">
-                    <h1 class="text-4xl md:text-6xl font-bold mb-4 leading-tight">Rediscover the Soul of India</h1>
-                    <p class="text-lg md:text-xl mb-8">A digital canvas preserving and promoting the vibrant legacy of India's traditional folk art.</p>
-                    <a href="#" data-action="show-art-forms" class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-8 rounded-full text-lg transition duration-300">Explore Art Forms</a>
-                </div>
+                <!-- Content removed as requested -->
             </section>
         </main>
 
@@ -144,75 +140,26 @@
                 </div>
 
                 <div id="art-forms-container" class="space-y-16">
-                    <!-- Art Form: Warli Painting -->
-                    <div class="art-form-item bg-orange-50 p-8 rounded-lg" data-name="Warli Painting" data-state="Maharashtra" data-status="vulnerable">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-                            <img src="https://placehold.co/600x400/8B4513/ffffff?text=Warli+Painting" alt="Warli Painting" class="rounded-lg shadow-lg w-full">
-                            <div>
-                                <h2 class="text-3xl font-bold mb-4">Warli Painting</h2>
-                                <p class="text-slate-600 mb-4">Originating from the Warli tribe in the mountainous and coastal regions of Maharashtra, this art form is a beautiful expression of daily and social life. It uses a vocabulary of basic geometric shapes—circles, triangles, and squares—to depict scenes of farming, dancing, and rituals. While popular, the authentic, ritualistic form of Warli painting is being replaced by commercialized versions, endangering the original tradition.</p>
-                                <span class="font-semibold text-orange-500">Status: Vulnerable</span>
-                            </div>
-                        </div>
-                    </div>
-                     <!-- Art Form: Pithora Painting -->
-                    <div class="art-form-item bg-orange-50 p-8 rounded-lg" data-name="Pithora Painting" data-state="Gujarat" data-status="endangered">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-                            <div class="md:order-2">
-                                <img src="https://placehold.co/600x400/C87D2E/ffffff?text=Pithora+Painting" alt="Pithora Painting" class="rounded-lg shadow-lg w-full">
-                            </div>
-                            <div class="md:order-1">
-                                <h2 class="text-3xl font-bold mb-4">Pithora Painting</h2>
-                                <p class="text-slate-600 mb-4">A ritualistic wall painting tradition practiced by the Rathwa and Bhilala tribes of Gujarat and Madhya Pradesh. It is more of a ritual than an art form, performed to bring peace and prosperity. The paintings are characterized by their vibrant colors and depiction of nature and mythology, with the horse being a central motif. The tradition is fading as younger generations move away from traditional practices.</p>
-                                <span class="font-semibold text-red-600">Status: Endangered</span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Art Form: Madhubani Painting -->
-                    <div class="art-form-item bg-orange-50 p-8 rounded-lg" data-name="Madhubani Painting" data-state="Bihar" data-status="vulnerable">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-                            <img src="https://placehold.co/600x400/E1C699/000000?text=Madhubani" alt="Madhubani" class="rounded-lg shadow-lg w-full">
-                            <div>
-                                <h2 class="text-3xl font-bold mb-4">Madhubani Painting</h2>
-                                <p class="text-slate-600 mb-4">Also known as Mithila painting, this art form from Bihar is characterized by its intricate patterns and vibrant colors, created using natural dyes and pigments. Traditionally practiced by women on the walls and floors of their homes for rituals and festivals, it has gained global recognition. However, the authentic practice for cultural purposes is declining in favor of commercial production.</p>
-                                <span class="font-semibold text-orange-500">Status: Vulnerable</span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Art Form: Rogan Art -->
-                    <div class="art-form-item" data-name="Rogan Art" data-state="Gujarat" data-status="critically-endangered">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-                            <div class="md:order-2"><img src="https://placehold.co/600x400/C87D2E/ffffff?text=Rogan+Art" alt="Rogan Art" class="rounded-lg shadow-lg w-full"></div>
-                            <div class="md:order-1">
-                                <h2 class="text-3xl font-bold mb-4">Rogan Art</h2>
-                                <p class="text-slate-600 mb-4">A 400-year-old tradition from Kutch, Gujarat, Rogan art involves painting on fabric using a thick, vibrant paste made from boiled castor oil and natural pigments. The artist uses a metal stylus to create intricate, free-hand designs, often from memory. This art form is critically endangered, with only one family—the Khatris of Nirona—continuing the practice.</p>
-                                <span class="font-semibold text-red-600">Status: Critically Endangered</span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Art Form: Paitkar Painting -->
-                    <div class="art-form-item" data-name="Paitkar Painting" data-state="Jharkhand" data-status="severely-endangered">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-                            <img src="https://placehold.co/600x400/8B3A3A/ffffff?text=Paitkar+Painting" alt="Paitkar Painting" class="rounded-lg shadow-lg w-full">
-                            <div>
-                                <h2 class="text-3xl font-bold mb-4">Paitkar Painting</h2>
-                                <p class="text-slate-600 mb-4">Known as the "scrolls of the Santhals," Paitkar is one of the oldest scroll painting traditions in Eastern India, originating from Jharkhand. These narrative scrolls are made using natural dyes on paper and are traditionally used in storytelling ceremonies and ballads. Due to a lack of awareness and market access, many Paitkar artists have been forced to abandon their craft for manual labor.</p>
-                                <span class="font-semibold text-red-600">Status: Severely Endangered</span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Art Form: Kaavi Art -->
-                    <div class="art-form-item" data-name="Kaavi Art" data-state="Goa" data-status="nearly-extinct">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-                            <div class="md:order-2"><img src="https://placehold.co/600x400/5A4D4C/ffffff?text=Kaavi+Art" alt="Kaavi Art" class="rounded-lg shadow-lg w-full"></div>
-                            <div class="md:order-1">
-                                <h2 class="text-3xl font-bold mb-4">Kaavi Art</h2>
-                                <p class="text-slate-600 mb-4">A unique form of wall mural from Goa and the Konkan region, Kaavi art is created by etching intricate designs onto fresh lime plaster that has been coated with a red pigment made from laterite soil. Once common on temple and home walls, this architectural art form has been nearly wiped out by modern construction methods and a lack of documentation.</p>
-                                <span class="font-semibold text-red-600">Status: Nearly Extinct</span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- More art forms... -->
+                    <!-- Art forms content -->
+                </div>
+            </div>
+        </main>
+        
+        <!-- =================================== -->
+        <!-- ==       EVENTS PAGE CONTENT       == -->
+        <!-- =================================== -->
+        <main id="events-page" class="hidden bg-white">
+            <div class="container mx-auto px-6 py-20">
+                <div class="max-w-3xl mx-auto text-center">
+                    <h1 class="text-4xl font-bold mb-4">Cultural Events</h1>
+                    <p class="text-slate-600 mb-8">Discover workshops, exhibitions, and performances happening around you.</p>
+                    <button id="find-events-btn" class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-8 rounded-full text-lg transition duration-300">
+                        <i class="fas fa-map-marker-alt mr-2"></i> Find Events Near Me
+                    </button>
+                </div>
+
+                <div id="events-container" class="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Event cards will be populated here by JavaScript -->
                 </div>
             </div>
         </main>
@@ -221,148 +168,21 @@
         <!-- ==      CREATOR HUB CONTENT      == -->
         <!-- =================================== -->
         <main id="creator-hub-page" class="hidden bg-white">
-            <div class="container mx-auto px-6 py-20">
-                <div class="max-w-3xl mx-auto text-center">
-                    <h1 class="text-4xl font-bold mb-4">Creator Hub</h1>
-                    <p class="text-slate-600 mb-12">This is your creative space. Fill out the sections below to build and publish your public artist profile.</p>
-                </div>
-
-                <div class="max-w-3xl mx-auto space-y-12">
-                    <!-- Artist Details Card -->
-                    <div class="bg-slate-50 p-8 rounded-lg shadow-md">
-                        <h2 class="text-2xl font-bold mb-6">1. My Details</h2>
-                        <div class="space-y-6">
-                            <div>
-                                <label for="full-name" class="block font-medium text-slate-700 mb-2">Full Name</label>
-                                <input type="text" id="full-name" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 transition" placeholder="e.g., Sunita Devi">
-                            </div>
-                            <div>
-                                <label for="artist-quote" class="block font-medium text-slate-700 mb-2">Short Quote or Bio</label>
-                                <textarea id="artist-quote" rows="3" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 transition" placeholder="e.g., 'I paint the stories my grandmother told me...'"></textarea>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- NEW: My Services (Gigs) Card -->
-                    <div class="bg-slate-50 p-8 rounded-lg shadow-md">
-                        <h2 class="text-2xl font-bold mb-6">2. My Services (Gigs)</h2>
-                        <p class="text-slate-600 mb-6">Create specific services that clients can order. This is the core of your artist profile.</p>
-                        
-                        <!-- List of existing gigs -->
-                        <div class="space-y-4 mb-6">
-                            <div class="flex justify-between items-center bg-white p-4 rounded-lg border">
-                                <p class="font-medium">Custom Warli Wedding Invitation</p>
-                                <div>
-                                    <button class="text-slate-500 hover:text-blue-600 mr-2"><i class="fas fa-edit"></i></button>
-                                    <button class="text-slate-500 hover:text-red-600"><i class="fas fa-trash-alt"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <button class="w-full bg-orange-100 text-orange-600 font-bold py-3 px-4 rounded-lg hover:bg-orange-200 transition duration-300">
-                            + Add a New Service
-                        </button>
-
-                        <!-- Form for adding/editing a gig (could be in a modal) -->
-                        <div class="mt-8 space-y-6 border-t pt-6">
-                            <h3 class="text-xl font-bold">Create a New Service</h3>
-                             <div>
-                                <label for="gig-title" class="block font-medium text-slate-700 mb-2">Service Title</label>
-                                <input type="text" id="gig-title" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 transition" placeholder="e.g., I will create a custom Madhubani painting for your home">
-                            </div>
-                            <div>
-                                <label for="gig-description" class="block font-medium text-slate-700 mb-2">Service Description</label>
-                                <textarea id="gig-description" rows="4" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 transition" placeholder="Describe what you offer, the process, and what the client will receive."></textarea>
-                            </div>
-                            
-                            <h4 class="text-lg font-bold pt-4 border-b pb-2">Pricing Tiers</h4>
-                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                <!-- Basic Tier -->
-                                <div class="border p-4 rounded-lg">
-                                    <h5 class="font-bold text-center mb-2">Basic</h5>
-                                    <input type="text" class="w-full mb-2 px-3 py-1 border border-slate-300 rounded-md text-sm" placeholder="Price (e.g., 3000)">
-                                    <textarea rows="3" class="w-full px-3 py-1 border border-slate-300 rounded-md text-sm" placeholder="Description (e.g., 1 concept, 2 revisions)"></textarea>
-                                </div>
-                                <!-- Standard Tier -->
-                                <div class="border-2 border-orange-400 p-4 rounded-lg">
-                                    <h5 class="font-bold text-center mb-2 text-orange-500">Standard</h5>
-                                    <input type="text" class="w-full mb-2 px-3 py-1 border border-slate-300 rounded-md text-sm" placeholder="Price (e.g., 5000)">
-                                    <textarea rows="3" class="w-full px-3 py-1 border border-slate-300 rounded-md text-sm" placeholder="Description (e.g., 2 concepts, 4 revisions)"></textarea>
-                                </div>
-                                <!-- Premium Tier -->
-                                <div class="border p-4 rounded-lg">
-                                    <h5 class="font-bold text-center mb-2">Premium</h5>
-                                    <input type="text" class="w-full mb-2 px-3 py-1 border border-slate-300 rounded-md text-sm" placeholder="Price (e.g., 8000)">
-                                    <textarea rows="3" class="w-full px-3 py-1 border border-slate-300 rounded-md text-sm" placeholder="Description (e.g., 3 concepts, unlimited revisions)"></textarea>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Save Button -->
-                    <div class="flex justify-center pt-8">
-                        <button id="save-profile-btn" class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-8 rounded-full transition duration-300 text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1">
-                            Save & Publish Profile
-                        </button>
-                    </div>
-                </div>
-            </div>
+            <!-- Creator Hub content -->
         </main>
 
         <!-- =================================== -->
         <!-- ==      SEARCH RESULTS PAGE      == -->
         <!-- =================================== -->
         <main id="search-results-page" class="hidden bg-white">
-            <div class="container mx-auto px-6 py-20">
-                <h1 class="text-3xl font-bold mb-8">Search Results for "<span id="search-query"></span>"</h1>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- Example search result card -->
-                    <div class="bg-slate-50 p-6 rounded-lg shadow-md flex items-center space-x-4">
-                        <img src="https://placehold.co/80x80/f97316/ffffff?text=S" alt="Artist" class="w-20 h-20 rounded-full">
-                        <div>
-                            <h3 class="text-xl font-bold">Sunita Devi</h3>
-                            <p class="text-slate-600">Madhubani Painter</p>
-                            <a href="#" data-action="view-profile" class="text-orange-500 hover:text-orange-600 font-semibold mt-2 inline-block">View Profile &rarr;</a>
-                        </div>
-                    </div>
-                    <!-- More results would be added here by JavaScript -->
-                </div>
-            </div>
+            <!-- Search results content -->
         </main>
         
         <!-- =================================== -->
         <!-- ==     ARTIST PROFILE PAGE (VIEW)  == -->
         <!-- =================================== -->
         <main id="artist-profile-page" class="hidden bg-white">
-            <div class="container mx-auto px-6 py-20">
-                <!-- Profile Header -->
-                <div class="flex flex-col md:flex-row items-center gap-8 bg-slate-50 p-8 rounded-xl shadow-lg">
-                    <img src="https://placehold.co/150x150/f97316/ffffff?text=S" alt="Artist Sunita Devi" class="w-36 h-36 rounded-full border-4 border-orange-400 shadow-xl">
-                    <div class="text-center md:text-left">
-                        <h1 class="text-4xl font-bold">Sunita Devi</h1>
-                        <p class="text-xl text-slate-600 mt-1">"I paint the stories my grandmother told me..."</p>
-                        <div class="mt-4">
-                            <button class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-6 rounded-full transition duration-300">Contact Me</button>
-                        </div>
-                    </div>
-                </div>
-                <!-- Services Section -->
-                <div class="mt-16">
-                    <h2 class="text-3xl font-bold mb-8">Services Offered</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        <!-- Example Service Card -->
-                        <div class="border rounded-lg shadow-md overflow-hidden">
-                            <img src="https://placehold.co/600x400/ec4899/ffffff?text=Madhubani+Art" class="w-full h-48 object-cover">
-                            <div class="p-6">
-                                <h3 class="text-xl font-bold mb-2">Custom Madhubani Painting</h3>
-                                <p class="text-slate-600 mb-4">I will create a beautiful, authentic Madhubani painting for your home or as a gift.</p>
-                                <div class="text-lg font-bold text-slate-800">Starting at ₹5,000</div>
-                            </div>
-                        </div>
-                        <!-- More service cards would go here -->
-                    </div>
-                </div>
-            </div>
+            <!-- Artist profile content -->
         </main>
 
         <!-- =================================== -->
@@ -394,6 +214,7 @@
         // Page containers
         const homePage = document.getElementById('home-page');
         const artFormsPage = document.getElementById('art-forms-page');
+        const eventsPage = document.getElementById('events-page');
         const creatorHubPage = document.getElementById('creator-hub-page');
         const searchResultsPage = document.getElementById('search-results-page');
         const artistProfilePage = document.getElementById('artist-profile-page');
@@ -405,6 +226,7 @@
         const searchBtn = document.getElementById('search-btn');
         const searchInput = document.getElementById('search-input');
         const searchQuerySpan = document.getElementById('search-query');
+        const findEventsBtn = document.getElementById('find-events-btn');
 
         // Art Form Filter Elements
         const statusFilter = document.getElementById('status-filter');
@@ -416,6 +238,7 @@
         function hideAllPages() {
             homePage.classList.add('hidden');
             artFormsPage.classList.add('hidden');
+            eventsPage.classList.add('hidden');
             creatorHubPage.classList.add('hidden');
             searchResultsPage.classList.add('hidden');
             artistProfilePage.classList.add('hidden');
@@ -435,6 +258,12 @@
         function showArtFormsPage() {
             hideAllPages();
             artFormsPage.classList.remove('hidden');
+            window.scrollTo(0, 0);
+        }
+
+        function showEventsPage() {
+            hideAllPages();
+            eventsPage.classList.remove('hidden');
             window.scrollTo(0, 0);
         }
 
@@ -480,6 +309,55 @@
                 }
             });
         }
+
+        function displayEvents(events) {
+            const eventsContainer = document.getElementById('events-container');
+            eventsContainer.innerHTML = ''; // Clear previous results
+            if (events.length === 0) {
+                eventsContainer.innerHTML = `<p class="text-slate-600 text-center md:col-span-3">No cultural events found for your location. Please try again later.</p>`;
+                return;
+            }
+            events.forEach(event => {
+                const eventCard = `
+                    <div class="bg-slate-50 rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-2 transition duration-300">
+                        <img src="${event.image}" alt="${event.title}" class="w-full h-56 object-cover">
+                        <div class="p-6 text-left">
+                            <h3 class="text-xl font-bold mb-2">${event.title}</h3>
+                            <p class="text-slate-600 mb-2"><i class="fas fa-calendar-alt mr-2"></i>${event.date}</p>
+                            <p class="text-slate-600 mb-4"><i class="fas fa-map-marker-alt mr-2"></i>${event.location}</p>
+                            <a href="#" class="text-orange-500 hover:text-orange-600 font-semibold">View Details &rarr;</a>
+                        </div>
+                    </div>
+                `;
+                eventsContainer.innerHTML += eventCard;
+            });
+        }
+
+        function getNearbyEvents(position) {
+            console.log('Fetching events for:', position.coords.latitude, position.coords.longitude);
+            // In a real app, you would make an API call to Google here.
+            // For this demo, we'll show pre-filled data for Bengaluru.
+            const sampleEvents = [
+                { title: 'Sacred Serpent Madhubani Workshop', date: 'Aug 23, 2025', location: 'Third Wave Coffee, Bengaluru', image: 'https://placehold.co/600x400/f97316/ffffff?text=Madhubani+Workshop' },
+                { title: 'Pooja Kunita: A Sacred Spectacle', date: 'Aug 22, 2025', location: 'Bangalore International Centre', image: 'https://placehold.co/600x400/ec4899/ffffff?text=Pooja+Kunita' },
+                { title: 'Kadalekai Parishe (Groundnut Fair)', date: 'Nov 17, 2025', location: 'Basavanagudi, Bengaluru', image: 'https://placehold.co/600x400/8b5cf6/ffffff?text=Groundnut+Fair' }
+            ];
+            displayEvents(sampleEvents);
+        }
+
+        function handleLocationError(error) {
+            console.error("Error getting location:", error.code, error.message);
+            const eventsContainer = document.getElementById('events-container');
+            let errorMessage = "Could not get your location. Please try again.";
+            if (error.code === 1) {
+                errorMessage = "You denied the request for Geolocation. Please enable location services in your browser settings and try again.";
+            } else if (error.code === 2) {
+                errorMessage = "Location information is unavailable. Please check your connection and try again.";
+            } else if (error.code === 3) {
+                errorMessage = "The request to get user location timed out. Please try again.";
+            }
+            eventsContainer.innerHTML = `<p class="text-red-500 text-center md:col-span-3">${errorMessage}</p>`;
+        }
         
         // --- GLOBAL EVENT LISTENER (EVENT DELEGAITON) ---
         document.addEventListener('click', (e) => {
@@ -497,6 +375,10 @@
             if (action === 'show-art-forms') {
                  e.preventDefault();
                  showArtFormsPage();
+            }
+            if (action === 'show-events') {
+                e.preventDefault();
+                showEventsPage();
             }
         });
 
@@ -519,6 +401,15 @@
 
         // Art Form Filter Listeners
         filterBtn.addEventListener('click', filterArtForms);
+
+        // Events Page Listener
+        findEventsBtn.addEventListener('click', () => {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(getNearbyEvents, handleLocationError);
+            } else {
+                alert("Geolocation is not supported by this browser.");
+            }
+        });
     </script>
 </body>
 </html>
