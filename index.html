@@ -46,10 +46,21 @@
             <a href="#" id="home-link" class="text-2xl font-bold text-slate-800 cursor-pointer">
                 <i class="fas fa-palette text-orange-500"></i> Kalakriti
             </a>
+            
+            <!-- RESTORED: Main Navigation Links -->
             <div class="hidden md:flex items-center space-x-8">
-                <a href="#home-page-section" class="nav-link text-slate-600 hover:text-orange-500 font-medium">Home</a>
-                <a href="#art-forms" class="nav-link text-slate-600 hover:text-orange-500 font-medium">Art Forms</a>
+                <a href="#home-page-section" data-action="show-home" class="nav-link text-slate-600 hover:text-orange-500 font-medium">Home</a>
+                <a href="#art-forms" data-action="show-home-and-scroll" class="nav-link text-slate-600 hover:text-orange-500 font-medium">Art Forms</a>
             </div>
+
+            <!-- Search Bar -->
+            <div class="hidden md:flex flex-grow max-w-lg mx-4">
+                <input type="search" id="search-input" placeholder="Search for Artists..." class="w-full px-4 py-2 border border-slate-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-orange-500 transition">
+                <button id="search-btn" class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-r-lg">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+
             <div class="hidden md:flex items-center space-x-4" id="nav-right-desktop">
                  <button data-action="login" class="text-slate-600 hover:text-orange-500 font-medium">Login</button>
                  <button data-action="creator-hub" class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-full transition duration-300">Creator Hub</button>
@@ -60,7 +71,10 @@
         </nav>
         <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
-            <div id="nav-right-mobile">
+            <!-- RESTORED: Mobile Navigation Links -->
+            <a href="#home-page-section" data-action="show-home" class="block py-2 text-slate-600 hover:text-orange-500">Home</a>
+            <a href="#art-forms" data-action="show-home-and-scroll" class="block py-2 text-slate-600 hover:text-orange-500">Art Forms</a>
+            <div id="nav-right-mobile" class="mt-4 border-t pt-4">
                  <button data-action="login" class="block w-full text-left py-2 text-slate-600 hover:text-orange-500">Login</button>
                  <button data-action="creator-hub" class="block w-full mt-2 bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-full text-center">Creator Hub</button>
             </div>
@@ -79,7 +93,7 @@
                 <div class="text-center max-w-3xl mx-auto px-4">
                     <h1 class="text-4xl md:text-6xl font-bold mb-4 leading-tight">Rediscover the Soul of India</h1>
                     <p class="text-lg md:text-xl mb-8">A digital canvas preserving and promoting the vibrant legacy of India's traditional folk art.</p>
-                    <a href="#art-forms" class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-8 rounded-full text-lg transition duration-300">Explore Art Forms</a>
+                    <a href="#art-forms" data-action="show-home-and-scroll" class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-8 rounded-full text-lg transition duration-300">Explore Art Forms</a>
                 </div>
             </section>
 
@@ -188,26 +202,67 @@
         </main>
 
         <!-- =================================== -->
+        <!-- ==      SEARCH RESULTS PAGE      == -->
+        <!-- =================================== -->
+        <main id="search-results-page" class="hidden bg-white">
+            <div class="container mx-auto px-6 py-20">
+                <h1 class="text-3xl font-bold mb-8">Search Results for "<span id="search-query"></span>"</h1>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Example search result card -->
+                    <div class="bg-slate-50 p-6 rounded-lg shadow-md flex items-center space-x-4">
+                        <img src="https://placehold.co/80x80/f97316/ffffff?text=S" alt="Artist" class="w-20 h-20 rounded-full">
+                        <div>
+                            <h3 class="text-xl font-bold">Sunita Devi</h3>
+                            <p class="text-slate-600">Madhubani Painter</p>
+                            <a href="#" data-action="view-profile" class="text-orange-500 hover:text-orange-600 font-semibold mt-2 inline-block">View Profile &rarr;</a>
+                        </div>
+                    </div>
+                    <!-- More results would be added here by JavaScript -->
+                </div>
+            </div>
+        </main>
+        
+        <!-- =================================== -->
+        <!-- ==     ARTIST PROFILE PAGE (VIEW)  == -->
+        <!-- =================================== -->
+        <main id="artist-profile-page" class="hidden bg-white">
+            <div class="container mx-auto px-6 py-20">
+                <!-- Profile Header -->
+                <div class="flex flex-col md:flex-row items-center gap-8 bg-slate-50 p-8 rounded-xl shadow-lg">
+                    <img src="https://placehold.co/150x150/f97316/ffffff?text=S" alt="Artist Sunita Devi" class="w-36 h-36 rounded-full border-4 border-orange-400 shadow-xl">
+                    <div class="text-center md:text-left">
+                        <h1 class="text-4xl font-bold">Sunita Devi</h1>
+                        <p class="text-xl text-slate-600 mt-1">"I paint the stories my grandmother told me..."</p>
+                        <div class="mt-4">
+                            <button class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-6 rounded-full transition duration-300">Contact Me</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Services Section -->
+                <div class="mt-16">
+                    <h2 class="text-3xl font-bold mb-8">Services Offered</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <!-- Example Service Card -->
+                        <div class="border rounded-lg shadow-md overflow-hidden">
+                            <img src="https://placehold.co/600x400/ec4899/ffffff?text=Madhubani+Art" class="w-full h-48 object-cover">
+                            <div class="p-6">
+                                <h3 class="text-xl font-bold mb-2">Custom Madhubani Painting</h3>
+                                <p class="text-slate-600 mb-4">I will create a beautiful, authentic Madhubani painting for your home or as a gift.</p>
+                                <div class="text-lg font-bold text-slate-800">Starting at ₹5,000</div>
+                            </div>
+                        </div>
+                        <!-- More service cards would go here -->
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- =================================== -->
         <!-- ==         LOGIN PAGE CONTENT (COMMENTED OUT)      == -->
         <!-- =================================== -->
         <!--
         <main id="login-page" class="hidden">
-            <div class="min-h-[calc(100vh-128px)] flex items-center justify-center bg-slate-50 py-12 px-4 sm:px-6 lg:px-8">
-                <div class="max-w-md w-full space-y-8 bg-white p-10 rounded-xl shadow-lg">
-                    <div>
-                        <h2 class="mt-6 text-center text-3xl font-bold text-slate-800">
-                            Welcome Back
-                        </h2>
-                    </div>
-                    <div class="mt-8 space-y-6">
-                        <button id="google-signin-btn" class="group relative w-full flex justify-center items-center py-2 px-4 border border-slate-300 text-sm font-medium rounded-md text-slate-700 bg-white hover:bg-slate-50 focus:outline-none">
-                            <img class="h-5 w-5 mr-2" src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" alt="Google logo">
-                            Sign in with Google
-                        </button>
-                    </div>
-                    <div id="login-error" class="text-red-500 text-center text-sm font-medium mt-4 hidden"></div>
-                </div>
-            </div>
+            ...
         </main>
         -->
     </div>
@@ -223,33 +278,7 @@
     <script type="module">
         /*
         // Your web app's Firebase configuration
-        const firebaseConfig = {
-        //   apiKey: "AIzaSyAxG2Mv4v5_igF-9GSStQRoM1ggSX4or30",
-        //   authDomain: "genesis-76053.firebaseapp.com",
-        //   projectId: "genesis-76053",
-        //   storageBucket: "genesis-76053.appspot.com",
-        //   messagingSenderId: "423472838278",
-        //   appId: "1:423472838278:web:8cf5f9b0b9b38bebf60307"
-
-          apiKey: "AIzaSyAxG2Mv4v5_igF-9GSStQRoMlggSX4or30",
-          authDomain: "genesis-76053.firebaseapp.com",
-          projectId: "genesis-76053",
-          storageBucket: "genesis-76053.firebasestorage.app",
-          messagingSenderId: "423472838278",
-          appId: "1:423472838278:web:8cf5f9b0b9b38bebf60307",
-          measurementId: "G-KGKB3F175X"
-
-        };
-
-        // Initialize Firebase
-        const { initializeApp } = await import('https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js');
-        const { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut } = await import('https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js');
-        const { getFirestore, doc, setDoc, getDoc } = await import('https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js');
-
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
-        const provider = new GoogleAuthProvider();
+        ...
         */
         
         // --- All application logic is now inside this single module script ---
@@ -257,36 +286,25 @@
         // Page containers
         const homePage = document.getElementById('home-page');
         const creatorHubPage = document.getElementById('creator-hub-page');
-        // const loginPage = document.getElementById('login-page'); // Commented out
+        const searchResultsPage = document.getElementById('search-results-page');
+        const artistProfilePage = document.getElementById('artist-profile-page');
         
         // Buttons and Links
         const homeLink = document.getElementById('home-link');
-        const navLinks = document.querySelectorAll('.nav-link');
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
-        // const googleSignInBtn = document.getElementById('google-signin-btn'); // Commented out
-        const saveProfileBtn = document.getElementById('save-profile-btn');
-        // const loginErrorDiv = document.getElementById('login-error'); // Commented out
-
-        // UI containers for Auth State
-        const navRightDesktop = document.getElementById('nav-right-desktop');
-        const navRightMobile = document.getElementById('nav-right-mobile');
-
-        // let currentUser = null; // Commented out
+        const searchBtn = document.getElementById('search-btn');
+        const searchInput = document.getElementById('search-input');
+        const searchQuerySpan = document.getElementById('search-query');
 
         function hideAllPages() {
             homePage.classList.add('hidden');
             creatorHubPage.classList.add('hidden');
-            // loginPage.classList.add('hidden'); // Commented out
+            searchResultsPage.classList.add('hidden');
+            artistProfilePage.classList.add('hidden');
         }
 
         function showCreatorHub() {
-            /*
-            if (!currentUser) {
-                showLoginPage();
-                return;
-            }
-            */
             hideAllPages();
             creatorHubPage.classList.remove('hidden');
             window.scrollTo(0, 0);
@@ -298,139 +316,67 @@
         }
 
         function showLoginPage() {
-            hideAllPages();
-            // loginPage.classList.remove('hidden'); // Commented out
-            window.scrollTo(0, 0);
             alert("Login functionality is currently disabled.");
         }
 
-        /*
-        function updateUIForLoggedInUser(user) {
-            navRightDesktop.innerHTML = `
-                <span class="font-medium text-slate-700">Welcome, ${user.displayName.split(' ')[0]}</span>
-                <img src="${user.photoURL}" class="h-8 w-8 rounded-full">
-                <button data-action="logout" class="text-slate-600 hover:text-orange-500 font-medium">Logout</button>
-                <button data-action="creator-hub" class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-full transition duration-300">Creator Hub</button>
-            `;
-             navRightMobile.innerHTML = `
-                <span class="block py-2 font-medium text-slate-700">Welcome, ${user.displayName.split(' ')[0]}</span>
-                <button data-action="logout" class="block w-full text-left py-2 text-slate-600 hover:text-orange-500">Logout</button>
-                <button data-action="creator-hub" class="block w-full mt-2 bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-full text-center">Creator Hub</button>
-            `;
+        function showSearchResultsPage(query) {
+            hideAllPages();
+            searchQuerySpan.textContent = query;
+            searchResultsPage.classList.remove('hidden');
+            window.scrollTo(0, 0);
         }
 
-        function updateUIForLoggedOutUser() {
-            navRightDesktop.innerHTML = `
-                <button data-action="login" class="text-slate-600 hover:text-orange-500 font-medium">Login</button>
-                <button data-action="creator-hub" class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-full transition duration-300">Creator Hub</button>
-            `;
-             navRightMobile.innerHTML = `
-                <button data-action="login" class="block w-full text-left py-2 text-slate-600 hover:text-orange-500">Login</button>
-                <button data-action="creator-hub" class="block w-full mt-2 bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-full text-center">Creator Hub</button>
-            `;
+        function showArtistProfilePage() {
+            hideAllPages();
+            artistProfilePage.classList.remove('hidden');
+            window.scrollTo(0, 0);
         }
-
-        async function loadCreatorData(userId) {
-            const docRef = doc(db, "artists", userId);
-            const docSnap = await getDoc(docRef);
-
-            if (docSnap.exists()) {
-                const data = docSnap.data();
-                document.getElementById('full-name').value = data.fullName || '';
-                document.getElementById('artist-quote').value = data.bio || '';
-            } else {
-                console.log("No profile data found for this user.");
+        
+        function handleSearch() {
+            const query = searchInput.value.trim();
+            if (query) {
+                showSearchResultsPage(query);
             }
         }
-
-        // --- AUTHENTICATION HANDLERS ---
-        const handleGoogleSignIn = async () => {
-            loginErrorDiv.classList.add('hidden'); // Hide previous errors
-            try {
-                await signInWithPopup(auth, provider);
-                showHomePage(); // Go to home page after login
-            } catch (error) {
-                console.error("Google Sign-In Error:", error);
-                // Display a user-friendly error message
-                let errorMessage = "An unknown error occurred. Please try again.";
-                if (error.code === 'auth/popup-closed-by-user') {
-                    errorMessage = "You closed the sign-in window. Please try again.";
-                } else if (error.code === 'auth/cancelled-popup-request') {
-                    errorMessage = "Sign-in was cancelled. Please try again.";
-                } else if (error.code === 'auth/popup-blocked') {
-                    errorMessage = "Pop-up blocked! Please allow pop-ups for this site and try again.";
-                } else if (error.code) {
-                     errorMessage = `Error: ${error.code}. Please check your Firebase configuration and authorized domains.`;
-                }
-                loginErrorDiv.textContent = errorMessage;
-                loginErrorDiv.classList.remove('hidden');
-            }
-        };
-
-        const handleSignOut = async () => {
-            try {
-                await signOut(auth);
-                showHomePage();
-            } catch (error) {
-                console.error("Sign Out Error:", error);
-            }
-        };
-
-        const handleSaveProfile = async () => {
-            if (!currentUser) {
-                alert("You must be logged in to save your profile.");
-                return;
-            }
-            const fullName = document.getElementById('full-name').value;
-            const bio = document.getElementById('artist-quote').value;
-
-            try {
-                await setDoc(doc(db, "artists", currentUser.uid), {
-                    fullName: fullName,
-                    bio: bio,
-                    email: currentUser.email
-                }, { merge: true });
-                alert("Profile saved successfully!");
-            } catch (error) {
-                console.error("Error saving profile: ", error);
-                alert("There was an error saving your profile.");
-            }
-        };
-
-        // --- MAIN AUTH STATE LISTENER ---
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                currentUser = user;
-                updateUIForLoggedInUser(user);
-                loadCreatorData(user.uid);
-            } else {
-                currentUser = null;
-                updateUIForLoggedOutUser();
-            }
-        });
-        */
         
         // --- GLOBAL EVENT LISTENER (EVENT DELEGAITON) ---
         document.addEventListener('click', (e) => {
             const action = e.target.closest('[data-action]')?.dataset.action;
             if (action === 'login') showLoginPage();
             if (action === 'creator-hub') showCreatorHub();
-            // if (action === 'logout') handleSignOut(); // Commented out
+            if (action === 'view-profile') {
+                e.preventDefault();
+                showArtistProfilePage();
+            }
+            if (action === 'show-home') {
+                e.preventDefault();
+                showHomePage();
+            }
+            if (action === 'show-home-and-scroll') {
+                 e.preventDefault();
+                 showHomePage();
+                 // We need to wait a moment for the page to become visible before scrolling
+                 setTimeout(() => {
+                     document.getElementById('art-forms').scrollIntoView();
+                 }, 100);
+            }
         });
 
         // --- INITIAL EVENT LISTENERS ---
-        // googleSignInBtn.addEventListener('click', handleGoogleSignIn); // Commented out
-        // saveProfileBtn.addEventListener('click', handleSaveProfile); // Commented out
         homeLink.addEventListener('click', (e) => {
             e.preventDefault();
             showHomePage();
             window.scrollTo(0, 0);
         });
-        navLinks.forEach(link => {
-            link.addEventListener('click', showHomePage);
-        });
+        
         mobileMenuButton.addEventListener('click', () => {
             mobileMenu.classList.toggle('hidden');
+        });
+        searchBtn.addEventListener('click', handleSearch);
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                handleSearch();
+            }
         });
     </script>
 </body>
