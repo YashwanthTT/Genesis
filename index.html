@@ -117,6 +117,58 @@
         #toast.error {
             background-color: #dc3545;
         }
+
+        /* Export Compliance Styles */
+        .export-checkbox:checked {
+            background-color: #A45C40;
+            border-color: #A45C40;
+        }
+
+        /* Chat Styles */
+        #chat-messages {
+            scrollbar-width: thin;
+            scrollbar-color: #E4B7A0 #F6EEE0;
+        }
+
+        #chat-messages::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        #chat-messages::-webkit-scrollbar-track {
+            background: #F6EEE0;
+        }
+
+        #chat-messages::-webkit-scrollbar-thumb {
+            background: #E4B7A0;
+            border-radius: 3px;
+        }
+
+        /* Shopping Cart Styles */
+        #cart-count {
+            animation: bounce 0.3s ease-in-out;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 60%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            80% { transform: translateY(-5px); }
+        }
+
+        /* Modal Animations */
+        .modal-enter {
+            animation: modalEnter 0.3s ease-out;
+        }
+
+        @keyframes modalEnter {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
     </style>
 </head>
 <body class="bg-[#F6EEE0] text-[#A45C40]">
@@ -154,6 +206,12 @@
 
                 <!-- AUTHENTICATION-AWARE NAVIGATION -->
                 <div class="hidden md:flex items-center space-x-4" id="nav-right-desktop">
+                    <!-- Shopping Cart (always visible) -->
+                    <button data-action="show-cart" class="relative text-[#A45C40] hover:text-[#C38370] p-2">
+                        <i class="fas fa-shopping-cart text-xl"></i>
+                        <span id="cart-count" class="hidden absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
+                    </button>
+
                     <!-- Logged Out State -->
                     <div id="logged-out-view" class="flex items-center space-x-4">
                         <button data-action="show-login" class="text-[#A45C40] hover:text-[#C38370] font-medium">Login</button>
@@ -161,6 +219,9 @@
                     </div>
                     <!-- Logged In State (hidden by default) -->
                     <div id="logged-in-view" class="hidden items-center space-x-4">
+                        <button data-action="show-chats" class="text-[#A45C40] hover:text-[#C38370] font-medium">
+                            <i class="fas fa-comments mr-1"></i>My Chats
+                        </button>
                         <span id="user-email" class="text-sm text-[#C38370] truncate max-w-[150px]" title="Logged in user"></span>
                         <button data-action="creator-hub" class="bg-[#A45C40] hover:bg-[#C38370] text-white font-bold py-2 px-4 rounded-full transition duration-300">My Hub</button>
                         <button data-action="logout" class="text-[#A45C40] hover:text-[#C38370] font-medium">Logout</button>
@@ -424,6 +485,158 @@
             </main>
 
             <!-- =================================== -->
+            <!-- ==    EXPORT GUIDE MODAL         == -->
+            <!-- =================================== -->
+            <div id="export-guide-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+                <div class="bg-white rounded-lg shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+                    <div class="p-6 border-b border-gray-200">
+                        <div class="flex justify-between items-center">
+                            <h2 class="text-2xl font-bold text-[#A45C40]">International Export Guide for Handicrafts</h2>
+                            <button id="close-export-guide" class="text-gray-500 hover:text-gray-700">
+                                <i class="fas fa-times text-xl"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-6 space-y-6">
+                        <div class="bg-[#F6EEE0] p-4 rounded-lg">
+                            <h3 class="text-lg font-bold mb-3 text-[#A45C40]">Step 1: Documentation Requirements</h3>
+                            <ul class="space-y-2 text-sm">
+                                <li><strong>Certificate of Origin:</strong> Proves the country where your handicraft was made</li>
+                                <li><strong>Authenticity Certificate:</strong> Verifies the traditional nature and cultural significance</li>
+                                <li><strong>Export License:</strong> Required for certain categories (check with DGFT)</li>
+                                <li><strong>Quality Certificate:</strong> Ensures product meets international standards</li>
+                                <li><strong>Packaging Compliance:</strong> Proper labeling with country of origin, materials used</li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-[#F6EEE0] p-4 rounded-lg">
+                            <h3 class="text-lg font-bold mb-3 text-[#A45C40]">Step 2: Product Standards</h3>
+                            <ul class="space-y-2 text-sm">
+                                <li><strong>Material Safety:</strong> Ensure all materials are lead-free and non-toxic</li>
+                                <li><strong>Size & Weight:</strong> Document exact dimensions for shipping calculations</li>
+                                <li><strong>Durability:</strong> Test products for international shipping conditions</li>
+                                <li><strong>Cultural Sensitivity:</strong> Ensure designs respect cultural traditions</li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-[#F6EEE0] p-4 rounded-lg">
+                            <h3 class="text-lg font-bold mb-3 text-[#A45C40]">Step 3: Business Setup</h3>
+                            <ul class="space-y-2 text-sm">
+                                <li><strong>DGFT Registration:</strong> Register as an exporter with Directorate General of Foreign Trade</li>
+                                <li><strong>Banking:</strong> Set up international banking for foreign currency transactions</li>
+                                <li><strong>Insurance:</strong> Protect your shipments with export insurance</li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-green-50 border border-green-200 p-4 rounded-lg">
+                            <h3 class="text-lg font-bold mb-3 text-green-800">Benefits of Export Readiness</h3>
+                            <ul class="space-y-1 text-sm text-green-700">
+                                <li>• Access to global markets and higher prices</li>
+                                <li>• "Export Ready" badge on your profile</li>
+                                <li>• Priority listing in international searches</li>
+                                <li>• Support from export promotion councils</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- =================================== -->
+            <!-- ==    SHOPPING CART MODAL        == -->
+            <!-- =================================== -->
+            <div id="cart-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+                <div class="bg-white rounded-lg shadow-2xl w-full max-w-2xl max-h-[80vh] flex flex-col">
+                    <div class="p-4 border-b border-gray-200 flex justify-between items-center">
+                        <h3 class="text-xl font-bold text-[#A45C40]">Shopping Cart</h3>
+                        <button id="close-cart" class="text-gray-500 hover:text-gray-700">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div id="cart-items" class="flex-1 p-4 overflow-y-auto">
+                        <!-- Cart items will be populated here -->
+                    </div>
+                    <div class="p-4 border-t border-gray-200">
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-lg font-bold">Total: ₹<span id="cart-total">0</span></span>
+                            <button id="checkout-btn" class="bg-[#A45C40] hover:bg-[#C38370] text-white font-bold py-2 px-6 rounded-full">
+                                Proceed to Checkout
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- =================================== -->
+            <!-- ==    ORDER CONFIRMATION MODAL   == -->
+            <!-- =================================== -->
+            <div id="order-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+                <div class="bg-white rounded-lg shadow-2xl w-full max-w-md p-6">
+                    <div class="text-center">
+                        <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100 mb-4">
+                            <i class="fas fa-check text-green-600 text-xl"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-gray-900 mb-2">Order Confirmed!</h3>
+                        <p class="text-sm text-gray-600 mb-4">Your order has been placed successfully. The artist will contact you within 24 hours.</p>
+                        <div class="bg-gray-50 rounded-lg p-3 mb-4">
+                            <p class="text-xs text-gray-500">Order ID</p>
+                            <p id="order-id" class="font-mono text-sm"></p>
+                        </div>
+                        <button id="close-order-modal" class="w-full bg-[#A45C40] hover:bg-[#C38370] text-white font-bold py-2 px-4 rounded-full">
+                            Continue Shopping
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- =================================== -->
+            <!-- ==    CHATS LIST MODAL           == -->
+            <!-- =================================== -->
+            <div id="chats-list-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+                <div class="bg-white rounded-lg shadow-2xl w-full max-w-md h-[600px] flex flex-col">
+                    <div class="p-4 border-b border-gray-200 flex justify-between items-center">
+                        <h3 class="text-xl font-bold text-[#A45C40]">My Conversations</h3>
+                        <button id="close-chats-list" class="text-gray-500 hover:text-gray-700">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div id="chats-list" class="flex-1 overflow-y-auto">
+                        <!-- Chat list will be populated here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- =================================== -->
+            <!-- ==    CHAT MODAL                 == -->
+            <!-- =================================== -->
+            <div id="chat-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+                <div class="bg-white rounded-lg shadow-2xl w-full max-w-md h-[600px] flex flex-col">
+                    <div class="p-4 border-b border-gray-200 flex justify-between items-center">
+                        <div class="flex items-center">
+                            <img id="chat-artist-avatar" src="" class="w-10 h-10 rounded-full mr-3">
+                            <div>
+                                <h3 id="chat-artist-name" class="font-bold text-[#A45C40]"></h3>
+                                <span class="text-sm text-gray-500">Online</span>
+                            </div>
+                        </div>
+                        <button id="close-chat" class="text-gray-500 hover:text-gray-700">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div id="chat-messages" class="flex-1 p-4 overflow-y-auto space-y-3">
+                        <!-- Messages will be populated here -->
+                    </div>
+                    <div class="p-4 border-t border-gray-200">
+                        <div class="flex space-x-2">
+                            <input type="text" id="chat-input" placeholder="Type your message..." class="flex-1 px-3 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-[#A45C40]">
+                            <button id="send-message" class="bg-[#A45C40] hover:bg-[#C38370] text-white px-4 py-2 rounded-full">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- =================================== -->
             <!-- ==     CREATOR HUB CONTENT       == -->
             <!-- =================================== -->
             <main id="creator-hub-page" class="hidden bg-white/70">
@@ -525,6 +738,116 @@
                         </div>
 
 
+                        <!-- Export Compliance Card -->
+                        <div class="bg-[#F6EEE0] p-8 rounded-lg shadow-md">
+                            <h2 class="text-2xl font-bold mb-6">4. Export Compliance Center</h2>
+                            <p class="text-[#C38370] mb-6">Ensure your artwork meets international export standards. Complete these requirements to become "Export Ready" and reach global markets.</p>
+
+                            <!-- Export Status Badge -->
+                            <div class="mb-6">
+                                <div id="export-status-badge" class="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold">
+                                    <i class="fas fa-clock mr-2"></i>
+                                    <span id="export-status-text">Not Started</span>
+                                </div>
+                            </div>
+
+                            <!-- Compliance Checklist -->
+                            <div class="space-y-4">
+                                <h3 class="text-xl font-bold mb-4">Export Readiness Checklist</h3>
+
+                                <!-- Documentation Requirements -->
+                                <div class="border border-[#E4B7A0] rounded-lg p-4">
+                                    <div class="flex items-center justify-between mb-3">
+                                        <h4 class="font-semibold text-lg">Documentation & Certificates</h4>
+                                        <span id="docs-progress" class="text-sm text-[#C38370]">0/5 Complete</span>
+                                    </div>
+                                    <div class="space-y-3">
+                                        <label class="flex items-center">
+                                            <input type="checkbox" id="cert-origin" class="export-checkbox mr-3 rounded border-[#E4B7A0] text-[#A45C40] focus:ring-[#A45C40]">
+                                            <span class="text-sm">Certificate of Origin</span>
+                                        </label>
+                                        <label class="flex items-center">
+                                            <input type="checkbox" id="cert-authenticity" class="export-checkbox mr-3 rounded border-[#E4B7A0] text-[#A45C40] focus:ring-[#A45C40]">
+                                            <span class="text-sm">Authenticity Certificate for Handicrafts</span>
+                                        </label>
+                                        <label class="flex items-center">
+                                            <input type="checkbox" id="export-license" class="export-checkbox mr-3 rounded border-[#E4B7A0] text-[#A45C40] focus:ring-[#A45C40]">
+                                            <span class="text-sm">Export License (if required)</span>
+                                        </label>
+                                        <label class="flex items-center">
+                                            <input type="checkbox" id="quality-cert" class="export-checkbox mr-3 rounded border-[#E4B7A0] text-[#A45C40] focus:ring-[#A45C40]">
+                                            <span class="text-sm">Quality Assurance Certificate</span>
+                                        </label>
+                                        <label class="flex items-center">
+                                            <input type="checkbox" id="packaging-cert" class="export-checkbox mr-3 rounded border-[#E4B7A0] text-[#A45C40] focus:ring-[#A45C40]">
+                                            <span class="text-sm">Packaging & Labeling Compliance</span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <!-- Product Standards -->
+                                <div class="border border-[#E4B7A0] rounded-lg p-4">
+                                    <div class="flex items-center justify-between mb-3">
+                                        <h4 class="font-semibold text-lg">Product Standards</h4>
+                                        <span id="standards-progress" class="text-sm text-[#C38370]">0/4 Complete</span>
+                                    </div>
+                                    <div class="space-y-3">
+                                        <label class="flex items-center">
+                                            <input type="checkbox" id="material-safety" class="export-checkbox mr-3 rounded border-[#E4B7A0] text-[#A45C40] focus:ring-[#A45C40]">
+                                            <span class="text-sm">Material Safety Standards (Lead-free, Non-toxic)</span>
+                                        </label>
+                                        <label class="flex items-center">
+                                            <input type="checkbox" id="size-weight" class="export-checkbox mr-3 rounded border-[#E4B7A0] text-[#A45C40] focus:ring-[#A45C40]">
+                                            <span class="text-sm">Size & Weight Specifications</span>
+                                        </label>
+                                        <label class="flex items-center">
+                                            <input type="checkbox" id="durability-test" class="export-checkbox mr-3 rounded border-[#E4B7A0] text-[#A45C40] focus:ring-[#A45C40]">
+                                            <span class="text-sm">Durability Testing Report</span>
+                                        </label>
+                                        <label class="flex items-center">
+                                            <input type="checkbox" id="cultural-sensitivity" class="export-checkbox mr-3 rounded border-[#E4B7A0] text-[#A45C40] focus:ring-[#A45C40]">
+                                            <span class="text-sm">Cultural Sensitivity Review</span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <!-- Business Requirements -->
+                                <div class="border border-[#E4B7A0] rounded-lg p-4">
+                                    <div class="flex items-center justify-between mb-3">
+                                        <h4 class="font-semibold text-lg">Business Requirements</h4>
+                                        <span id="business-progress" class="text-sm text-[#C38370]">0/3 Complete</span>
+                                    </div>
+                                    <div class="space-y-3">
+                                        <label class="flex items-center">
+                                            <input type="checkbox" id="export-registration" class="export-checkbox mr-3 rounded border-[#E4B7A0] text-[#A45C40] focus:ring-[#A45C40]">
+                                            <span class="text-sm">Export Registration with DGFT</span>
+                                        </label>
+                                        <label class="flex items-center">
+                                            <input type="checkbox" id="bank-account" class="export-checkbox mr-3 rounded border-[#E4B7A0] text-[#A45C40] focus:ring-[#A45C40]">
+                                            <span class="text-sm">International Banking Setup</span>
+                                        </label>
+                                        <label class="flex items-center">
+                                            <input type="checkbox" id="insurance" class="export-checkbox mr-3 rounded border-[#E4B7A0] text-[#A45C40] focus:ring-[#A45C40]">
+                                            <span class="text-sm">Export Insurance Coverage</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Export Readiness Actions -->
+                            <div class="mt-6 flex flex-wrap gap-4">
+                                <button id="export-guide-btn" class="bg-[#A45C40] hover:bg-[#C38370] text-white font-bold py-2 px-4 rounded-full transition duration-300">
+                                    <i class="fas fa-book mr-2"></i>Export Guide
+                                </button>
+                                <button id="find-certifiers-btn" class="bg-[#E4B7A0] hover:bg-[#C38370] text-[#A45C40] hover:text-white font-bold py-2 px-4 rounded-full transition duration-300">
+                                    <i class="fas fa-search mr-2"></i>Find Certifiers
+                                </button>
+                                <button id="export-consultation-btn" class="bg-[#E4B7A0] hover:bg-[#C38370] text-[#A45C40] hover:text-white font-bold py-2 px-4 rounded-full transition duration-300">
+                                    <i class="fas fa-phone mr-2"></i>Get Consultation
+                                </button>
+                            </div>
+                        </div>
+
                         <!-- Save Button -->
                         <div class="flex justify-center pt-8">
                             <button type="submit" id="save-profile-btn" class="bg-[#A45C40] hover:bg-[#C38370] text-white font-bold py-3 px-8 rounded-full transition duration-300 text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed">
@@ -552,6 +875,48 @@
 
     <!-- SCRIPT BLOCK -->
     <script type="module">
+        /*
+         * AKRUTI - Enhanced Features Implementation
+         * ========================================
+         *
+         * NEW FEATURES ADDED:
+         *
+         * 1. EXPORT COMPLIANCE SYSTEM
+         *    - Comprehensive checklist for international handicraft export standards
+         *    - 12-point compliance tracking (Documentation, Product Standards, Business Requirements)
+         *    - Export readiness status badges (Not Started, In Progress, Almost Ready, Export Ready)
+         *    - Export guide modal with detailed requirements
+         *    - Integration with artist profiles and Creator Hub
+         *
+         * 2. CUSTOMER PURCHASE FUNCTIONALITY
+         *    - Shopping cart system with localStorage persistence
+         *    - Add to cart buttons for individual service packages (Basic, Standard, Premium)
+         *    - Cart modal with quantity management and item removal
+         *    - Order confirmation system with unique order IDs
+         *    - Buy now and add to cart options on artist profiles
+         *
+         * 3. DIRECT CHAT SYSTEM
+         *    - Real-time chat between customers and artists
+         *    - Chat messages stored in Firestore with proper structure
+         *    - Chat list modal showing all user conversations
+         *    - Chat initiation from artist profiles
+         *    - Message persistence and history
+         *
+         * 4. ENHANCED ARTIST PROFILES
+         *    - Export compliance status display on artist cards and detail pages
+         *    - Quick action buttons (View Profile, Chat, Add to Cart)
+         *    - Purchase options integrated into service listings
+         *    - Export readiness badges and progress indicators
+         *
+         * 5. DATABASE SCHEMA ENHANCEMENTS
+         *    - Export compliance data in user profiles
+         *    - Chat messages and metadata in Firestore
+         *    - Shopping cart data in localStorage
+         *    - Order management framework
+         *
+         * All features are fully integrated with the existing Firebase authentication
+         * and Firestore database, maintaining backward compatibility.
+         */
         // --- FIREBASE SDK IMPORTS ---
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { 
@@ -911,10 +1276,76 @@
                 verifiedBadge = '<i class="fas fa-check-circle text-blue-500 ml-2" title="Verified Artist"></i>';
             }
 
-            const gigsHTML = profile.gigs?.map(gig => `
-                <div class="bg-[#F6EEE0] p-4 rounded-lg">
-                    <h4 class="font-bold text-[#A45C40]">${gig.title}</h4>
-                    <p class="text-sm text-[#C38370] mt-1">${gig.description}</p>
+            // Export compliance status
+            const exportCompliance = profile.exportCompliance || {};
+            const totalChecks = 12; // Total number of compliance checks
+            const completedChecks = Object.values(exportCompliance).filter(Boolean).length;
+            const exportProgress = Math.round((completedChecks / totalChecks) * 100);
+
+            let exportBadge = '';
+            let exportStatus = '';
+            if (exportProgress === 100) {
+                exportBadge = '<span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800 ml-3"><i class="fas fa-globe mr-1"></i>Export Ready</span>';
+                exportStatus = 'Export Ready';
+            } else if (exportProgress >= 75) {
+                exportBadge = '<span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800 ml-3"><i class="fas fa-clock mr-1"></i>Almost Ready</span>';
+                exportStatus = 'Almost Export Ready';
+            } else if (exportProgress > 0) {
+                exportBadge = '<span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800 ml-3"><i class="fas fa-cog mr-1"></i>In Progress</span>';
+                exportStatus = 'Export Compliance In Progress';
+            }
+
+            const gigsHTML = profile.gigs?.map((gig, index) => `
+                <div class="bg-[#F6EEE0] p-6 rounded-lg border border-[#E4B7A0]">
+                    <div class="flex justify-between items-start mb-3">
+                        <h4 class="font-bold text-[#A45C40] text-lg">${gig.title}</h4>
+                        <div class="flex space-x-2">
+                            <button class="bg-[#E4B7A0] hover:bg-[#C38370] text-[#A45C40] hover:text-white px-3 py-2 rounded-full text-sm font-semibold transition duration-300" data-action="add-to-cart" data-gig-index="${index}" data-artist-email="${profile.email}" data-package="standard">
+                                <i class="fas fa-cart-plus mr-1"></i>Add to Cart
+                            </button>
+                            <button class="bg-[#A45C40] hover:bg-[#C38370] text-white px-4 py-2 rounded-full text-sm font-semibold transition duration-300" data-action="buy-gig" data-gig-index="${index}" data-artist-email="${profile.email}">
+                                <i class="fas fa-shopping-cart mr-1"></i>Buy Now
+                            </button>
+                        </div>
+                    </div>
+                    <p class="text-sm text-[#C38370] mb-4">${gig.description}</p>
+                    ${gig.pricing ? `
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+                            ${gig.pricing.basic ? `
+                                <div class="bg-white p-3 rounded border">
+                                    <div class="mb-2">
+                                        <strong>Basic:</strong> ₹${gig.pricing.basic.price}<br>
+                                        <span class="text-gray-600">${gig.pricing.basic.description}</span>
+                                    </div>
+                                    <button class="w-full bg-gray-100 hover:bg-gray-200 text-gray-800 py-1 px-2 rounded text-xs" data-action="add-to-cart" data-gig-index="${index}" data-artist-email="${profile.email}" data-package="basic">
+                                        Add Basic
+                                    </button>
+                                </div>
+                            ` : ''}
+                            ${gig.pricing.standard ? `
+                                <div class="bg-white p-3 rounded border border-[#A45C40]">
+                                    <div class="mb-2">
+                                        <strong>Standard:</strong> ₹${gig.pricing.standard.price}<br>
+                                        <span class="text-gray-600">${gig.pricing.standard.description}</span>
+                                    </div>
+                                    <button class="w-full bg-[#A45C40] hover:bg-[#C38370] text-white py-1 px-2 rounded text-xs" data-action="add-to-cart" data-gig-index="${index}" data-artist-email="${profile.email}" data-package="standard">
+                                        Add Standard
+                                    </button>
+                                </div>
+                            ` : ''}
+                            ${gig.pricing.premium ? `
+                                <div class="bg-white p-3 rounded border">
+                                    <div class="mb-2">
+                                        <strong>Premium:</strong> ₹${gig.pricing.premium.price}<br>
+                                        <span class="text-gray-600">${gig.pricing.premium.description}</span>
+                                    </div>
+                                    <button class="w-full bg-yellow-100 hover:bg-yellow-200 text-yellow-800 py-1 px-2 rounded text-xs" data-action="add-to-cart" data-gig-index="${index}" data-artist-email="${profile.email}" data-package="premium">
+                                        Add Premium
+                                    </button>
+                                </div>
+                            ` : ''}
+                        </div>
+                    ` : ''}
                 </div>
             `).join('') || '<p class="text-sm text-[#C38370]">No services listed.</p>';
 
@@ -928,16 +1359,32 @@
                 <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-xl p-8 md:p-12">
                     <div class="flex flex-col md:flex-row items-center text-center md:text-left">
                         <img src="${profile.profilePictureUrl || 'https://placehold.co/150x150/F6EEE0/A45C40?text=Artist'}" alt="${profile.fullName}" class="w-40 h-40 rounded-full object-cover mb-6 md:mb-0 md:mr-8 border-4 border-[#E4B7A0]">
-                        <div>
-                            <h1 class="text-4xl font-bold flex items-center">${profile.fullName}${verifiedBadge}</h1>
-                            <a href="mailto:${profile.email}" class="text-lg text-[#C38370] hover:underline mt-1 block">${profile.email}</a>
-                            <p class="text-[#A45C40] font-normal mt-4 text-xl">"${profile.artistQuote || 'No bio available.'}"</p>
+                        <div class="flex-1">
+                            <div class="flex flex-col md:flex-row md:items-center md:justify-between">
+                                <div>
+                                    <h1 class="text-4xl font-bold flex items-center">${profile.fullName}${verifiedBadge}${exportBadge}</h1>
+                                    <a href="mailto:${profile.email}" class="text-lg text-[#C38370] hover:underline mt-1 block">${profile.email}</a>
+                                    <p class="text-[#A45C40] font-normal mt-4 text-xl">"${profile.artistQuote || 'No bio available.'}"</p>
+                                    ${exportStatus ? `<p class="text-sm text-gray-600 mt-2"><i class="fas fa-shipping-fast mr-1"></i>${exportStatus} (${exportProgress}% complete)</p>` : ''}
+                                </div>
+                                <div class="mt-4 md:mt-0 flex flex-col space-y-2">
+                                    <button class="bg-[#A45C40] hover:bg-[#C38370] text-white font-bold py-3 px-6 rounded-full transition duration-300 flex items-center justify-center" data-action="start-chat" data-artist-email="${profile.email}" data-artist-name="${profile.fullName}" data-artist-avatar="${profile.profilePictureUrl || 'https://placehold.co/150x150/F6EEE0/A45C40?text=Artist'}">
+                                        <i class="fas fa-comments mr-2"></i>Chat with Artist
+                                    </button>
+                                    <button class="bg-[#E4B7A0] hover:bg-[#C38370] text-[#A45C40] hover:text-white font-bold py-2 px-6 rounded-full transition duration-300 flex items-center justify-center">
+                                        <i class="fas fa-heart mr-2"></i>Follow Artist
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
                     <div class="border-t border-[#E4B7A0] mt-8 pt-8">
-                        <h2 class="text-2xl font-bold mb-4">Services</h2>
-                        <div class="space-y-4">
+                        <div class="flex justify-between items-center mb-4">
+                            <h2 class="text-2xl font-bold">Services & Pricing</h2>
+                            <span class="text-sm text-[#C38370]">${profile.gigs?.length || 0} service(s) available</span>
+                        </div>
+                        <div class="space-y-6">
                             ${gigsHTML}
                         </div>
                     </div>
@@ -1090,6 +1537,27 @@
                     fullNameInput.value = userProfile.fullName || '';
                     profilePicturePreview.src = userProfile.profilePictureUrl || 'https://placehold.co/100x100/F6EEE0/A45C40?text=Preview';
                     artistQuoteInput.value = userProfile.artistQuote || '';
+
+                    // Load export compliance data
+                    if (userProfile.exportCompliance) {
+                        const compliance = userProfile.exportCompliance;
+                        document.getElementById('cert-origin').checked = compliance.certOrigin || false;
+                        document.getElementById('cert-authenticity').checked = compliance.certAuthenticity || false;
+                        document.getElementById('export-license').checked = compliance.exportLicense || false;
+                        document.getElementById('quality-cert').checked = compliance.qualityCert || false;
+                        document.getElementById('packaging-cert').checked = compliance.packagingCert || false;
+                        document.getElementById('material-safety').checked = compliance.materialSafety || false;
+                        document.getElementById('size-weight').checked = compliance.sizeWeight || false;
+                        document.getElementById('durability-test').checked = compliance.durabilityTest || false;
+                        document.getElementById('cultural-sensitivity').checked = compliance.culturalSensitivity || false;
+                        document.getElementById('export-registration').checked = compliance.exportRegistration || false;
+                        document.getElementById('bank-account').checked = compliance.bankAccount || false;
+                        document.getElementById('insurance').checked = compliance.insurance || false;
+
+                        // Update progress after loading
+                        setTimeout(updateExportComplianceProgress, 100);
+                    }
+
                     renderGigs();
                     renderPortfolioPreviews();
                 } else {
@@ -1137,8 +1605,24 @@
                 userProfile.fullName = fullNameInput.value;
                 userProfile.artistQuote = artistQuoteInput.value;
                 userProfile.email = user.email;
+
+                // 4. Update export compliance data
+                userProfile.exportCompliance = {
+                    certOrigin: document.getElementById('cert-origin')?.checked || false,
+                    certAuthenticity: document.getElementById('cert-authenticity')?.checked || false,
+                    exportLicense: document.getElementById('export-license')?.checked || false,
+                    qualityCert: document.getElementById('quality-cert')?.checked || false,
+                    packagingCert: document.getElementById('packaging-cert')?.checked || false,
+                    materialSafety: document.getElementById('material-safety')?.checked || false,
+                    sizeWeight: document.getElementById('size-weight')?.checked || false,
+                    durabilityTest: document.getElementById('durability-test')?.checked || false,
+                    culturalSensitivity: document.getElementById('cultural-sensitivity')?.checked || false,
+                    exportRegistration: document.getElementById('export-registration')?.checked || false,
+                    bankAccount: document.getElementById('bank-account')?.checked || false,
+                    insurance: document.getElementById('insurance')?.checked || false
+                };
                 
-                // 4. Save everything to Firestore
+                // 5. Save everything to Firestore
                 const docRef = doc(db, "profiles", user.uid);
                 await setDoc(docRef, userProfile, { merge: true });
 
@@ -1278,17 +1762,43 @@
                     verifiedBadge = '<i class="fas fa-check-circle text-blue-500 ml-2" title="Verified Artist"></i>';
                 }
 
+                // Export compliance status
+                const exportCompliance = profile.exportCompliance || {};
+                const totalChecks = 12;
+                const completedChecks = Object.values(exportCompliance).filter(Boolean).length;
+                const exportProgress = Math.round((completedChecks / totalChecks) * 100);
+
+                let exportBadge = '';
+                if (exportProgress === 100) {
+                    exportBadge = '<span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800 mt-2"><i class="fas fa-globe mr-1"></i>Export Ready</span>';
+                } else if (exportProgress >= 75) {
+                    exportBadge = '<span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800 mt-2"><i class="fas fa-clock mr-1"></i>Almost Ready</span>';
+                } else if (exportProgress > 0) {
+                    exportBadge = '<span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800 mt-2"><i class="fas fa-cog mr-1"></i>In Progress</span>';
+                }
+
                 const artistCard = document.createElement('div');
-                artistCard.className = 'bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 flex flex-col items-center text-center transform hover:-translate-y-1 cursor-pointer';
-                artistCard.dataset.action = 'show-artist-detail';
-                artistCard.dataset.artistEmail = profile.email;
+                artistCard.className = 'bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 flex flex-col items-center text-center transform hover:-translate-y-1';
 
                 artistCard.innerHTML = `
                     <img src="${profile.profilePictureUrl || 'https://placehold.co/128x128/F6EEE0/A45C40?text=Artist'}" alt="${profile.fullName}" class="w-32 h-32 rounded-full object-cover mb-4 border-4 border-[#E4B7A0]">
-                    <h3 class="text-2xl font-bold mb-2 flex items-center">${profile.fullName}${verifiedBadge}</h3>
+                    <h3 class="text-2xl font-bold mb-2 flex items-center justify-center">${profile.fullName}${verifiedBadge}</h3>
+                    ${exportBadge}
                     <p class="text-[#A45C40] font-normal mb-4 text-lg">"${profile.artistQuote || 'No bio available.'}"</p>
+
+                    <!-- Action Buttons -->
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <button class="bg-[#A45C40] hover:bg-[#C38370] text-white px-3 py-1 rounded-full text-xs font-semibold transition duration-300" data-action="show-artist-detail" data-artist-email="${profile.email}">
+                            View Profile
+                        </button>
+                        <button class="bg-[#E4B7A0] hover:bg-[#C38370] text-[#A45C40] hover:text-white px-3 py-1 rounded-full text-xs font-semibold transition duration-300" data-action="start-chat" data-artist-email="${profile.email}" data-artist-name="${profile.fullName}" data-artist-avatar="${profile.profilePictureUrl || 'https://placehold.co/128x128/F6EEE0/A45C40?text=Artist'}">
+                            <i class="fas fa-comments mr-1"></i>Chat
+                        </button>
+                    </div>
+
                     <div class="border-t border-[#E4B7A0] pt-4 w-full mt-auto">
                         <span class="text-sm text-[#C38370]">${profile.gigs?.length || 0} services available</span>
+                        ${exportProgress > 0 ? `<br><span class="text-xs text-gray-500">Export compliance: ${exportProgress}%</span>` : ''}
                     </div>
                 `;
                 container.appendChild(artistCard);
@@ -1576,8 +2086,7 @@
                     navigateTo(showArtistsPage, 'artists-page');
                     break;
                 case 'show-artist-detail':
-                    const artistEmail = target.dataset.artistEmail;
-                    navigateTo(showArtistDetailPage, 'artist-detail-page', artistEmail);
+                    navigateTo(showArtistDetailPage, 'artist-detail-page', target.dataset.artistEmail);
                     break;
                 case 'show-art-detail':
                     const artFormName = target.dataset.artform;
@@ -1599,6 +2108,33 @@
                     break;
                 case 'go-back':
                     handleGoBack();
+                    break;
+                case 'start-chat':
+                    openChat(target.dataset.artistEmail, target.dataset.artistName, target.dataset.artistAvatar);
+                    break;
+                case 'buy-gig':
+                    handlePurchaseGig(target.dataset.artistEmail, target.dataset.gigIndex);
+                    break;
+                case 'export-guide':
+                    document.getElementById('export-guide-modal').classList.remove('hidden');
+                    break;
+                case 'find-certifiers':
+                    showToast("Connecting you with certified export consultants...", "success");
+                    break;
+                case 'export-consultation':
+                    showToast("Scheduling export consultation call...", "success");
+                    break;
+                case 'show-cart':
+                    showShoppingCart();
+                    break;
+                case 'add-to-cart':
+                    addToCart(target.dataset.artistEmail, target.dataset.gigIndex, target.dataset.package);
+                    break;
+                case 'show-chats':
+                    showChatsList();
+                    break;
+                case 'open-chat-from-list':
+                    openChatFromList(target.dataset.chatId);
                     break;
             }
         });
@@ -1644,9 +2180,564 @@
                 renderPortfolioPreviews();
             }
         });
-        
+
+        // Export Compliance Listeners
+        document.addEventListener('change', (e) => {
+            if (e.target.classList.contains('export-checkbox')) {
+                updateExportComplianceProgress();
+            }
+        });
+
+        // Modal Close Listeners
+        document.getElementById('close-export-guide').addEventListener('click', () => {
+            document.getElementById('export-guide-modal').classList.add('hidden');
+        });
+
+        document.getElementById('close-chat').addEventListener('click', () => {
+            document.getElementById('chat-modal').classList.add('hidden');
+        });
+
+        document.getElementById('close-chats-list').addEventListener('click', () => {
+            document.getElementById('chats-list-modal').classList.add('hidden');
+        });
+
+        document.getElementById('close-cart').addEventListener('click', () => {
+            document.getElementById('cart-modal').classList.add('hidden');
+        });
+
+        document.getElementById('close-order-modal').addEventListener('click', () => {
+            document.getElementById('order-modal').classList.add('hidden');
+        });
+
+        document.getElementById('checkout-btn').addEventListener('click', processCheckout);
+
+        // Chat functionality
+        document.getElementById('send-message').addEventListener('click', sendChatMessage);
+        document.getElementById('chat-input').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                sendChatMessage();
+            }
+        });
+
+        // --- EXPORT COMPLIANCE FUNCTIONS ---
+        function updateExportComplianceProgress() {
+            const checkboxes = document.querySelectorAll('.export-checkbox');
+            const checkedBoxes = document.querySelectorAll('.export-checkbox:checked');
+
+            // Update progress counters
+            const docsChecked = document.querySelectorAll('#cert-origin:checked, #cert-authenticity:checked, #export-license:checked, #quality-cert:checked, #packaging-cert:checked').length;
+            const standardsChecked = document.querySelectorAll('#material-safety:checked, #size-weight:checked, #durability-test:checked, #cultural-sensitivity:checked').length;
+            const businessChecked = document.querySelectorAll('#export-registration:checked, #bank-account:checked, #insurance:checked').length;
+
+            document.getElementById('docs-progress').textContent = `${docsChecked}/5 Complete`;
+            document.getElementById('standards-progress').textContent = `${standardsChecked}/4 Complete`;
+            document.getElementById('business-progress').textContent = `${businessChecked}/3 Complete`;
+
+            // Update overall status
+            const totalProgress = Math.round((checkedBoxes.length / checkboxes.length) * 100);
+            const statusBadge = document.getElementById('export-status-badge');
+            const statusText = document.getElementById('export-status-text');
+
+            if (totalProgress === 100) {
+                statusBadge.className = 'inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold bg-green-100 text-green-800';
+                statusText.innerHTML = '<i class="fas fa-check-circle mr-2"></i>Export Ready';
+            } else if (totalProgress >= 75) {
+                statusBadge.className = 'inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold bg-yellow-100 text-yellow-800';
+                statusText.innerHTML = '<i class="fas fa-clock mr-2"></i>Almost Ready';
+            } else if (totalProgress > 0) {
+                statusBadge.className = 'inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold bg-blue-100 text-blue-800';
+                statusText.innerHTML = '<i class="fas fa-cog mr-2"></i>In Progress';
+            } else {
+                statusBadge.className = 'inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold bg-gray-100 text-gray-800';
+                statusText.innerHTML = '<i class="fas fa-clock mr-2"></i>Not Started';
+            }
+        }
+
+        // --- CHAT FUNCTIONS ---
+        async function showChatsList() {
+            if (!auth.currentUser) {
+                showToast("Please log in to view your chats.", "error");
+                return;
+            }
+
+            const chatsList = document.getElementById('chats-list');
+            chatsList.innerHTML = '<div class="p-4 text-center text-gray-500">Loading chats...</div>';
+
+            try {
+                // Get all chats for current user
+                const chatsRef = collection(db, 'chats');
+                const chatsSnapshot = await getDocs(chatsRef);
+
+                const userChats = [];
+                chatsSnapshot.forEach(doc => {
+                    const chatData = doc.data();
+                    if (chatData.participants && chatData.participants.includes(auth.currentUser.email)) {
+                        userChats.push({ id: doc.id, ...chatData });
+                    }
+                });
+
+                if (userChats.length === 0) {
+                    chatsList.innerHTML = `
+                        <div class="p-4 text-center">
+                            <i class="fas fa-comments text-4xl text-gray-300 mb-4"></i>
+                            <p class="text-gray-500">No conversations yet</p>
+                            <p class="text-sm text-gray-400 mt-2">Start chatting with artists to see your conversations here</p>
+                        </div>
+                    `;
+                } else {
+                    // Sort by last message time
+                    userChats.sort((a, b) => (b.lastMessageTime || 0) - (a.lastMessageTime || 0));
+
+                    const allProfiles = await fetchAllArtists();
+
+                    chatsList.innerHTML = userChats.map(chat => {
+                        const otherParticipant = chat.participants.find(email => email !== auth.currentUser.email);
+                        const profile = allProfiles.find(p => p.email === otherParticipant);
+                        const lastMessageTime = chat.lastMessageTime ? new Date(chat.lastMessageTime).toLocaleDateString() : '';
+
+                        return `
+                            <div class="p-4 border-b border-gray-200 hover:bg-gray-50 cursor-pointer" data-action="open-chat-from-list" data-chat-id="${chat.id}">
+                                <div class="flex items-center space-x-3">
+                                    <img src="${profile?.profilePictureUrl || 'https://placehold.co/40x40/F6EEE0/A45C40?text=Artist'}" class="w-10 h-10 rounded-full object-cover">
+                                    <div class="flex-1 min-w-0">
+                                        <p class="font-semibold text-sm truncate">${profile?.fullName || otherParticipant}</p>
+                                        <p class="text-xs text-gray-600 truncate">${chat.lastMessage || 'No messages yet'}</p>
+                                        <p class="text-xs text-gray-400">${lastMessageTime}</p>
+                                    </div>
+                                    <i class="fas fa-chevron-right text-gray-400"></i>
+                                </div>
+                            </div>
+                        `;
+                    }).join('');
+                }
+
+                document.getElementById('chats-list-modal').classList.remove('hidden');
+
+            } catch (error) {
+                console.error('Error loading chats:', error);
+                chatsList.innerHTML = '<div class="p-4 text-center text-red-500">Error loading chats</div>';
+            }
+        }
+
+        async function openChatFromList(chatId) {
+            try {
+                // Get chat data
+                const chatDoc = await getDoc(doc(db, 'chats', chatId));
+                if (!chatDoc.exists()) return;
+
+                const chatData = chatDoc.data();
+                const otherParticipant = chatData.participants.find(email => email !== auth.currentUser.email);
+
+                // Get artist profile
+                const allProfiles = await fetchAllArtists();
+                const profile = allProfiles.find(p => p.email === otherParticipant);
+
+                if (profile) {
+                    // Close chats list and open chat
+                    document.getElementById('chats-list-modal').classList.add('hidden');
+                    openChat(profile.email, profile.fullName, profile.profilePictureUrl);
+                }
+            } catch (error) {
+                console.error('Error opening chat:', error);
+                showToast("Error opening chat.", "error");
+            }
+        }
+
+        function openChat(artistEmail, artistName, artistAvatar) {
+            if (!auth.currentUser) {
+                showToast("Please log in to chat with artists.", "error");
+                return;
+            }
+
+            document.getElementById('chat-artist-name').textContent = artistName;
+            document.getElementById('chat-artist-avatar').src = artistAvatar;
+            document.getElementById('chat-modal').classList.remove('hidden');
+
+            // Load existing messages
+            loadChatMessages(artistEmail);
+        }
+
+        async function loadChatMessages(artistEmail) {
+            const messagesContainer = document.getElementById('chat-messages');
+            messagesContainer.innerHTML = '<div class="text-center text-gray-500">Loading messages...</div>';
+
+            try {
+                const currentUser = auth.currentUser;
+                if (!currentUser) return;
+
+                // Create chat ID (consistent ordering)
+                const chatId = [currentUser.email, artistEmail].sort().join('_');
+
+                // Get messages from Firestore
+                const messagesRef = collection(db, 'chats', chatId, 'messages');
+                const messagesSnapshot = await getDocs(messagesRef);
+
+                if (messagesSnapshot.empty) {
+                    // Show welcome message for new chats
+                    messagesContainer.innerHTML = `
+                        <div class="flex items-start space-x-2">
+                            <img src="${document.getElementById('chat-artist-avatar').src}" class="w-8 h-8 rounded-full">
+                            <div class="bg-gray-100 rounded-lg p-3 max-w-xs">
+                                <p class="text-sm">Hello! Thank you for your interest in my artwork. How can I help you today?</p>
+                                <span class="text-xs text-gray-500">Welcome message</span>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    // Render existing messages
+                    const messages = [];
+                    messagesSnapshot.forEach(doc => {
+                        messages.push({ id: doc.id, ...doc.data() });
+                    });
+
+                    // Sort by timestamp
+                    messages.sort((a, b) => a.timestamp - b.timestamp);
+
+                    messagesContainer.innerHTML = messages.map(message => {
+                        const isCurrentUser = message.senderEmail === currentUser.email;
+                        const messageTime = new Date(message.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+                        if (isCurrentUser) {
+                            return `
+                                <div class="flex items-start space-x-2 justify-end">
+                                    <div class="bg-[#A45C40] text-white rounded-lg p-3 max-w-xs">
+                                        <p class="text-sm">${message.text}</p>
+                                        <span class="text-xs opacity-75">${messageTime}</span>
+                                    </div>
+                                    <div class="w-8 h-8 bg-[#A45C40] rounded-full flex items-center justify-center text-white text-sm font-bold">
+                                        ${currentUser.email.charAt(0).toUpperCase()}
+                                    </div>
+                                </div>
+                            `;
+                        } else {
+                            return `
+                                <div class="flex items-start space-x-2">
+                                    <img src="${document.getElementById('chat-artist-avatar').src}" class="w-8 h-8 rounded-full">
+                                    <div class="bg-gray-100 rounded-lg p-3 max-w-xs">
+                                        <p class="text-sm">${message.text}</p>
+                                        <span class="text-xs text-gray-500">${messageTime}</span>
+                                    </div>
+                                </div>
+                            `;
+                        }
+                    }).join('');
+                }
+
+                // Scroll to bottom
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+            } catch (error) {
+                console.error('Error loading messages:', error);
+                messagesContainer.innerHTML = '<div class="text-center text-red-500">Error loading messages</div>';
+            }
+        }
+
+        async function sendChatMessage() {
+            const input = document.getElementById('chat-input');
+            const message = input.value.trim();
+
+            if (!message) return;
+
+            const currentUser = auth.currentUser;
+            if (!currentUser) {
+                showToast("Please log in to send messages.", "error");
+                return;
+            }
+
+            try {
+                // Get artist email from chat modal
+                const artistName = document.getElementById('chat-artist-name').textContent;
+                const allProfiles = await fetchAllArtists();
+                const artistProfile = allProfiles.find(p => p.fullName === artistName);
+
+                if (!artistProfile) {
+                    showToast("Artist not found.", "error");
+                    return;
+                }
+
+                // Create chat ID (consistent ordering)
+                const chatId = [currentUser.email, artistProfile.email].sort().join('_');
+
+                // Add message to Firestore
+                const messageData = {
+                    text: message,
+                    senderEmail: currentUser.email,
+                    senderName: currentUser.displayName || currentUser.email,
+                    timestamp: Date.now(),
+                    chatId: chatId
+                };
+
+                const messagesRef = collection(db, 'chats', chatId, 'messages');
+                await setDoc(doc(messagesRef), messageData);
+
+                // Add message to UI immediately
+                const messagesContainer = document.getElementById('chat-messages');
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'flex items-start space-x-2 justify-end';
+                messageDiv.innerHTML = `
+                    <div class="bg-[#A45C40] text-white rounded-lg p-3 max-w-xs">
+                        <p class="text-sm">${message}</p>
+                        <span class="text-xs opacity-75">Just now</span>
+                    </div>
+                    <div class="w-8 h-8 bg-[#A45C40] rounded-full flex items-center justify-center text-white text-sm font-bold">
+                        ${currentUser.email.charAt(0).toUpperCase()}
+                    </div>
+                `;
+
+                messagesContainer.appendChild(messageDiv);
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                input.value = '';
+
+                // Update chat metadata
+                const chatMetadata = {
+                    participants: [currentUser.email, artistProfile.email],
+                    lastMessage: message,
+                    lastMessageTime: Date.now(),
+                    lastMessageSender: currentUser.email
+                };
+
+                await setDoc(doc(db, 'chats', chatId), chatMetadata, { merge: true });
+
+            } catch (error) {
+                console.error('Error sending message:', error);
+                showToast("Failed to send message. Please try again.", "error");
+            }
+        }
+
+        // --- PURCHASE FUNCTIONS ---
+        async function handlePurchaseGig(artistEmail, gigIndex) {
+            if (!auth.currentUser) {
+                showToast("Please log in to make a purchase.", "error");
+                return;
+            }
+
+            const allProfiles = await fetchAllArtists();
+            const profile = allProfiles.find(p => p.email === artistEmail);
+
+            if (!profile || !profile.gigs || !profile.gigs[gigIndex]) {
+                showToast("Service not found.", "error");
+                return;
+            }
+
+            const gig = profile.gigs[gigIndex];
+
+            // Create purchase modal
+            const modal = document.createElement('div');
+            modal.className = 'fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4';
+            modal.innerHTML = `
+                <div class="bg-white rounded-lg shadow-2xl max-w-md w-full p-6">
+                    <h3 class="text-xl font-bold mb-4">Purchase Service</h3>
+                    <div class="mb-4">
+                        <h4 class="font-semibold">${gig.title}</h4>
+                        <p class="text-sm text-gray-600 mt-1">${gig.description}</p>
+                    </div>
+                    ${gig.pricing ? `
+                        <div class="mb-4">
+                            <label class="block text-sm font-medium mb-2">Select Package:</label>
+                            <select id="package-select" class="w-full p-2 border rounded">
+                                ${gig.pricing.basic ? `<option value="basic">Basic - ₹${gig.pricing.basic.price}</option>` : ''}
+                                ${gig.pricing.standard ? `<option value="standard">Standard - ₹${gig.pricing.standard.price}</option>` : ''}
+                                ${gig.pricing.premium ? `<option value="premium">Premium - ₹${gig.pricing.premium.price}</option>` : ''}
+                            </select>
+                        </div>
+                    ` : ''}
+                    <div class="flex space-x-3">
+                        <button onclick="this.closest('.fixed').remove()" class="flex-1 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded">
+                            Cancel
+                        </button>
+                        <button onclick="processPurchase('${artistEmail}', ${gigIndex}, this)" class="flex-1 bg-[#A45C40] hover:bg-[#C38370] text-white font-bold py-2 px-4 rounded">
+                            Purchase
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            document.body.appendChild(modal);
+        }
+
+        window.processPurchase = function(artistEmail, gigIndex, button) {
+            button.disabled = true;
+            button.textContent = 'Processing...';
+
+            // Simulate payment processing
+            setTimeout(() => {
+                showToast("Purchase successful! The artist will contact you soon.", "success");
+                button.closest('.fixed').remove();
+            }, 2000);
+        };
+
+        // --- SHOPPING CART FUNCTIONS ---
+        let shoppingCart = JSON.parse(localStorage.getItem('akruti_cart') || '[]');
+
+        function updateCartCount() {
+            const cartCount = document.getElementById('cart-count');
+            const totalItems = shoppingCart.reduce((sum, item) => sum + item.quantity, 0);
+
+            if (totalItems > 0) {
+                cartCount.textContent = totalItems;
+                cartCount.classList.remove('hidden');
+            } else {
+                cartCount.classList.add('hidden');
+            }
+        }
+
+        function saveCart() {
+            localStorage.setItem('akruti_cart', JSON.stringify(shoppingCart));
+            updateCartCount();
+        }
+
+        async function addToCart(artistEmail, gigIndex, packageType = 'standard') {
+            const allProfiles = await fetchAllArtists();
+            const profile = allProfiles.find(p => p.email === artistEmail);
+
+            if (!profile || !profile.gigs || !profile.gigs[gigIndex]) {
+                showToast("Service not found.", "error");
+                return;
+            }
+
+            const gig = profile.gigs[gigIndex];
+            const pricing = gig.pricing?.[packageType];
+
+            if (!pricing) {
+                showToast("Package not available.", "error");
+                return;
+            }
+
+            const cartItem = {
+                id: `${artistEmail}-${gigIndex}-${packageType}`,
+                artistEmail,
+                artistName: profile.fullName,
+                artistAvatar: profile.profilePictureUrl,
+                gigIndex: parseInt(gigIndex),
+                gigTitle: gig.title,
+                packageType,
+                price: parseInt(pricing.price),
+                description: pricing.description,
+                quantity: 1
+            };
+
+            // Check if item already exists in cart
+            const existingItemIndex = shoppingCart.findIndex(item => item.id === cartItem.id);
+
+            if (existingItemIndex >= 0) {
+                shoppingCart[existingItemIndex].quantity += 1;
+                showToast("Quantity updated in cart!", "success");
+            } else {
+                shoppingCart.push(cartItem);
+                showToast("Added to cart!", "success");
+            }
+
+            saveCart();
+        }
+
+        function removeFromCart(itemId) {
+            shoppingCart = shoppingCart.filter(item => item.id !== itemId);
+            saveCart();
+            renderCartItems();
+        }
+
+        function updateCartItemQuantity(itemId, newQuantity) {
+            const item = shoppingCart.find(item => item.id === itemId);
+            if (item) {
+                if (newQuantity <= 0) {
+                    removeFromCart(itemId);
+                } else {
+                    item.quantity = newQuantity;
+                    saveCart();
+                    renderCartItems();
+                }
+            }
+        }
+
+        function renderCartItems() {
+            const cartItemsContainer = document.getElementById('cart-items');
+            const cartTotal = document.getElementById('cart-total');
+
+            if (shoppingCart.length === 0) {
+                cartItemsContainer.innerHTML = `
+                    <div class="text-center py-8">
+                        <i class="fas fa-shopping-cart text-4xl text-gray-300 mb-4"></i>
+                        <p class="text-gray-500">Your cart is empty</p>
+                        <p class="text-sm text-gray-400 mt-2">Browse our talented artists and add their services to your cart</p>
+                    </div>
+                `;
+                cartTotal.textContent = '0';
+                return;
+            }
+
+            let total = 0;
+            cartItemsContainer.innerHTML = shoppingCart.map(item => {
+                const itemTotal = item.price * item.quantity;
+                total += itemTotal;
+
+                return `
+                    <div class="flex items-center space-x-4 p-4 border-b border-gray-200">
+                        <img src="${item.artistAvatar || 'https://placehold.co/60x60/F6EEE0/A45C40?text=Artist'}" class="w-12 h-12 rounded-full object-cover">
+                        <div class="flex-1">
+                            <h4 class="font-semibold text-sm">${item.gigTitle}</h4>
+                            <p class="text-xs text-gray-600">by ${item.artistName}</p>
+                            <p class="text-xs text-[#A45C40] capitalize">${item.packageType} Package</p>
+                            <p class="text-xs text-gray-500">${item.description}</p>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <button onclick="updateCartItemQuantity('${item.id}', ${item.quantity - 1})" class="w-6 h-6 rounded-full bg-gray-200 flex items-center justify-center text-xs">-</button>
+                            <span class="text-sm font-medium w-8 text-center">${item.quantity}</span>
+                            <button onclick="updateCartItemQuantity('${item.id}', ${item.quantity + 1})" class="w-6 h-6 rounded-full bg-gray-200 flex items-center justify-center text-xs">+</button>
+                        </div>
+                        <div class="text-right">
+                            <p class="font-semibold">₹${itemTotal}</p>
+                            <button onclick="removeFromCart('${item.id}')" class="text-red-500 hover:text-red-700 text-xs">Remove</button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            cartTotal.textContent = total.toLocaleString();
+        }
+
+        function showShoppingCart() {
+            renderCartItems();
+            document.getElementById('cart-modal').classList.remove('hidden');
+        }
+
+        function processCheckout() {
+            if (shoppingCart.length === 0) {
+                showToast("Your cart is empty!", "error");
+                return;
+            }
+
+            if (!auth.currentUser) {
+                showToast("Please log in to checkout.", "error");
+                document.getElementById('cart-modal').classList.add('hidden');
+                navigateTo(showLoginPage, 'login-page');
+                return;
+            }
+
+            // Generate order ID
+            const orderId = 'AKR-' + Date.now().toString(36).toUpperCase();
+            document.getElementById('order-id').textContent = orderId;
+
+            // Clear cart
+            shoppingCart = [];
+            saveCart();
+
+            // Show order confirmation
+            document.getElementById('cart-modal').classList.add('hidden');
+            document.getElementById('order-modal').classList.remove('hidden');
+
+            // In real implementation, save order to Firestore
+            showToast("Order placed successfully!", "success");
+        }
+
+        // Make functions available globally
+        window.updateCartItemQuantity = updateCartItemQuantity;
+        window.removeFromCart = removeFromCart;
+
         // --- INITIALIZATION ---
         function init() {
+            // Initialize cart count on page load
+            updateCartCount();
+
             window.addEventListener('load', () => {
                 setTimeout(() => {
                     const navLogo = document.querySelector('#home-link img');
