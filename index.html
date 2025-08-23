@@ -286,6 +286,17 @@
             </main>
 
             <!-- =================================== -->
+            <!-- ==    ARTIST DETAIL PAGE CONTENT   == -->
+            <!-- =================================== -->
+            <main id="artist-detail-page" class="hidden">
+                <div class="container mx-auto px-6 py-20">
+                    <div id="artist-detail-container" class="max-w-4xl mx-auto bg-white rounded-lg shadow-xl p-8">
+                        <!-- Artist details will be injected here -->
+                    </div>
+                </div>
+            </main>
+
+            <!-- =================================== -->
             <!-- ==    ART FORM DETAIL PAGE CONTENT == -->
             <!-- =================================== -->
             <main id="art-detail-page" class="hidden">
@@ -317,21 +328,32 @@
                         <h1 class="text-4xl font-bold mb-4">Cultural Events</h1>
                         <p class="text-[#C38370] mb-8">Discover workshops, exhibitions, and performances happening around you.</p>
                         <div class="max-w-2xl mx-auto space-y-4">
-                            <div class="flex">
-                                <input type="text" id="city-search-input" placeholder="Enter a city name..." class="w-full px-4 py-3 border border-[#E4B7A0] rounded-l-lg focus:outline-none focus:ring-2 focus:ring-[#A45C40] transition bg-white">
-                                <button id="find-events-by-city-btn" class="bg-[#A45C40] hover:bg-[#C38370] text-white font-bold py-3 px-4 rounded-r-lg">
-                                    <i class="fas fa-search"></i>
-                                </button>
-                            </div>
-
-                            <button id="find-events-btn" class="bg-[#A45C40]/80 hover:bg-[#A45C40] text-white font-bold py-3 px-8 rounded-full text-lg transition duration-300">
-                                <i class="fas fa-map-marker-alt mr-2"></i> Or, Find Events Near Me
+                             <button id="explore-events-btn" data-action="explore-events" class="bg-[#A45C40] hover:bg-[#C38370] text-white font-bold py-3 px-8 rounded-full text-lg transition duration-300 w-full">
+                                <i class="fas fa-globe-asia mr-2"></i> Explore Events Across India
+                            </button>
+                            <button id="find-events-btn" class="bg-[#A45C40]/80 hover:bg-[#A45C40] text-white font-bold py-3 px-8 rounded-full text-lg transition duration-300 w-full">
+                                <i class="fas fa-map-marker-alt mr-2"></i> Find Events Near Me
                             </button>
                         </div>
                     </div>
 
                     <div id="events-container" class="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                         <!-- Event cards will be populated here by JavaScript -->
+                    </div>
+                </div>
+            </main>
+
+             <!-- =================================== -->
+            <!-- ==   EXPLORE EVENTS PAGE CONTENT  == -->
+            <!-- =================================== -->
+            <main id="explore-events-page" class="hidden">
+                <div class="container mx-auto px-6 py-20">
+                    <div class="max-w-3xl mx-auto text-center">
+                        <h1 class="text-4xl font-bold mb-4">Cultural Events of India</h1>
+                        <p class="text-[#C38370] mb-12">Explore the rich tapestry of festivals and cultural events celebrated across every state of India.</p>
+                    </div>
+                    <div id="explore-events-container" class="space-y-16">
+                        <!-- All state events will be injected here by JS -->
                     </div>
                 </div>
             </main>
@@ -542,7 +564,6 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
-        const ticketmasterApiKey = "xAj9CGC3cKjEPT98VGlg0SzJ0M7pPyHj"; // <-- IMPORTANT: Add your key here
 
         // --- GLOBAL STATE ---
         let userProfile = { gigs: [] };
@@ -635,8 +656,28 @@
         ];
 
         const sampleEvents = [
-            { name: "Warli Art Workshop", city: "Bengaluru", date: "2025-09-15", description: "Learn the basics of Warli painting from master artists.", lat: 12.9716, lon: 77.5946 },
-            { name: "Madhubani Exhibition", city: "Delhi", date: "2025-10-05", description: "A grand exhibition showcasing the finest Madhubani artworks.", lat: 28.7041, lon: 77.1025 },
+            { name: "Karaga Festival", state: "Karnataka", city: "Bengaluru", date: "2025-04-15", description: "One of the oldest festivals in Bengaluru, celebrating Draupadi.", lat: 12.9716, lon: 77.5946 },
+            { name: "Bangalore Literature Festival", state: "Karnataka", city: "Bengaluru", date: "2025-12-07", description: "A celebration of literature and ideas, featuring authors from around the world.", lat: 12.9716, lon: 77.5946 },
+            { name: "Madhubani Exhibition", state: "Bihar", city: "Delhi", date: "2025-10-05", description: "A grand exhibition showcasing the finest Madhubani artworks.", lat: 28.7041, lon: 77.1025 },
+            { name: "Gond Art Festival", state: "Madhya Pradesh", city: "Bhopal", date: "2025-12-01", description: "Celebrate the tribal art of the Gond community.", lat: 23.2599, lon: 77.4126 },
+        ];
+        
+        const allIndianEvents = [
+            { name: "Mysuru Dasara", state: "Karnataka", description: "A spectacular 10-day festival in <b>Mysore</b>, celebrating the victory of good over evil. The festival culminates in a grand procession, known as <b>Jumboo Savari</b>, featuring decorated elephants. It showcases the rich culture and heritage of <b>Karnataka</b> with various cultural programs.", imageUrl: "C.MYSORE.1.JPG", imageUrl2: "C.MYSORE.2.JPG", videoUrl: "" },
+            { name: "Rath Yatra", state: "Odisha", description: "An ancient and grand chariot festival dedicated to <b>Lord Jagannath</b>, held annually in <b>Puri</b>. The deities are pulled on massive, elaborately decorated chariots in a public procession. Millions of devotees flock to witness this vibrant and spiritual spectacle.", imageUrl: "c.rath.1.jpg", imageUrl2: "c.rath.2.jpg", videoUrl: "" },
+            { name: "Bihu", state: "Assam", description: "A set of three important <b>Assamese festivals</b> celebrating different phases of the farming calendar. <b>Rongali Bihu</b> marks the Assamese New Year with joyous feasting and folk dances. It is a celebration of spring, fertility, and the community's cultural identity.", imageUrl: "c.bihu.1.jpg", imageUrl2: "c.bihu.2.jpg", videoUrl: "" },
+            { name: "Chhath Puja", state: "Bihar", description: "An ancient Hindu festival dedicated to the solar deity, <b>Surya</b>, and his consort <b>Chhathi Maiya</b>. Devotees perform rigorous rituals, including fasting and offering prayers to the rising and setting sun. It is a major festival in <b>Bihar</b>, Jharkhand, and parts of Uttar Pradesh.", imageUrl: "c.puja.1.jpg", imageUrl2: "c.puja.2.jpg", videoUrl: "" },
+            { name: "Bastar Dussehra", state: "Chhattisgarh", description: "A unique 75-day festival in the <b>Bastar region</b>, making it the longest Dussehra celebration in the world. It is not about Rama's victory over Ravana but is dedicated to the local deity, <b>Goddess Danteshwari</b>. The festival is known for its unique and vibrant <b>tribal rituals</b>.", imageUrl: "c.duss.1..jpg", imageUrl2: "c.duss.2.jpg", videoUrl: "" },
+            { name: "Goa Carnival", state: "Goa", description: "A vibrant and colorful carnival held just before the season of <b>Lent</b>, a tradition dating back to Portuguese rule. The streets of <b>Goa</b> come alive with grand parades, elaborate floats, music, and dancing. It is a time of feasting and merrymaking before the period of abstinence.", imageUrl: "c.goa.1.jpg", imageUrl2: "c.goa.2.jpg", videoUrl: "" },
+            { name: "Navratri", state: "Gujarat", description: "A nine-night festival celebrated with immense fervor, especially known for its energetic <b>Garba</b> and <b>Dandiya Raas</b> dances. Devotees worship the nine forms of <b>Goddess Durga</b> over the nine nights. It is a celebration of music, dance, and spirituality in <b>Gujarat</b>.", imageUrl: "c.nav.1.jpg", imageUrl2: "c.nav.2.jpg", videoUrl: "" },
+            { name: "Kullu Dussehra", state: "Himachal Pradesh", description: "A week-long international festival celebrated in the <b>Kullu Valley</b> of Himachal Pradesh. Unlike other places, the celebrations begin on the day they end elsewhere. Deities from surrounding villages are brought to Kullu to pay homage to the principal deity, <b>Lord Raghunath</b>.", imageUrl: "c.kullu.1.jpg", imageUrl2: "c.kullu.2.jpg", videoUrl: "" },
+            { name: "Onam", state: "Kerala", description: "A major harvest festival of <b>Kerala</b>, celebrating the homecoming of the mythical King Mahabali. The festival is marked by intricate flower carpets called <b>Pookalam</b>, grand feasts known as <b>Onam Sadya</b>, and the famous snake boat races or <b>Vallam Kali</b>.", imageUrl: "c.onam.1.jpg", imageUrl2: "c.onam.2.jpg", videoUrl: "" },
+            { name: "Ganesh Chaturthi", state: "Maharashtra", description: "A grand 10-day festival celebrating the birth of the elephant-headed deity, <b>Lord Ganesha</b>. Huge, handcrafted idols are installed in homes and public pandals, followed by daily prayers and cultural events. The festival culminates with the immersion of the idols, known as <b>Visarjan</b>.", imageUrl: "c.ganu.1.jpg", imageUrl2: "c.ganu.2.jpg", videoUrl: "" },
+            { name: "Sangai Festival", state: "Manipur", description: "An annual cultural extravaganza in <b>Manipur</b>, named after the state animal, the Sangai deer. It showcases the state's rich traditions in art, craft, handloom, and indigenous sports. The festival is a platform to promote <b>Manipur</b> as a world-class tourism destination.", imageUrl: "c.sang.1.jpg", imageUrl2: "c.sang.jpg", videoUrl: "" },
+            { name: "Hornbill Festival", state: "Nagaland", description: "Known as the 'Festival of Festivals', it is a vibrant celebration of the culture and traditions of the 16 <b>Naga tribes</b>. Held in the heritage village of <b>Kisama</b>, it features traditional music, dances, food fairs, and crafts. The festival aims to revive and protect the rich culture of <b>Nagaland</b>.", imageUrl: "c.bill.1.jpg", imageUrl2: "c.bill.2.jpg", videoUrl: "" },
+            { name: "Hola Mohalla", state: "Punjab", description: "A famous three-day <b>Sikh festival</b> held at Anandpur Sahib in Punjab. It follows the Hindu festival of Holi and features mock battles, known as <b>Gatka</b>, along with displays of swordsmanship and horsemanship. It is a testament to the martial spirit of the Sikh community.", imageUrl: "c.punj.1.jpg", imageUrl2: "c.punj.2.jpg", videoUrl: "" },
+            { name: "Pongal", state: "Tamil Nadu", description: "A four-day harvest festival celebrated in <b>Tamil Nadu</b> to thank the Sun God for the agricultural abundance. The festival is named after the traditional sweet dish made from new rice, milk, and jaggery. Homes are decorated, and cattle are honored as part of the celebrations.", imageUrl: "c.pongal.1.jpg", imageUrl2: "c.pongal.2.jpg", videoUrl: "" },
+            { name: "Durga Puja", state: "West Bengal", description: "A grand ten-day festival, particularly celebrated in <b>West Bengal</b>, honoring the victory of the goddess <b>Durga</b> over the demon Mahishasur. The city of Kolkata comes alive with thousands of elaborate temporary structures called <b>pandals</b> housing the deity's idols. It is a celebration of art, culture, and community.", imageUrl: "c.durga.1.jpg", imageUrl2: "c.durga.2.jpg", videoUrl: "" },
         ];
 
 
@@ -649,14 +690,14 @@
         const artistsPage = document.getElementById('artists-page');
         const searchResultsPage = document.getElementById('search-results-page');
         const artDetailPage = document.getElementById('art-detail-page'); // New detail page
+        const exploreEventsPage = document.getElementById('explore-events-page'); // New explore events page
         const backBtn = document.getElementById('back-btn'); // Back button
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
         const searchBtn = document.getElementById('search-btn');
         const searchInput = document.getElementById('search-input');
         const findEventsBtn = document.getElementById('find-events-btn');
-        const citySearchInput = document.getElementById('city-search-input');
-        const findEventsByCityBtn = document.getElementById('find-events-by-city-btn');
+        const exploreEventsBtn = document.getElementById('explore-events-btn');
         const statusFilter = document.getElementById('status-filter');
         const stateFilter = document.getElementById('state-filter');
         const filterBtn = document.getElementById('filter-btn');
@@ -665,6 +706,7 @@
         const featuredArtContainer = document.getElementById('featured-art-container');
         const artistsContainer = document.getElementById('artists-container');
         const searchResultsContainer = document.getElementById('search-results-container');
+        const exploreEventsContainer = document.getElementById('explore-events-container');
         
         // Auth Page Elements
         const authTitlePage = document.getElementById('auth-title-page');
@@ -729,6 +771,7 @@
             artistsPage.classList.add('hidden');
             searchResultsPage.classList.add('hidden');
             artDetailPage.classList.add('hidden');
+            exploreEventsPage.classList.add('hidden');
         }
 
         function showHomePage() {
@@ -759,6 +802,14 @@
             eventsPage.classList.remove('hidden');
             backBtn.classList.remove('hidden');
             window.scrollTo(0, 0);
+        }
+
+        function showExploreEventsPage() {
+            hideAllPages();
+            exploreEventsPage.classList.remove('hidden');
+            backBtn.classList.remove('hidden');
+            window.scrollTo(0, 0);
+            renderAllEvents(allIndianEvents);
         }
 
         function showLoginPage() {
@@ -807,7 +858,8 @@
             'login-page': showLoginPage,
             'creator-hub-page': showCreatorHubPage,
             'search-results-page': showSearchResultsPage,
-            'art-detail-page': showArtDetailPage 
+            'art-detail-page': showArtDetailPage,
+            'explore-events-page': showExploreEventsPage
         };
 
         function navigateTo(pageFunction, pageId, ...args) {
@@ -1151,55 +1203,88 @@
         function renderEvents(events) {
             eventsContainer.innerHTML = '';
             if (!events || events.length === 0) {
-                eventsContainer.innerHTML = '<p class="text-center text-[#C38370] col-span-full">No events found nearby.</p>';
+                eventsContainer.innerHTML = '<p class="text-center text-[#C38370] col-span-full">No events found.</p>';
                 return;
             }
             events.forEach(event => {
                 const eventCard = document.createElement('div');
                 eventCard.className = 'bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow';
                 eventCard.innerHTML = `
+                    <div class="w-full h-48 mb-4 overflow-hidden rounded-lg">
+                        <img src="${event.imageUrl}" alt="${event.name}" class="w-full h-full object-cover">
+                    </div>
                     <h3 class="text-xl font-bold mb-2">${event.name}</h3>
                     <p class="text-[#C38370] mb-2"><i class="fas fa-calendar-alt mr-2"></i>${new Date(event.date).toDateString()}</p>
-                    <p class="text-[#C38370] mb-4"><i class="fas fa-map-marker-alt mr-2"></i>${event.city}</p>
+                    <p class="text-[#C38370] mb-4"><i class="fas fa-map-marker-alt mr-2"></i>${event.city}, ${event.state}</p>
                     <p class="text-[#A45C40]">${event.description}</p>
+                    ${event.distance ? `<p class="text-sm text-[#A45C40] font-semibold mt-4">Distance: ${event.distance.toFixed(2)} km away</p>` : ''}
                 `;
                 eventsContainer.appendChild(eventCard);
             });
         }
 
-        async function findNearbyEvents() {
+        function renderAllEvents(events) {
+            exploreEventsContainer.innerHTML = '';
+            if (!events || events.length === 0) {
+                exploreEventsContainer.innerHTML = '<p class="text-center text-[#C38370] col-span-full">No events found.</p>';
+                return;
+            }
+            events.forEach(event => {
+                const eventEl = document.createElement('div');
+                eventEl.className = 'flex flex-col md:flex-row items-center bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 group';
+                
+                const mediaElementHTML = `
+                    <div class="relative w-full h-full">
+                        <img src="${event.imageUrl}" alt="${event.name}" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ease-in-out opacity-100">
+                        <img src="${event.imageUrl2}" alt="${event.name}" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ease-in-out opacity-0">
+                    </div>
+                `;
+
+                eventEl.innerHTML = `
+                    <div class="w-full md:w-1/3 h-64 rounded-lg mb-6 md:mb-0 md:mr-8 overflow-hidden relative">
+                       ${mediaElementHTML}
+                    </div>
+                    <div class="flex-1 text-left">
+                        <h2 class="text-3xl font-bold mb-2">${event.name}</h2>
+                        <p class="text-[#C38370] mb-4"><i class="fas fa-map-marker-alt mr-2 text-[#E4B7A0]"></i>${event.state}</p>
+                        <p class="text-[#A45C40] mb-4">${event.description}</p>
+                    </div>
+                `;
+                exploreEventsContainer.appendChild(eventEl);
+
+                let intervalId;
+                const images = eventEl.querySelectorAll('img');
+                eventEl.addEventListener('mouseover', () => {
+                    let currentImage = 0;
+                    intervalId = setInterval(() => {
+                        images[currentImage].classList.add('opacity-0');
+                        currentImage = (currentImage + 1) % images.length;
+                        images[currentImage].classList.remove('opacity-0');
+                    }, 1000);
+                });
+
+                eventEl.addEventListener('mouseout', () => {
+                    clearInterval(intervalId);
+                    images[0].classList.remove('opacity-0');
+                    images[1].classList.add('opacity-0');
+                });
+            });
+        }
+
+        function findNearbyEvents() {
             if (!navigator.geolocation) {
                 showToast("Geolocation is not supported by your browser.", "error");
                 return;
             }
 
-            navigator.geolocation.getCurrentPosition(async position => {
+            navigator.geolocation.getCurrentPosition(position => {
                 const { latitude, longitude } = position.coords;
-                
-                const url = `https://app.ticketmaster.com/discovery/v2/events.json?apikey=${ticketmasterApiKey}&latlong=${latitude},${longitude}&radius=50&unit=km&classificationName=Arts & Theatre`;
-
-                try {
-                    const response = await fetch(url);
-                    if (!response.ok) {
-                        throw new Error('Failed to fetch events from Ticketmaster API.');
-                    }
-                    const data = await response.json();
-                    
-                    const formattedEvents = data._embedded?.events.map(event => ({
-                        name: event.name,
-                        city: event._embedded?.venues[0]?.city?.name || 'N/A',
-                        date: event.dates.start.localDate,
-                        description: event.info || 'No description available.'
-                    })) || [];
-
-                    renderEvents(formattedEvents);
-
-                } catch (error) {
-                    console.error("Error fetching events:", error);
-                    showToast("Could not fetch nearby events.", "error");
-                    renderEvents([]); // Render an empty state
-                }
-
+                const eventsWithDistance = sampleEvents.map(event => ({
+                    ...event,
+                    distance: calculateDistance(latitude, longitude, event.lat, event.lon)
+                }));
+                eventsWithDistance.sort((a, b) => a.distance - b.distance);
+                renderEvents(eventsWithDistance);
             }, () => {
                 showToast("Unable to retrieve your location.", "error");
             });
@@ -1287,8 +1372,11 @@
                     break;
                 case 'show-events':
                     e.preventDefault();
-                    navigateTo(() => renderEvents([]), 'events-page'); // Show empty state initially
+                    navigateTo(() => renderEvents([]), 'events-page');
                     showEventsPage();
+                    break;
+                case 'explore-events':
+                    navigateTo(showExploreEventsPage, 'explore-events-page');
                     break;
                 case 'delete-gig':
                     const index = parseInt(target.dataset.index, 10);
