@@ -93,21 +93,48 @@
             opacity: 0;
             pointer-events: none;
         }
+
+        /* Custom Toast Notification */
+        #toast {
+            position: fixed;
+            bottom: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 1rem 2rem;
+            border-radius: 9999px;
+            color: white;
+            font-weight: 500;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: bottom 0.5s ease-in-out;
+            z-index: 200;
+        }
+        #toast.show {
+            bottom: 20px;
+        }
+        #toast.success {
+            background-color: #28a745;
+        }
+        #toast.error {
+            background-color: #dc3545;
+        }
     </style>
 </head>
 <body class="bg-[#F6EEE0] text-[#A45C40]">
 
     <!-- Splash Screen -->
     <div id="splash-screen">
-        <img id="splash-logo" src="a.logo.png" alt="Akruti Logo">
+        <img id="splash-logo" src="a.logo.png" alt="Akruti Logo" onerror="this.onerror=null;this.src='https://placehold.co/250x250/e4b7a0/A45C40?text=Akruti';">
     </div>
+    
+    <!-- Toast Notification -->
+    <div id="toast"></div>
 
     <div class="app-content">
         <!-- Header -->
         <header class="bg-white/80 backdrop-blur-sm shadow-md sticky top-0 z-50">
             <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
                 <a href="#" id="home-link" class="flex items-center text-2xl font-bold text-[#A45C40] cursor-pointer">
-                    <img src="a.logo.png" alt="Akruti Logo" class="h-16 mr-2">
+                    <img src="a.logo.png" alt="Akruti Logo" class="h-20 mr-2" onerror="this.onerror=null;this.src='https://placehold.co/64x64/e4b7a0/A45C40?text=A';">
                 </a>
                 
                 <div class="hidden md:flex items-center space-x-8">
@@ -118,15 +145,25 @@
 
                 <!-- Search Bar -->
                 <div class="hidden md:flex flex-grow max-w-lg mx-4">
-                    <input type="search" id="search-input" placeholder="Search for Art Forms..." class="w-full px-4 py-2 border border-[#E4B7A0] rounded-l-lg focus:outline-none focus:ring-2 focus:ring-[#A45C40] transition bg-white">
+                    <input type="search" id="search-input" placeholder="Search for artist, art, or culture..." class="w-full px-4 py-2 border border-[#E4B7A0] rounded-l-lg focus:outline-none focus:ring-2 focus:ring-[#A45C40] transition bg-white">
                     <button id="search-btn" class="bg-[#A45C40] hover:bg-[#C38370] text-white font-bold py-2 px-4 rounded-r-lg">
                         <i class="fas fa-search"></i>
                     </button>
                 </div>
 
+                <!-- AUTHENTICATION-AWARE NAVIGATION -->
                 <div class="hidden md:flex items-center space-x-4" id="nav-right-desktop">
-                     <button data-action="login" class="text-[#A45C40] hover:text-[#C38370] font-medium">Login</button>
-                     <button data-action="creator-hub" class="bg-[#A45C40] hover:bg-[#C38370] text-white font-bold py-2 px-4 rounded-full transition duration-300">Creator Hub</button>
+                    <!-- Logged Out State -->
+                    <div id="logged-out-view" class="flex items-center space-x-4">
+                        <button data-action="show-login" class="text-[#A45C40] hover:text-[#C38370] font-medium">Login</button>
+                        <button data-action="creator-hub" class="bg-[#A45C40] hover:bg-[#C38370] text-white font-bold py-2 px-4 rounded-full transition duration-300">Creator Hub</button>
+                    </div>
+                    <!-- Logged In State (hidden by default) -->
+                    <div id="logged-in-view" class="hidden items-center space-x-4">
+                        <span id="user-email" class="text-sm text-[#C38370] truncate max-w-[150px]" title="Logged in user"></span>
+                        <button data-action="creator-hub" class="bg-[#A45C40] hover:bg-[#C38370] text-white font-bold py-2 px-4 rounded-full transition duration-300">My Hub</button>
+                        <button data-action="logout" class="text-[#A45C40] hover:text-[#C38370] font-medium">Logout</button>
+                    </div>
                 </div>
                 <button id="mobile-menu-button" class="md:hidden">
                     <i class="fas fa-bars text-2xl text-[#A45C40]"></i>
@@ -138,8 +175,17 @@
                 <a href="#" data-action="show-art-forms" class="block py-2 text-[#A45C40] hover:text-[#C38370]">Art Forms</a>
                 <a href="#" data-action="show-events" class="block py-2 text-[#A45C40] hover:text-[#C38370]">Events</a>
                 <div id="nav-right-mobile" class="mt-4 border-t border-[#E4B7A0] pt-4">
-                     <button data-action="login" class="block w-full text-left py-2 text-[#A45C40] hover:text-[#C38370]">Login</button>
-                     <button data-action="creator-hub" class="block w-full mt-2 bg-[#A45C40] hover:bg-[#C38370] text-white font-bold py-2 px-4 rounded-full text-center">Creator Hub</button>
+                     <!-- Logged Out State -->
+                    <div id="logged-out-view-mobile">
+                        <button data-action="show-login" class="block w-full text-left py-2 text-[#A45C40] hover:text-[#C38370]">Login</button>
+                        <button data-action="creator-hub" class="block w-full mt-2 bg-[#A45C40] hover:bg-[#C38370] text-white font-bold py-2 px-4 rounded-full text-center">Creator Hub</button>
+                    </div>
+                     <!-- Logged In State (hidden by default) -->
+                    <div id="logged-in-view-mobile" class="hidden">
+                        <span id="user-email-mobile" class="block py-2 text-sm text-[#C38370] truncate"></span>
+                        <button data-action="creator-hub" class="block w-full mt-2 bg-[#A45C40] hover:bg-[#C38370] text-white font-bold py-2 px-4 rounded-full text-center">My Hub</button>
+                        <button data-action="logout" class="block w-full text-left py-2 mt-2 text-[#A45C40] hover:text-[#C38370]">Logout</button>
+                    </div>
                 </div>
             </div>
         </header>
@@ -148,25 +194,25 @@
         <div id="main-content">
             
             <!-- =================================== -->
-            <!-- ==        HOME PAGE CONTENT      == -->
+            <!-- ==       HOME PAGE CONTENT       == -->
             <!-- =================================== -->
             <main id="home-page">
                 <!-- Hero Section -->
                 <section id="home-page-section" class="h-[50vh] md:h-[70vh] p-4 md:p-8 relative">
-                     <div class="slider h-full">
-                        <img src="landing.chitara.jpg" alt="Indian Art Slide 1" onerror="this.onerror=null;this.src='https://placehold.co/1200x800/A45C40/F6EEE0?text=Chitara+Art';">
-                        <img src="landing.art.png" alt="Indian Art Slide 2" onerror="this.onerror=null;this.src='https://placehold.co/1200x800/A45C40/F6EEE0?text=Pithora+Art';">
-                        <img src="landing.embroidery.png" alt="Indian Art Slide 3" onerror="this.onerror=null;this.src='https://placehold.co/1200x800/A45C40/F6EEE0?text=Embroidery';">
-                        <img src="landing.madhubani.jpg" alt="Indian Art Slide 4" onerror="this.onerror=null;this.src='https://placehold.co/1200x800/A45C40/F6EEE0?text=Madhubani';">
-                        <img src="landing.pithora.jpg" alt="Indian Art Slide 5" onerror="this.onerror=null;this.src='https://placehold.co/1200x800/A45C40/F6EEE0?text=Pithora+Art';">
-                        <img src="landing.warli.jpg" alt="Indian Art Slide 6" onerror="this.onerror=null;this.src='https://placehold.co/1200x800/A45C40/F6EEE0?text=Warli+Art';">
-                    </div>
-                     <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center text-center rounded-2xl">
-                        <div>
-                            <h1 class="text-white text-4xl md:text-6xl font-bold drop-shadow-lg">Akruti</h1>
-                            <p class="text-white text-lg md:text-2xl mt-4 drop-shadow-md">A Digital Sanctuary for India's Folk & Tribal Art</p>
-                        </div>
-                    </div>
+                      <div class="slider h-full">
+                          <img src="landing.chitara.jpg" alt="Indian Art Slide 1" onerror="this.onerror=null;this.src='https://placehold.co/1200x800/A45C40/F6EEE0?text=Chitara+Art';">
+                          <img src="landing.art.png" alt="Indian Art Slide 2" onerror="this.onerror=null;this.src='https://placehold.co/1200x800/A45C40/F6EEE0?text=Pithora+Art';">
+                          <img src="landing.embroidery.png" alt="Indian Art Slide 3" onerror="this.onerror=null;this.src='https://placehold.co/1200x800/A45C40/F6EEE0?text=Embroidery';">
+                          <img src="landing.madhubani.jpg" alt="Indian Art Slide 4" onerror="this.onerror=null;this.src='https://placehold.co/1200x800/A45C40/F6EEE0?text=Madhubani';">
+                          <img src="landing.pithora.jpg" alt="Indian Art Slide 5" onerror="this.onerror=null;this.src='https://placehold.co/1200x800/A45C40/F6EEE0?text=Pithora+Art';">
+                          <img src="landing.warli.jpg" alt="Indian Art Slide 6" onerror="this.onerror=null;this.src='https://placehold.co/1200x800/A45C40/F6EEE0?text=Warli+Art';">
+                      </div>
+                      <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center text-center rounded-2xl">
+                          <div>
+                              <h1 class="text-white text-4xl md:text-6xl font-bold drop-shadow-lg">Akruti</h1>
+                              <p class="text-white text-lg md:text-2xl mt-4 drop-shadow-md">A Digital Sanctuary for India's Folk & Tribal Art</p>
+                          </div>
+                      </div>
                 </section>
 
                 <!-- Featured Art Forms Section -->
@@ -182,7 +228,7 @@
             </main>
 
             <!-- =================================== -->
-            <!-- ==      ART FORMS PAGE CONTENT     == -->
+            <!-- ==     ART FORMS PAGE CONTENT    == -->
             <!-- =================================== -->
             <main id="art-forms-page" class="hidden bg-white/70">
                 <div class="container mx-auto px-6 py-20">
@@ -218,7 +264,7 @@
             </main>
             
             <!-- =================================== -->
-            <!-- ==       EVENTS PAGE CONTENT       == -->
+            <!-- ==      EVENTS PAGE CONTENT      == -->
             <!-- =================================== -->
             <main id="events-page" class="hidden bg-white/70">
                 <div class="container mx-auto px-6 py-20">
@@ -237,7 +283,74 @@
             </main>
 
             <!-- =================================== -->
-            <!-- ==      CREATOR HUB CONTENT      == -->
+            <!-- ==    SEARCH RESULTS PAGE CONTENT  == -->
+            <!-- =================================== -->
+            <main id="search-results-page" class="hidden">
+                <div class="container mx-auto px-6 py-20">
+                    <h1 class="text-3xl font-bold text-center mb-12">Search Results</h1>
+                    <div id="search-results-container" class="space-y-8 max-w-4xl mx-auto">
+                        <!-- Search results will be injected here -->
+                    </div>
+                </div>
+            </main>
+
+            <!-- =================================== -->
+            <!-- ==       LOGIN PAGE CONTENT      == -->
+            <!-- =================================== -->
+            <main id="login-page" class="hidden">
+                <div class="container mx-auto px-6 py-20 flex items-center justify-center min-h-[70vh]">
+                    <div class="bg-white rounded-lg shadow-2xl p-8 w-full max-w-md">
+                        <h2 id="auth-title-page" class="text-2xl font-bold text-[#A45C40] text-center mb-6">Login</h2>
+                        <div id="auth-error-page" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4 hidden"></div>
+                        
+                        <!-- Google Login Button -->
+                        <button data-action="login-google" class="w-full bg-white border border-gray-300 text-gray-700 font-semibold py-3 px-4 rounded-full transition duration-300 hover:bg-gray-100 flex items-center justify-center mb-4">
+                            <img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" alt="Google logo" class="h-5 mr-3">
+                            Continue with Google
+                        </button>
+
+                        <div class="my-6 flex items-center">
+                            <hr class="flex-grow border-t border-gray-300">
+                            <span class="mx-4 text-gray-500">OR</span>
+                            <hr class="flex-grow border-t border-gray-300">
+                        </div>
+
+                        <!-- Login Form -->
+                        <form id="login-form-page">
+                            <div class="mb-4">
+                                <label for="login-email-page" class="block text-[#A45C40] mb-2">Email</label>
+                                <input type="email" id="login-email-page" class="w-full px-4 py-2 border border-[#E4B7A0] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#A45C40]" required>
+                            </div>
+                            <div class="mb-6">
+                                <label for="login-password-page" class="block text-[#A45C40] mb-2">Password</label>
+                                <input type="password" id="login-password-page" class="w-full px-4 py-2 border border-[#E4B7A0] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#A45C40]" required>
+                            </div>
+                            <button type="submit" class="w-full bg-[#A45C40] hover:bg-[#C38370] text-white font-bold py-3 px-4 rounded-full transition duration-300">Login</button>
+                        </form>
+
+                        <!-- Sign Up Form -->
+                        <form id="signup-form-page" class="hidden">
+                             <div class="mb-4">
+                                <label for="signup-email-page" class="block text-[#A45C40] mb-2">Email</label>
+                                <input type="email" id="signup-email-page" class="w-full px-4 py-2 border border-[#E4B7A0] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#A45C40]" required>
+                            </div>
+                            <div class="mb-6">
+                                <label for="signup-password-page" class="block text-[#A45C40] mb-2">Password (min. 6 characters)</label>
+                                <input type="password" id="signup-password-page" class="w-full px-4 py-2 border border-[#E4B7A0] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#A45C40]" required>
+                            </div>
+                            <button type="submit" class="w-full bg-[#A45C40] hover:bg-[#C38370] text-white font-bold py-3 px-4 rounded-full transition duration-300">Create Account</button>
+                        </form>
+
+                        <p class="text-center mt-6">
+                            <span id="auth-prompt-text-page">Don't have an account?</span>
+                            <button id="toggle-auth-mode-page" class="text-[#A45C40] hover:underline font-semibold">Sign Up</button>
+                        </p>
+                    </div>
+                </div>
+            </main>
+
+            <!-- =================================== -->
+            <!-- ==     CREATOR HUB CONTENT       == -->
             <!-- =================================== -->
             <main id="creator-hub-page" class="hidden bg-white/70">
                 <div class="container mx-auto px-6 py-20">
@@ -246,44 +359,38 @@
                         <p class="text-[#C38370] mb-12">This is your creative space. Fill out the sections below to build and publish your public artist profile.</p>
                     </div>
 
-                    <div class="max-w-3xl mx-auto space-y-12">
+                    <form id="creator-profile-form" class="max-w-3xl mx-auto space-y-12">
                         <!-- Artist Details Card -->
                         <div class="bg-[#F6EEE0] p-8 rounded-lg shadow-md">
                             <h2 class="text-2xl font-bold mb-6">1. My Details</h2>
                             <div class="space-y-6">
                                 <div>
                                     <label for="full-name" class="block font-medium text-[#A45C40] mb-2">Full Name</label>
-                                    <input type="text" id="full-name" class="w-full px-4 py-2 border border-[#E4B7A0] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#A45C40] transition" placeholder="e.g., Sunita Devi">
+                                    <input type="text" id="full-name" name="fullName" class="w-full px-4 py-2 border border-[#E4B7A0] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#A45C40] transition" placeholder="e.g., Sunita Devi">
                                 </div>
                                 <div>
                                     <label for="artist-quote" class="block font-medium text-[#A45C40] mb-2">Short Quote or Bio</label>
-                                    <textarea id="artist-quote" rows="3" class="w-full px-4 py-2 border border-[#E4B7A0] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#A45C40] transition" placeholder="e.g., 'I paint the stories my grandmother told me...'"></textarea>
+                                    <textarea id="artist-quote" name="artistQuote" rows="3" class="w-full px-4 py-2 border border-[#E4B7A0] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#A45C40] transition" placeholder="e.g., 'I paint the stories my grandmother told me...'"></textarea>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- NEW: My Services (Gigs) Card -->
+                        <!-- My Services (Gigs) Card -->
                         <div class="bg-[#F6EEE0] p-8 rounded-lg shadow-md">
                             <h2 class="text-2xl font-bold mb-6">2. My Services (Gigs)</h2>
                             <p class="text-[#C38370] mb-6">Create specific services that clients can order. This is the core of your artist profile.</p>
                             
                             <!-- List of existing gigs -->
-                            <div class="space-y-4 mb-6">
-                                <div class="flex justify-between items-center bg-white p-4 rounded-lg border border-[#E4B7A0]">
-                                    <p class="font-medium">Custom Warli Wedding Invitation</p>
-                                    <div>
-                                        <button class="text-[#A45C40] hover:text-blue-600 mr-2"><i class="fas fa-edit"></i></button>
-                                        <button class="text-[#A45C40] hover:text-red-600"><i class="fas fa-trash-alt"></i></button>
-                                    </div>
-                                </div>
+                            <div id="gigs-list" class="space-y-4 mb-6">
+                                <!-- Gigs will be dynamically added here -->
                             </div>
                             
-                            <button class="w-full bg-[#E4B7A0]/50 text-[#A45C40] font-bold py-3 px-4 rounded-lg hover:bg-[#E4B7A0] transition duration-300">
+                            <button type="button" id="add-gig-btn" class="w-full bg-[#E4B7A0]/50 text-[#A45C40] font-bold py-3 px-4 rounded-lg hover:bg-[#E4B7A0] transition duration-300">
                                 + Add a New Service
                             </button>
 
-                            <!-- Form for adding/editing a gig (could be in a modal) -->
-                            <div class="mt-8 space-y-6 border-t border-[#E4B7A0] pt-6">
+                            <!-- Form for adding/editing a gig (initially hidden) -->
+                            <div id="gig-form-container" class="mt-8 space-y-6 border-t border-[#E4B7A0] pt-6 hidden">
                                 <h3 class="text-xl font-bold">Create a New Service</h3>
                                  <div>
                                     <label for="gig-title" class="block font-medium text-[#A45C40] mb-2">Service Title</label>
@@ -299,32 +406,36 @@
                                     <!-- Basic Tier -->
                                     <div class="border border-[#E4B7A0] p-4 rounded-lg">
                                         <h5 class="font-bold text-center mb-2">Basic</h5>
-                                        <input type="text" class="w-full mb-2 px-3 py-1 border border-[#E4B7A0] rounded-md text-sm" placeholder="Price (e.g., 3000)">
-                                        <textarea rows="3" class="w-full px-3 py-1 border border-[#E4B7A0] rounded-md text-sm" placeholder="Description (e.g., 1 concept, 2 revisions)"></textarea>
+                                        <input type="text" id="basic-price" class="w-full mb-2 px-3 py-1 border border-[#E4B7A0] rounded-md text-sm" placeholder="Price (e.g., 3000)">
+                                        <textarea id="basic-desc" rows="3" class="w-full px-3 py-1 border border-[#E4B7A0] rounded-md text-sm" placeholder="Description (e.g., 1 concept, 2 revisions)"></textarea>
                                     </div>
                                     <!-- Standard Tier -->
                                     <div class="border-2 border-[#A45C40] p-4 rounded-lg">
                                         <h5 class="font-bold text-center mb-2 text-[#A45C40]">Standard</h5>
-                                        <input type="text" class="w-full mb-2 px-3 py-1 border border-[#E4B7A0] rounded-md text-sm" placeholder="Price (e.g., 5000)">
-                                        <textarea rows="3" class="w-full px-3 py-1 border border-[#E4B7A0] rounded-md text-sm" placeholder="Description (e.g., 2 concepts, 4 revisions)"></textarea>
+                                        <input type="text" id="standard-price" class="w-full mb-2 px-3 py-1 border border-[#E4B7A0] rounded-md text-sm" placeholder="Price (e.g., 5000)">
+                                        <textarea id="standard-desc" rows="3" class="w-full px-3 py-1 border border-[#E4B7A0] rounded-md text-sm" placeholder="Description (e.g., 2 concepts, 4 revisions)"></textarea>
                                     </div>
                                     <!-- Premium Tier -->
                                     <div class="border border-[#E4B7A0] p-4 rounded-lg">
                                         <h5 class="font-bold text-center mb-2">Premium</h5>
-                                        <input type="text" class="w-full mb-2 px-3 py-1 border border-[#E4B7A0] rounded-md text-sm" placeholder="Price (e.g., 8000)">
-                                        <textarea rows="3" class="w-full px-3 py-1 border border-[#E4B7A0] rounded-md text-sm" placeholder="Description (e.g., 3 concepts, unlimited revisions)"></textarea>
+                                        <input type="text" id="premium-price" class="w-full mb-2 px-3 py-1 border border-[#E4B7A0] rounded-md text-sm" placeholder="Price (e.g., 8000)">
+                                        <textarea id="premium-desc" rows="3" class="w-full px-3 py-1 border border-[#E4B7A0] rounded-md text-sm" placeholder="Description (e.g., 3 concepts, unlimited revisions)"></textarea>
                                     </div>
+                                </div>
+                                <div class="flex justify-end space-x-4">
+                                    <button type="button" id="cancel-gig-btn" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-full">Cancel</button>
+                                    <button type="button" id="save-gig-btn" class="bg-[#A45C40] hover:bg-[#C38370] text-white font-bold py-2 px-4 rounded-full">Save Service</button>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Save Button -->
                         <div class="flex justify-center pt-8">
-                            <button id="save-profile-btn" class="bg-[#A45C40] hover:bg-[#C38370] text-white font-bold py-3 px-8 rounded-full transition duration-300 text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                            <button type="submit" id="save-profile-btn" class="bg-[#A45C40] hover:bg-[#C38370] text-white font-bold py-3 px-8 rounded-full transition duration-300 text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1">
                                 Save & Publish Profile
                             </button>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </main>
         </div>
@@ -339,9 +450,45 @@
 
     <!-- SCRIPT BLOCK -->
     <script type="module">
-        // --- All application logic is now inside this single module script ---
+        // --- FIREBASE SDK IMPORTS ---
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { 
+            getAuth, 
+            onAuthStateChanged,
+            createUserWithEmailAndPassword,
+            signInWithEmailAndPassword,
+            signOut,
+            GoogleAuthProvider,
+            signInWithPopup
+        } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { 
+            getFirestore,
+            doc,
+            setDoc,
+            getDoc,
+            collection,
+            getDocs
+        } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        // In-memory data for art forms
+        // --- FIREBASE CONFIGURATION ---
+        const firebaseConfig = {
+            apiKey: "AIzaSyAxG2Mv4v5_igF-9GSStQRoMlggSX4or30",
+            authDomain: "genesis-76053.firebaseapp.com",
+            projectId: "genesis-76053",
+            storageBucket: "genesis-76053.appspot.com",
+            messagingSenderId: "423472838278",
+            appId: "1:423472838278:web:8cf5f9b0b9b38bebf60307"
+        };
+        
+        // --- INITIALIZE FIREBASE ---
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        // --- GLOBAL STATE ---
+        let userProfile = { gigs: [] };
+
+        // --- In-memory data for art forms (from original code) ---
         const allArtForms = [
             { name: "Warli Painting", state: "Maharashtra", status: "vulnerable", practitioners: 5000, description: "Monochromatic tribal art known for its geometric shapes representing the circle, triangle, and square.", imageUrl: "warli.vdo.img.png", videoUrl: "warli.vdo.mp4" },
             { name: "Madhubani Painting", state: "Bihar", status: "endangered", practitioners: 2000, description: "Famous for its intricate patterns and vibrant colors, traditionally created by women in the Mithila region.", imageUrl: "vdo.image.madhu.png", videoUrl: "madhubani.vdo.mp4" },
@@ -362,50 +509,112 @@
             { name: "Rogan Painting", state: "Gujarat", status: "critically-endangered", practitioners: 80, description: "A form of cloth printing practiced in the Kutch District of Gujarat, India.", imageUrl: "https://placehold.co/600x400/1e293b/ffffff?text=Rogan", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
             { name: "Chittara Art", state: "Karnataka", status: "severely-endangered", practitioners: 150, description: "An art form practiced by the Deevaru community, living in Sagar, Karnataka.", imageUrl: "https://placehold.co/600x400/1e293b/ffffff?text=Chittara", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
             { name: "Manjusha Art", state: "Bihar", status: "endangered", practitioners: 700, description: "A traditional Indian art form from Bhagalpur, also known as Angika art.", imageUrl: "https://placehold.co/600x400/1e293b/ffffff?text=Manjusha", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
-            { name: "Thangka Painting", state: "Goa", status: "vulnerable", practitioners: 1200, description: "A Tibetan Buddhist painting on cotton, or silk appliqué, usually depicting a Buddhist deity, scene, or mandala.", imageUrl: "https://placehold.co/600x400/1e293b/ffffff?text=Thangka", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" }
+            { name: "Thangka Painting", state: "Goa", status: "vulnerable", practitioners: 1200, description: "A Tibetan Buddhist painting on cotton, or silk appliqué, usually depicting a Buddhist deity, scene, or mandala.", imageUrl: "https://placehold.co/600x400/1e293b/ffffff?text=Thangka", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
+            { name: "Sanjhi Art", state: "Uttar Pradesh", status: "endangered", practitioners: 300, description: "The art of paper stenciling, often depicting Krishna's life.", imageUrl: "https://placehold.co/600x400/1e293b/ffffff?text=Sanjhi+Art", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
+            { name: "Aipan Art", state: "Uttarakhand", status: "vulnerable", practitioners: 1000, description: "Ritualistic folk art drawn on floors and walls for auspicious occasions.", imageUrl: "https://placehold.co/600x400/1e293b/ffffff?text=Aipan+Art", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
+            { name: "Patua Art", state: "West Bengal", status: "endangered", practitioners: 500, description: "Scroll paintings accompanied by storytelling or songs.", imageUrl: "https://placehold.co/600x400/1e293b/ffffff?text=Patua+Art", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
+            { name: "Dokra Art", state: "Chhattisgarh", status: "vulnerable", practitioners: 3000, description: "Ancient metal casting art using the lost-wax casting technique.", imageUrl: "https://placehold.co/600x400/1e293b/ffffff?text=Dokra+Art", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
+            { name: "Meenakari Craft", state: "Rajasthan", status: "vulnerable", practitioners: 5000, description: "The art of coloring and ornamenting the surface of metals by fusing over it brilliant colors.", imageUrl: "https://placehold.co/600x400/1e293b/ffffff?text=Meenakari", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
+            { name: "Lippan Kaam", state: "Gujarat", status: "vulnerable", practitioners: 2000, description: "A traditional mural craft of Kutch, using mud and mirrors.", imageUrl: "https://placehold.co/600x400/1e293b/ffffff?text=Lippan+Kaam", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
+            { name: "Sikki Grass Craft", state: "Bihar", status: "vulnerable", practitioners: 4000, description: "Weaving objects from a special golden-hued grass, often depicting local folklore.", imageUrl: "https://placehold.co/600x400/1e293b/ffffff?text=Sikki+Grass", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
+            { name: "Kolam Art", state: "Tamil Nadu", status: "vulnerable", practitioners: 10000, description: "A form of drawing that is drawn by using rice flour, chalk or chalk powder.", imageUrl: "https://placehold.co/600x400/1e293b/ffffff?text=Kolam+Art", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
+            { name: "Chamba Rumal", state: "Himachal Pradesh", status: "critically-endangered", practitioners: 100, description: "An embroidered handicraft known for its intricate and beautiful needlework.", imageUrl: "https://placehold.co/600x400/1e293b/ffffff?text=Chamba+Rumal", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
+            { name: "Pabuji Ki Phad", state: "Rajasthan", status: "severely-endangered", practitioners: 150, description: "A religious scroll painting and folk epic of Pabuji, a local hero-deity.", imageUrl: "https://placehold.co/600x400/1e293b/ffffff?text=Pabuji+Ki+Phad", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
+            { name: "Kavad Banchana", state: "Rajasthan", status: "endangered", practitioners: 250, description: "A form of oral tradition of storytelling with a portable wooden shrine.", imageUrl: "https://placehold.co/600x400/1e293b/ffffff?text=Kavad+Banchana", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
+            { name: "Bhil Art", state: "Madhya Pradesh", status: "vulnerable", practitioners: 3500, description: "A tribal art form characterized by large, un-lifelike shapes of everyday characters filled in with earthy, yet bright colors.", imageUrl: "https://placehold.co/600x400/1e293b/ffffff?text=Bhil+Art", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
+            { name: "Soof Embroidery", state: "Gujarat", status: "endangered", practitioners: 600, description: "A meticulous embroidery from Kutch that is based on the triangle, and is worked from the back of the fabric.", imageUrl: "https://placehold.co/600x400/1e293b/ffffff?text=Soof+Embroidery", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
+            { name: "Khovar and Sohrai Art", state: "Jharkhand", status: "endangered", practitioners: 900, description: "A mural art form practiced by women during weddings and harvest festivals.", imageUrl: "https://placehold.co/600x400/1e293b/ffffff?text=Khovar+Art", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
+            { name: "Toda Embroidery", state: "Tamil Nadu", status: "critically-endangered", practitioners: 80, description: "A distinctive red and black embroidery of the Toda pastoral people of the Nilgiris.", imageUrl: "https://placehold.co/600x400/1e293b/ffffff?text=Toda+Embroidery", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
+            { name: "Ganjifa Cards", state: "Odisha", status: "nearly-extinct", practitioners: 40, description: "Hand-painted playing cards with intricate mythological themes.", imageUrl: "https://placehold.co/600x400/1e293b/ffffff?text=Ganjifa+Cards", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
+            { name: "Kinnal Craft", state: "Karnataka", status: "endangered", practitioners: 200, description: "A traditional wooden craft local to the town of Kinnala, known for its vibrant toys and religious idols.", imageUrl: "https://placehold.co/600x400/1e293b/ffffff?text=Kinnal+Craft", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
+            { name: "Nirmal Paintings", state: "Telangana", status: "endangered", practitioners: 400, description: "A 400-year-old art form known for its golden hues and depictions of nature and mythology.", imageUrl: "https://placehold.co/600x400/1e293b/ffffff?text=Nirmal+Paintings", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
+            { name: "Pipli Applique Work", state: "Odisha", status: "vulnerable", practitioners: 6000, description: "A decorative needlework where pieces of fabric are sewn onto a larger piece to create pictures.", imageUrl: "https://placehold.co/600x400/1e293b/ffffff?text=Pipli+Work", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
+            { name: "Wood Lacquering", state: "Karnataka", status: "vulnerable", practitioners: 1500, description: "The craft of applying lacquer to wood in various colors to create decorative items and toys.", imageUrl: "https://placehold.co/600x400/1e293b/ffffff?text=Wood+Lacquering", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" }
         ];
 
         const sampleEvents = [
             { name: "Warli Art Workshop", city: "Bengaluru", date: "2025-09-15", description: "Learn the basics of Warli painting from master artists.", lat: 12.9716, lon: 77.5946 },
             { name: "Madhubani Exhibition", city: "Delhi", date: "2025-10-05", description: "A grand exhibition showcasing the finest Madhubani artworks.", lat: 28.7041, lon: 77.1025 },
-            { name: "Pattachitra Fair", city: "Bhubaneswar", date: "2025-11-20", description: "Explore the vibrant scroll paintings of Odisha.", lat: 20.2961, lon: 85.8245 },
-            { name: "Gond Art Festival", city: "Bhopal", date: "2025-12-01", description: "Celebrate the tribal art of the Gond community.", lat: 23.2599, lon: 77.4126 },
         ];
 
 
-        // Page containers
+        // --- DOM ELEMENT SELECTORS ---
         const homePage = document.getElementById('home-page');
         const artFormsPage = document.getElementById('art-forms-page');
         const eventsPage = document.getElementById('events-page');
         const creatorHubPage = document.getElementById('creator-hub-page');
-        
-        // Buttons and Links
-        const homeLink = document.getElementById('home-link');
+        const loginPage = document.getElementById('login-page'); // New login page
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
         const searchBtn = document.getElementById('search-btn');
         const searchInput = document.getElementById('search-input');
         const findEventsBtn = document.getElementById('find-events-btn');
-
-        // Art Form Filter Elements
         const statusFilter = document.getElementById('status-filter');
         const stateFilter = document.getElementById('state-filter');
         const filterBtn = document.getElementById('filter-btn');
         const artFormsContainer = document.getElementById('art-forms-container');
         const eventsContainer = document.getElementById('events-container');
         const featuredArtContainer = document.getElementById('featured-art-container');
+        
+        // Auth Page Elements
+        const authTitlePage = document.getElementById('auth-title-page');
+        const authErrorPage = document.getElementById('auth-error-page');
+        const loginFormPage = document.getElementById('login-form-page');
+        const signupFormPage = document.getElementById('signup-form-page');
+        const authPromptTextPage = document.getElementById('auth-prompt-text-page');
+        const toggleAuthModeBtnPage = document.getElementById('toggle-auth-mode-page');
 
+        // Auth-aware Nav Elements
+        const loggedOutViews = [document.getElementById('logged-out-view'), document.getElementById('logged-out-view-mobile')];
+        const loggedInViews = [document.getElementById('logged-in-view'), document.getElementById('logged-in-view-mobile')];
+        const userEmailSpans = [document.getElementById('user-email'), document.getElementById('user-email-mobile')];
+
+        // Creator Hub Form Elements
+        const creatorProfileForm = document.getElementById('creator-profile-form');
+        const fullNameInput = document.getElementById('full-name');
+        const artistQuoteInput = document.getElementById('artist-quote');
+        const addGigBtn = document.getElementById('add-gig-btn');
+        const gigFormContainer = document.getElementById('gig-form-container');
+        const saveGigBtn = document.getElementById('save-gig-btn');
+        const cancelGigBtn = document.getElementById('cancel-gig-btn');
+        const gigsListContainer = document.getElementById('gigs-list');
+
+        // Toast Notification Element
+        const toast = document.getElementById('toast');
+
+        // --- UI HELPER FUNCTIONS ---
+
+        function showToast(message, type = 'success') {
+            toast.textContent = message;
+            toast.className = ``; 
+            toast.classList.add(type, 'show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        function updateUIForAuthState(user) {
+            if (user) {
+                loggedInViews.forEach(v => v.classList.remove('hidden'));
+                loggedOutViews.forEach(v => v.classList.add('hidden'));
+                userEmailSpans.forEach(span => {
+                    span.textContent = user.email;
+                    span.title = user.email;
+                });
+            } else {
+                loggedInViews.forEach(v => v.classList.add('hidden'));
+                loggedOutViews.forEach(v => v.classList.remove('hidden'));
+                userEmailSpans.forEach(span => span.textContent = '');
+            }
+        }
+
+        // --- PAGE NAVIGATION ---
         function hideAllPages() {
             homePage.classList.add('hidden');
             artFormsPage.classList.add('hidden');
             eventsPage.classList.add('hidden');
             creatorHubPage.classList.add('hidden');
-        }
-
-        function showCreatorHub() {
-            hideAllPages();
-            creatorHubPage.classList.remove('hidden');
-            window.scrollTo(0, 0);
+            loginPage.classList.add('hidden'); // Hide login page as well
         }
 
         function showHomePage() {
@@ -426,9 +635,173 @@
         }
 
         function showLoginPage() {
-            alert("Login functionality is currently disabled.");
+            hideAllPages();
+            loginPage.classList.remove('hidden');
+            window.scrollTo(0, 0);
         }
 
+        // --- AUTHENTICATION LOGIC ---
+
+        onAuthStateChanged(auth, user => {
+            updateUIForAuthState(user);
+            if (user) {
+                loadCreatorProfile(user.uid);
+            } else {
+                userProfile = { gigs: [] };
+                creatorProfileForm.reset();
+                renderGigs();
+            }
+        });
+
+        async function handleSignUp(e) {
+            e.preventDefault();
+            const email = signupFormPage['signup-email-page'].value;
+            const password = signupFormPage['signup-password-page'].value;
+            authErrorPage.classList.add('hidden');
+
+            try {
+                await createUserWithEmailAndPassword(auth, email, password);
+                showToast('Account created successfully!', 'success');
+                showHomePage(); // Redirect to home after successful signup
+            } catch (error) {
+                authErrorPage.textContent = error.message;
+                authErrorPage.classList.remove('hidden');
+            }
+        }
+
+        async function handleLogin(e) {
+            e.preventDefault();
+            const email = loginFormPage['login-email-page'].value;
+            const password = loginFormPage['login-password-page'].value;
+            authErrorPage.classList.add('hidden');
+
+            try {
+                await signInWithEmailAndPassword(auth, email, password);
+                showToast('Logged in successfully!', 'success');
+                showHomePage(); // Redirect to home after successful login
+            } catch (error) {
+                authErrorPage.textContent = error.message;
+                authErrorPage.classList.remove('hidden');
+            }
+        }
+        
+        async function handleGoogleLogin() {
+            const provider = new GoogleAuthProvider();
+            authErrorPage.classList.add('hidden');
+            try {
+                await signInWithPopup(auth, provider);
+                showToast('Logged in with Google successfully!', 'success');
+                showHomePage();
+            } catch (error) {
+                console.error("Google Sign-in Error:", error);
+                authErrorPage.textContent = `Google Sign-in failed: ${error.message}`;
+                authErrorPage.classList.remove('hidden');
+            }
+        }
+
+        function handleLogout() {
+            signOut(auth).then(() => {
+                showToast('You have been logged out.');
+                if (!homePage.classList.contains('hidden')) {
+                   // do nothing, already on home
+                } else {
+                   showHomePage();
+                }
+            });
+        }
+
+        // --- CREATOR HUB & FIRESTORE LOGIC ---
+
+        async function loadCreatorProfile(userId) {
+            const docRef = doc(db, "profiles", userId);
+            try {
+                const docSnap = await getDoc(docRef);
+                if (docSnap.exists()) {
+                    userProfile = docSnap.data();
+                    userProfile.gigs = userProfile.gigs || [];
+                    fullNameInput.value = userProfile.fullName || '';
+                    artistQuoteInput.value = userProfile.artistQuote || '';
+                    renderGigs();
+                } else {
+                    console.log("No profile found for this user.");
+                    userProfile = { gigs: [] }; 
+                }
+            } catch (error) {
+                console.error("Error loading profile:", error);
+                showToast("Could not load your profile.", "error");
+            }
+        }
+        
+        async function handleSaveProfile(e) {
+            e.preventDefault();
+            const user = auth.currentUser;
+            if (!user) {
+                showToast("You must be logged in to save a profile.", "error");
+                return;
+            }
+
+            userProfile.fullName = fullNameInput.value;
+            userProfile.artistQuote = artistQuoteInput.value;
+            
+            const docRef = doc(db, "profiles", user.uid);
+            try {
+                await setDoc(docRef, userProfile, { merge: true });
+                showToast("Profile saved successfully!", "success");
+            } catch (error) {
+                console.error("Error saving profile:", error);
+                showToast("There was an error saving your profile.", "error");
+            }
+        }
+
+        function renderGigs() {
+            gigsListContainer.innerHTML = '';
+            if (!userProfile.gigs || userProfile.gigs.length === 0) {
+                 gigsListContainer.innerHTML = '<p class="text-center text-[#C38370]">You haven\'t added any services yet.</p>';
+                 return;
+            }
+            userProfile.gigs.forEach((gig, index) => {
+                const gigEl = document.createElement('div');
+                gigEl.className = 'flex justify-between items-center bg-white p-4 rounded-lg border border-[#E4B7A0]';
+                gigEl.innerHTML = `
+                    <p class="font-medium">${gig.title}</p>
+                    <div>
+                        <button type="button" data-action="delete-gig" data-index="${index}" class="text-[#A45C40] hover:text-red-600"><i class="fas fa-trash-alt"></i></button>
+                    </div>
+                `;
+                gigsListContainer.appendChild(gigEl);
+            });
+        }
+
+        function handleSaveGig() {
+            const newGig = {
+                title: document.getElementById('gig-title').value,
+                description: document.getElementById('gig-description').value,
+                pricing: {
+                    basic: { price: document.getElementById('basic-price').value, desc: document.getElementById('basic-desc').value },
+                    standard: { price: document.getElementById('standard-price').value, desc: document.getElementById('standard-desc').value },
+                    premium: { price: document.getElementById('premium-price').value, desc: document.getElementById('premium-desc').value },
+                }
+            };
+
+            if (!newGig.title) {
+                showToast("Service title is required.", "error");
+                return;
+            }
+            
+            userProfile.gigs.push(newGig);
+            renderGigs();
+            gigFormContainer.classList.add('hidden');
+            gigFormContainer.parentElement.querySelector('form').reset();
+        }
+
+        function handleDeleteGig(index) {
+             userProfile.gigs.splice(index, 1);
+             renderGigs();
+             showToast("Service removed. Remember to save your profile.", "success");
+        }
+
+        // --- ORIGINAL WEBSITE LOGIC (RENDERING, FILTERS, ETC.) ---
+        
         function renderArtForms(forms) {
             artFormsContainer.innerHTML = '';
             if (forms.length === 0) {
@@ -483,19 +856,14 @@
 
             let filteredForms = allArtForms;
 
-            // Apply search query first
             if (searchQuery) {
                 filteredForms = filteredForms.filter(art => 
                     art.name.toLowerCase().includes(searchQuery)
                 );
             }
-
-            // Apply status filter
             if (selectedStatus !== 'all') {
                 filteredForms = filteredForms.filter(art => art.status === selectedStatus);
             }
-
-            // Apply state filter
             if (selectedState !== 'all') {
                 filteredForms = filteredForms.filter(art => art.state === selectedState);
             }
@@ -537,24 +905,20 @@
 
         function findNearbyEvents() {
             if (!navigator.geolocation) {
-                alert("Geolocation is not supported by your browser.");
+                showToast("Geolocation is not supported by your browser.", "error");
                 return;
             }
 
             navigator.geolocation.getCurrentPosition(position => {
                 const { latitude, longitude } = position.coords;
-                
                 const eventsWithDistance = sampleEvents.map(event => ({
                     ...event,
                     distance: calculateDistance(latitude, longitude, event.lat, event.lon)
                 }));
-
                 eventsWithDistance.sort((a, b) => a.distance - b.distance);
-                
                 renderEvents(eventsWithDistance);
-
             }, () => {
-                alert("Unable to retrieve your location. Please enable location services.");
+                showToast("Unable to retrieve your location.", "error");
             });
         }
 
@@ -587,55 +951,90 @@
             });
         }
         
-        // --- GLOBAL EVENT LISTENER (EVENT DELEGAITON) ---
+        // --- GLOBAL EVENT LISTENER (EVENT DELEGATION) ---
         document.addEventListener('click', (e) => {
-            const action = e.target.closest('[data-action]')?.dataset.action;
-            if (action === 'login') showLoginPage();
-            if (action === 'creator-hub') showCreatorHub();
-            if (action === 'show-home') {
-                e.preventDefault();
-                showHomePage();
-            }
-            if (action === 'show-art-forms') {
-                 e.preventDefault();
-                 renderArtForms(allArtForms); // Show all forms
-                 showArtFormsPage();
-            }
-            if (action === 'show-events') {
-                e.preventDefault();
-                renderEvents(sampleEvents);
-                showEventsPage();
+            const target = e.target.closest('[data-action]');
+            if (!target) return;
+
+            const action = target.dataset.action;
+            
+            switch(action) {
+                case 'show-login':
+                    showLoginPage();
+                    break;
+                case 'login-google':
+                    handleGoogleLogin();
+                    break;
+                case 'logout':
+                    handleLogout();
+                    break;
+                case 'creator-hub':
+                    if (auth.currentUser) {
+                        hideAllPages();
+                        creatorHubPage.classList.remove('hidden');
+                        window.scrollTo(0, 0);
+                    } else {
+                        showLoginPage();
+                        showToast("Please log in to access the Creator Hub.", "error");
+                    }
+                    break;
+                case 'show-home':
+                    e.preventDefault();
+                    showHomePage();
+                    break;
+                case 'show-art-forms':
+                    e.preventDefault();
+                    renderArtForms(allArtForms);
+                    showArtFormsPage();
+                    break;
+                case 'show-events':
+                    e.preventDefault();
+                    renderEvents(sampleEvents);
+                    showEventsPage();
+                    break;
+                case 'delete-gig':
+                    const index = parseInt(target.dataset.index, 10);
+                    handleDeleteGig(index);
+                    break;
             }
         });
 
-        // --- INITIAL EVENT LISTENERS ---
-        homeLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            showHomePage();
-            window.scrollTo(0, 0);
-        });
-        
-        mobileMenuButton.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
-
+        // --- OTHER EVENT LISTENERS ---
+        mobileMenuButton.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
         searchBtn.addEventListener('click', handleSearchAndFilter);
-        searchInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                handleSearchAndFilter();
-            }
-        });
-
+        searchInput.addEventListener('keypress', (e) => e.key === 'Enter' && handleSearchAndFilter());
         filterBtn.addEventListener('click', handleSearchAndFilter);
         findEventsBtn.addEventListener('click', findNearbyEvents);
+
+        // Auth Page Listeners
+        toggleAuthModeBtnPage.addEventListener('click', () => {
+            const isLogin = signupFormPage.classList.contains('hidden');
+            loginFormPage.classList.toggle('hidden', !isLogin);
+            signupFormPage.classList.toggle('hidden', isLogin);
+            authTitlePage.textContent = isLogin ? 'Sign Up' : 'Login';
+            authPromptTextPage.textContent = isLogin ? "Already have an account?" : "Don't have an account?";
+            toggleAuthModeBtnPage.textContent = isLogin ? 'Login' : 'Sign Up';
+            authErrorPage.classList.add('hidden');
+        });
+
+        // Form Submission Listeners
+        loginFormPage.addEventListener('submit', handleLogin);
+        signupFormPage.addEventListener('submit', handleSignUp);
+        creatorProfileForm.addEventListener('submit', handleSaveProfile);
+
+        // Creator Hub - Gig Form Listeners
+        addGigBtn.addEventListener('click', () => gigFormContainer.classList.remove('hidden'));
+        cancelGigBtn.addEventListener('click', () => gigFormContainer.classList.add('hidden'));
+        saveGigBtn.addEventListener('click', handleSaveGig);
         
         // --- INITIALIZATION ---
         function init() {
-            // Splash screen logic
             window.addEventListener('load', () => {
                 setTimeout(() => {
                     const navLogo = document.querySelector('#home-link img');
                     const splashLogo = document.getElementById('splash-logo');
+                    if (!navLogo || !splashLogo) return;
+
                     const splashRect = splashLogo.getBoundingClientRect();
                     const navRect = navLogo.getBoundingClientRect();
 
@@ -644,20 +1043,16 @@
                     const translateY = navRect.top - splashRect.top;
 
                     splashLogo.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
-                    
                     document.body.classList.add('loaded');
 
                     setTimeout(() => {
                         document.getElementById('splash-screen').style.display = 'none';
-                    }, 500); // Wait for transition to finish
-
-                }, 0); // 0 seconds delay + 0.5 second animation = 0.5 seconds total
+                    }, 500);
+                }, 500);
             });
 
             showHomePage();
             populateFilters();
-            renderArtForms(allArtForms); // Pre-render for when the page is shown
-            renderEvents(sampleEvents); // Pre-render events
             renderFeaturedArtForms();
         }
         
