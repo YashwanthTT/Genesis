@@ -140,13 +140,14 @@
                 <div class="hidden md:flex items-center space-x-8">
                     <a href="#home-page-section" data-action="show-home" class="nav-link text-[#A45C40] hover:text-[#C38370] font-medium">Home</a>
                     <a href="#" data-action="show-art-forms" class="nav-link text-[#A45C40] hover:text-[#C38370] font-medium">Art Forms</a>
+                    <a href="#" data-action="show-artists" class="nav-link text-[#A45C40] hover:text-[#C38370] font-medium">Artists</a>
                     <a href="#" data-action="show-events" class="nav-link text-[#A45C40] hover:text-[#C38370] font-medium">Events</a>
                 </div>
 
                 <!-- Search Bar -->
                 <div class="hidden md:flex flex-grow max-w-lg mx-4">
                     <input type="search" id="search-input" placeholder="Search for artist, art, or culture..." class="w-full px-4 py-2 border border-[#E4B7A0] rounded-l-lg focus:outline-none focus:ring-2 focus:ring-[#A45C40] transition bg-white">
-                    <button id="search-btn" class="bg-[#A45C40] hover:bg-[#C38370] text-white font-bold py-2 px-4 rounded-r-lg">
+                    <button id="search-btn" data-action="search" class="bg-[#A45C40] hover:bg-[#C38370] text-white font-bold py-2 px-4 rounded-r-lg">
                         <i class="fas fa-search"></i>
                     </button>
                 </div>
@@ -173,6 +174,7 @@
             <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
                 <a href="#home-page-section" data-action="show-home" class="block py-2 text-[#A45C40] hover:text-[#C38370]">Home</a>
                 <a href="#" data-action="show-art-forms" class="block py-2 text-[#A45C40] hover:text-[#C38370]">Art Forms</a>
+                <a href="#" data-action="show-artists" class="block py-2 text-[#A45C40] hover:text-[#C38370]">Artists</a>
                 <a href="#" data-action="show-events" class="block py-2 text-[#A45C40] hover:text-[#C38370]">Events</a>
                 <div id="nav-right-mobile" class="mt-4 border-t border-[#E4B7A0] pt-4">
                      <!-- Logged Out State -->
@@ -209,8 +211,8 @@
                       </div>
                       <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center text-center rounded-2xl">
                           <div>
-                              <h1 class="text-white text-4xl md:text-6xl font-bold drop-shadow-lg">Akruti</h1>
-                              <p class="text-white text-lg md:text-2xl mt-4 drop-shadow-md">A Digital Sanctuary for India's Folk & Tribal Art</p>
+                              <img src="VSVY.png" alt="Akruti Logo" class="mx-auto h-80 md:h-108 drop-shadow-lg">
+                              <p class="text-white text-lg md:text-2xl mt-4 drop-shadow-md"></p>
                           </div>
                       </div>
                 </section>
@@ -263,6 +265,21 @@
                 </div>
             </main>
             
+            <!-- =================================== -->
+            <!-- ==      ARTISTS PAGE CONTENT     == -->
+            <!-- =================================== -->
+            <main id="artists-page" class="hidden">
+                <div class="container mx-auto px-6 py-20">
+                    <div class="max-w-3xl mx-auto text-center">
+                        <h1 class="text-4xl font-bold mb-4">Our Talented Artists</h1>
+                        <p class="text-[#C38370] mb-12">Discover and connect with the creators preserving India's artistic legacy.</p>
+                    </div>
+                    <div id="artists-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <!-- Artist profiles will be injected here by JS -->
+                    </div>
+                </div>
+            </main>
+
             <!-- =================================== -->
             <!-- ==      EVENTS PAGE CONTENT      == -->
             <!-- =================================== -->
@@ -492,44 +509,44 @@
         const allArtForms = [
             { name: "Warli Painting", state: "Maharashtra", status: "vulnerable", practitioners: 5000, description: "Monochromatic tribal art known for its geometric shapes representing the circle, triangle, and square.", imageUrl: "warli.vdo.img.png", videoUrl: "warli.vdo.mp4" },
             { name: "Madhubani Painting", state: "Bihar", status: "endangered", practitioners: 2000, description: "Famous for its intricate patterns and vibrant colors, traditionally created by women in the Mithila region.", imageUrl: "vdo.image.madhu.png", videoUrl: "madhubani.vdo.mp4" },
-            { name: "Pattachitra", state: "Odisha", status: "vulnerable", practitioners: 3000, description: "A traditional, cloth-based scroll painting, known for its mythological narratives and folktales.", imageUrl: "https://placehold.co/600x400/1e293b/ffffff?text=Pattachitra", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
-            { name: "Kalamkari", state: "Andhra Pradesh", status: "endangered", practitioners: 1500, description: "A type of hand-painted or block-printed cotton textile, produced in Isfahan and Indian states.", imageUrl: "https://placehold.co/600x400/1e293b/ffffff?text=Kalamkari", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
-            { name: "Gond Painting", state: "Madhya Pradesh", status: "vulnerable", practitioners: 4000, description: "A folk and tribal art form by the Gondi people, characterized by a sense of movement and detail.", imageUrl: "https://placehold.co/600x400/1e293b/ffffff?text=Gond", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
-            { name: "Tanjore Painting", state: "Tamil Nadu", status: "endangered", practitioners: 1000, description: "A classical South Indian painting style, distinguished by its dense composition, surface richness and vibrant colors.", imageUrl: "https://placehold.co/600x400/1e293b/ffffff?text=Tanjore", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
-            { name: "Phad Painting", state: "Rajasthan", status: "severely-endangered", practitioners: 200, description: "A religious, scroll-type art that narrates elaborate religious stories of local deities and gods.", imageUrl: "https://placehold.co/600x400/1e293b/ffffff?text=Phad", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
-            { name: "Cheriyal Scrolls", state: "Telangana", status: "critically-endangered", practitioners: 50, description: "A stylized version of Nakashi art, rich in the local motifs that are peculiar to the Telangana region.", imageUrl: "https://placehold.co/600x400/1e293b/ffffff?text=Cheriyal", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
-            { name: "Kalighat Painting", state: "West Bengal", status: "nearly-extinct", practitioners: 20, description: "Originated in the 19th century as a local style that developed in the vicinity of Kalighat Kali Temple.", imageUrl: "https://placehold.co/600x400/1e293b/ffffff?text=Kalighat", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
+            { name: "Pattachitra", state: "Odisha", status: "vulnerable", practitioners: 3000, description: "A traditional, cloth-based scroll painting, known for its mythological narratives and folktales.", imageUrl: "f.pattachitra.jpg", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
+            { name: "Kalamkari", state: "Andhra Pradesh", status: "endangered", practitioners: 1500, description: "A type of hand-painted or block-printed cotton textile, produced in Isfahan and Indian states.", imageUrl: "f.kalamkari.jpg", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
+            { name: "Gond Painting", state: "Madhya Pradesh", status: "vulnerable", practitioners: 4000, description: "A folk and tribal art form by the Gondi people, characterized by a sense of movement and detail.", imageUrl: "f.gond.jpg", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
+            { name: "Tanjore Painting", state: "Tamil Nadu", status: "endangered", practitioners: 1000, description: "A classical South Indian painting style, distinguished by its dense composition, surface richness and vibrant colors.", imageUrl: "f.tanjore.jpg", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
+            { name: "Phad Painting", state: "Rajasthan", status: "severely-endangered", practitioners: 200, description: "A religious, scroll-type art that narrates elaborate religious stories of local deities and gods.", imageUrl: "f.phad.jpg", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
+            { name: "Cheriyal Scrolls", state: "Telangana", status: "critically-endangered", practitioners: 50, description: "A stylized version of Nakashi art, rich in the local motifs that are peculiar to the Telangana region.", imageUrl: "f.cheriyal.jpg", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
+            { name: "Kalighat Painting", state: "West Bengal", status: "nearly-extinct", practitioners: 20, description: "Originated in the 19th century as a local style that developed in the vicinity of Kalighat Kali Temple.", imageUrl: "f.kalighat.jpg", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
             { name: "Pithora Painting", state: "Gujarat", status: "critically-endangered", practitioners: 100, description: "A ritualistic art form of the Rathwa tribe, characterized by vibrant colors and depictions of nature.", imageUrl: "pithora.vdo.img.png", videoUrl: "pithora.vdo.mp4" },
-            { name: "Saura Painting", state: "Odisha", status: "endangered", practitioners: 800, description: "A style of wall mural painting associated with the Saura tribe, it has a religious significance.", imageUrl: "https://placehold.co/600x400/1e293b/ffffff?text=Saura", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
-            { name: "Mughal Miniature", state: "Uttar Pradesh", status: "endangered", practitioners: 500, description: "A small, brightly colored, and highly detailed painting, which grew from Persian miniature painting.", imageUrl: "https://placehold.co/600x400/1e293b/ffffff?text=Mughal", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
-            { name: "Mysore Painting", state: "Karnataka", status: "endangered", practitioners: 600, description: "An important form of classical South Indian painting that originated in and around the town of Mysore.", imageUrl: "https://placehold.co/600x400/1e293b/ffffff?text=Mysore", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
-            { name: "Kerala Murals", state: "Kerala", status: "vulnerable", practitioners: 2500, description: "The frescos depicting Hindu mythology and legends, which are drawn on the walls of temples and churches.", imageUrl: "https://placehold.co/600x400/1e293b/ffffff?text=Kerala+Murals", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
-            { name: "Jadupatua Painting", state: "Jharkhand", status: "severely-endangered", practitioners: 30, description: "Scroll paintings by the Jadu Patuas, depicting stories of creation, mythology, and the afterlife.", imageUrl: "https://placehold.co/600x400/1e293b/ffffff?text=Jadupatua", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
-            { name: "Kaavad Art", state: "Rajasthan", status: "endangered", practitioners: 400, description: "A portable wooden temple that has visual narratives of deities, which are hinged together.", imageUrl: "https://placehold.co/600x400/1e293b/ffffff?text=Kaavad", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
-            { name: "Rogan Painting", state: "Gujarat", status: "critically-endangered", practitioners: 80, description: "A form of cloth printing practiced in the Kutch District of Gujarat, India.", imageUrl: "https://placehold.co/600x400/1e293b/ffffff?text=Rogan", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
-            { name: "Chittara Art", state: "Karnataka", status: "severely-endangered", practitioners: 150, description: "An art form practiced by the Deevaru community, living in Sagar, Karnataka.", imageUrl: "https://placehold.co/600x400/1e293b/ffffff?text=Chittara", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
-            { name: "Manjusha Art", state: "Bihar", status: "endangered", practitioners: 700, description: "A traditional Indian art form from Bhagalpur, also known as Angika art.", imageUrl: "https://placehold.co/600x400/1e293b/ffffff?text=Manjusha", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
-            { name: "Thangka Painting", state: "Goa", status: "vulnerable", practitioners: 1200, description: "A Tibetan Buddhist painting on cotton, or silk appliqué, usually depicting a Buddhist deity, scene, or mandala.", imageUrl: "https://placehold.co/600x400/1e293b/ffffff?text=Thangka", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
-            { name: "Sanjhi Art", state: "Uttar Pradesh", status: "endangered", practitioners: 300, description: "The art of paper stenciling, often depicting Krishna's life.", imageUrl: "https://placehold.co/600x400/1e293b/ffffff?text=Sanjhi+Art", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
-            { name: "Aipan Art", state: "Uttarakhand", status: "vulnerable", practitioners: 1000, description: "Ritualistic folk art drawn on floors and walls for auspicious occasions.", imageUrl: "https://placehold.co/600x400/1e293b/ffffff?text=Aipan+Art", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
-            { name: "Patua Art", state: "West Bengal", status: "endangered", practitioners: 500, description: "Scroll paintings accompanied by storytelling or songs.", imageUrl: "https://placehold.co/600x400/1e293b/ffffff?text=Patua+Art", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
-            { name: "Dokra Art", state: "Chhattisgarh", status: "vulnerable", practitioners: 3000, description: "Ancient metal casting art using the lost-wax casting technique.", imageUrl: "https://placehold.co/600x400/1e293b/ffffff?text=Dokra+Art", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
-            { name: "Meenakari Craft", state: "Rajasthan", status: "vulnerable", practitioners: 5000, description: "The art of coloring and ornamenting the surface of metals by fusing over it brilliant colors.", imageUrl: "https://placehold.co/600x400/1e293b/ffffff?text=Meenakari", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
-            { name: "Lippan Kaam", state: "Gujarat", status: "vulnerable", practitioners: 2000, description: "A traditional mural craft of Kutch, using mud and mirrors.", imageUrl: "https://placehold.co/600x400/1e293b/ffffff?text=Lippan+Kaam", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
-            { name: "Sikki Grass Craft", state: "Bihar", status: "vulnerable", practitioners: 4000, description: "Weaving objects from a special golden-hued grass, often depicting local folklore.", imageUrl: "https://placehold.co/600x400/1e293b/ffffff?text=Sikki+Grass", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
-            { name: "Kolam Art", state: "Tamil Nadu", status: "vulnerable", practitioners: 10000, description: "A form of drawing that is drawn by using rice flour, chalk or chalk powder.", imageUrl: "https://placehold.co/600x400/1e293b/ffffff?text=Kolam+Art", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
-            { name: "Chamba Rumal", state: "Himachal Pradesh", status: "critically-endangered", practitioners: 100, description: "An embroidered handicraft known for its intricate and beautiful needlework.", imageUrl: "https://placehold.co/600x400/1e293b/ffffff?text=Chamba+Rumal", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
-            { name: "Pabuji Ki Phad", state: "Rajasthan", status: "severely-endangered", practitioners: 150, description: "A religious scroll painting and folk epic of Pabuji, a local hero-deity.", imageUrl: "https://placehold.co/600x400/1e293b/ffffff?text=Pabuji+Ki+Phad", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
-            { name: "Kavad Banchana", state: "Rajasthan", status: "endangered", practitioners: 250, description: "A form of oral tradition of storytelling with a portable wooden shrine.", imageUrl: "https://placehold.co/600x400/1e293b/ffffff?text=Kavad+Banchana", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
-            { name: "Bhil Art", state: "Madhya Pradesh", status: "vulnerable", practitioners: 3500, description: "A tribal art form characterized by large, un-lifelike shapes of everyday characters filled in with earthy, yet bright colors.", imageUrl: "https://placehold.co/600x400/1e293b/ffffff?text=Bhil+Art", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
-            { name: "Soof Embroidery", state: "Gujarat", status: "endangered", practitioners: 600, description: "A meticulous embroidery from Kutch that is based on the triangle, and is worked from the back of the fabric.", imageUrl: "https://placehold.co/600x400/1e293b/ffffff?text=Soof+Embroidery", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
-            { name: "Khovar and Sohrai Art", state: "Jharkhand", status: "endangered", practitioners: 900, description: "A mural art form practiced by women during weddings and harvest festivals.", imageUrl: "https://placehold.co/600x400/1e293b/ffffff?text=Khovar+Art", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
-            { name: "Toda Embroidery", state: "Tamil Nadu", status: "critically-endangered", practitioners: 80, description: "A distinctive red and black embroidery of the Toda pastoral people of the Nilgiris.", imageUrl: "https://placehold.co/600x400/1e293b/ffffff?text=Toda+Embroidery", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
-            { name: "Ganjifa Cards", state: "Odisha", status: "nearly-extinct", practitioners: 40, description: "Hand-painted playing cards with intricate mythological themes.", imageUrl: "https://placehold.co/600x400/1e293b/ffffff?text=Ganjifa+Cards", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
-            { name: "Kinnal Craft", state: "Karnataka", status: "endangered", practitioners: 200, description: "A traditional wooden craft local to the town of Kinnala, known for its vibrant toys and religious idols.", imageUrl: "https://placehold.co/600x400/1e293b/ffffff?text=Kinnal+Craft", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
-            { name: "Nirmal Paintings", state: "Telangana", status: "endangered", practitioners: 400, description: "A 400-year-old art form known for its golden hues and depictions of nature and mythology.", imageUrl: "https://placehold.co/600x400/1e293b/ffffff?text=Nirmal+Paintings", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
-            { name: "Pipli Applique Work", state: "Odisha", status: "vulnerable", practitioners: 6000, description: "A decorative needlework where pieces of fabric are sewn onto a larger piece to create pictures.", imageUrl: "https://placehold.co/600x400/1e293b/ffffff?text=Pipli+Work", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
-            { name: "Wood Lacquering", state: "Karnataka", status: "vulnerable", practitioners: 1500, description: "The craft of applying lacquer to wood in various colors to create decorative items and toys.", imageUrl: "https://placehold.co/600x400/1e293b/ffffff?text=Wood+Lacquering", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" }
+            { name: "Saura Painting", state: "Odisha", status: "endangered", practitioners: 800, description: "A style of wall mural painting associated with the Saura tribe, it has a religious significance.", imageUrl: "f.saura.jpg", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
+            { name: "Mughal Miniature", state: "Uttar Pradesh", status: "endangered", practitioners: 500, description: "A small, brightly colored, and highly detailed painting, which grew from Persian miniature painting.", imageUrl: "f.mughal.jpg", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
+            { name: "Mysore Painting", state: "Karnataka", status: "endangered", practitioners: 600, description: "An important form of classical South Indian painting that originated in and around the town of Mysore.", imageUrl: "f.mysore.jpg", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
+            { name: "Kerala Murals", state: "Kerala", status: "vulnerable", practitioners: 2500, description: "The frescos depicting Hindu mythology and legends, which are drawn on the walls of temples and churches.", imageUrl: "f.kerala.jpg", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
+            { name: "Jadupatua Painting", state: "Jharkhand", status: "severely-endangered", practitioners: 30, description: "Scroll paintings by the Jadu Patuas, depicting stories of creation, mythology, and the afterlife.", imageUrl: "f,jadapatua.jpg", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
+            { name: "Kaavad Art", state: "Rajasthan", status: "endangered", practitioners: 400, description: "A portable wooden temple that has visual narratives of deities, which are hinged together.", imageUrl: "f.kavad.jpg", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
+            { name: "Rogan Painting", state: "Gujarat", status: "critically-endangered", practitioners: 80, description: "A form of cloth printing practiced in the Kutch District of Gujarat, India.", imageUrl: "f.rogan.jpg", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
+            { name: "Chittara Art", state: "Karnataka", status: "severely-endangered", practitioners: 150, description: "An art form practiced by the Deevaru community, living in Sagar, Karnataka.", imageUrl: "f.chitarra.png", videoUrl: "f.chitarra.mp4" },
+            { name: "Manjusha Art", state: "Bihar", status: "endangered", practitioners: 700, description: "A traditional Indian art form from Bhagalpur, also known as Angika art.", imageUrl: "f,manjusha.jpg", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
+            { name: "Thangka Painting", state: "Goa", status: "vulnerable", practitioners: 1200, description: "A Tibetan Buddhist painting on cotton, or silk appliqué, usually depicting a Buddhist deity, scene, or mandala.", imageUrl: "f.tankga.jpg", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
+            { name: "Sanjhi Art", state: "Uttar Pradesh", status: "endangered", practitioners: 300, description: "The art of paper stenciling, often depicting Krishna's life.", imageUrl: "f.sanjhi.jpg", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
+            { name: "Aipan Art", state: "Uttarakhand", status: "vulnerable", practitioners: 1000, description: "Ritualistic folk art drawn on floors and walls for auspicious occasions.", imageUrl: "f.aipan.jpg", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
+            { name: "Patua Art", state: "West Bengal", status: "endangered", practitioners: 500, description: "Scroll paintings accompanied by storytelling or songs.", imageUrl: "f.patua.png", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
+            { name: "Dokra Art", state: "Chhattisgarh", status: "vulnerable", practitioners: 3000, description: "Ancient metal casting art using the lost-wax casting technique.", imageUrl: "f.dokra.jpg", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
+            { name: "Meenakari Craft", state: "Rajasthan", status: "vulnerable", practitioners: 5000, description: "The art of coloring and ornamenting the surface of metals by fusing over it brilliant colors.", imageUrl: "f.meenakari.jpg", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
+            { name: "Lippan Kaam", state: "Gujarat", status: "vulnerable", practitioners: 2000, description: "A traditional mural craft of Kutch, using mud and mirrors.", imageUrl: "f.lippen.jpg", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
+            { name: "Sikki Grass Craft", state: "Bihar", status: "vulnerable", practitioners: 4000, description: "Weaving objects from a special golden-hued grass, often depicting local folklore.", imageUrl: "f.sikki.jpg", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
+            { name: "Kolam Art", state: "Tamil Nadu", status: "vulnerable", practitioners: 10000, description: "A form of drawing that is drawn by using rice flour, chalk or chalk powder.", imageUrl: "f.kolam.jpg", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
+            { name: "Chamba Rumal", state: "Himachal Pradesh", status: "critically-endangered", practitioners: 100, description: "An embroidered handicraft known for its intricate and beautiful needlework.", imageUrl: "f.chamba.jpg", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
+            { name: "Pabuji Ki Phad", state: "Rajasthan", status: "severely-endangered", practitioners: 150, description: "A religious scroll painting and folk epic of Pabuji, a local hero-deity.", imageUrl: "f.pabuji.jpg", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
+            // { name: "Kavad Banchana", state: "Rajasthan", status: "endangered", practitioners: 250, description: "A form of oral tradition of storytelling with a portable wooden shrine.", imageUrl: "f.kavad.jpg", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
+            { name: "Bhil Art", state: "Madhya Pradesh", status: "vulnerable", practitioners: 3500, description: "A tribal art form characterized by large, un-lifelike shapes of everyday characters filled in with earthy, yet bright colors.", imageUrl: "f.bhil.jpg", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
+            { name: "Soof Embroidery", state: "Gujarat", status: "endangered", practitioners: 600, description: "A meticulous embroidery from Kutch that is based on the triangle, and is worked from the back of the fabric.", imageUrl: "f.soof.jpg", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
+            { name: "Khovar and Sohrai Art", state: "Jharkhand", status: "endangered", practitioners: 900, description: "A mural art form practiced by women during weddings and harvest festivals.", imageUrl: "f.khavar.jpg", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
+            { name: "Toda Embroidery", state: "Tamil Nadu", status: "critically-endangered", practitioners: 80, description: "A distinctive red and black embroidery of the Toda pastoral people of the Nilgiris.", imageUrl: "f.toda.jpg", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
+            { name: "Ganjifa Cards", state: "Odisha", status: "nearly-extinct", practitioners: 40, description: "Hand-painted playing cards with intricate mythological themes.", imageUrl: "f.ganjif.jpg", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
+            { name: "Kinnal Craft", state: "Karnataka", status: "endangered", practitioners: 200, description: "A traditional wooden craft local to the town of Kinnala, known for its vibrant toys and religious idols.", imageUrl: "f.kinnal.jpg", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
+            { name: "Nirmal Paintings", state: "Telangana", status: "endangered", practitioners: 400, description: "A 400-year-old art form known for its golden hues and depictions of nature and mythology.", imageUrl: "f.nirmal.png", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
+            { name: "Pipli Applique Work", state: "Odisha", status: "vulnerable", practitioners: 6000, description: "A decorative needlework where pieces of fabric are sewn onto a larger piece to create pictures.", imageUrl: "f.pipli.png", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
+            { name: "Wood Lacquering", state: "Karnataka", status: "vulnerable", practitioners: 1500, description: "The craft of applying lacquer to wood in various colors to create decorative items and toys.", imageUrl: "f.wood.png", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" }
         ];
 
         const sampleEvents = [
@@ -544,6 +561,8 @@
         const eventsPage = document.getElementById('events-page');
         const creatorHubPage = document.getElementById('creator-hub-page');
         const loginPage = document.getElementById('login-page'); // New login page
+        const artistsPage = document.getElementById('artists-page'); // New artists page
+        const searchResultsPage = document.getElementById('search-results-page'); // New search results page
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
         const searchBtn = document.getElementById('search-btn');
@@ -555,6 +574,8 @@
         const artFormsContainer = document.getElementById('art-forms-container');
         const eventsContainer = document.getElementById('events-container');
         const featuredArtContainer = document.getElementById('featured-art-container');
+        const artistsContainer = document.getElementById('artists-container'); // New artists container
+        const searchResultsContainer = document.getElementById('search-results-container'); // New search results container
         
         // Auth Page Elements
         const authTitlePage = document.getElementById('auth-title-page');
@@ -614,7 +635,9 @@
             artFormsPage.classList.add('hidden');
             eventsPage.classList.add('hidden');
             creatorHubPage.classList.add('hidden');
-            loginPage.classList.add('hidden'); // Hide login page as well
+            loginPage.classList.add('hidden');
+            artistsPage.classList.add('hidden');
+            searchResultsPage.classList.add('hidden');
         }
 
         function showHomePage() {
@@ -628,6 +651,14 @@
             window.scrollTo(0, 0);
         }
 
+        async function showArtistsPage() {
+            hideAllPages();
+            artistsPage.classList.remove('hidden');
+            window.scrollTo(0, 0);
+            const allProfiles = await fetchAllArtists();
+            renderArtistProfiles(allProfiles, artistsContainer);
+        }
+
         function showEventsPage() {
             hideAllPages();
             eventsPage.classList.remove('hidden');
@@ -637,6 +668,12 @@
         function showLoginPage() {
             hideAllPages();
             loginPage.classList.remove('hidden');
+            window.scrollTo(0, 0);
+        }
+
+        function showSearchResultsPage() {
+            hideAllPages();
+            searchResultsPage.classList.remove('hidden');
             window.scrollTo(0, 0);
         }
 
@@ -800,6 +837,81 @@
              showToast("Service removed. Remember to save your profile.", "success");
         }
 
+        // --- ARTISTS & SEARCH LOGIC ---
+
+        async function fetchAllArtists(searchQuery = '') {
+            const profilesRef = collection(db, "profiles");
+            let allProfiles = [];
+            try {
+                const querySnapshot = await getDocs(profilesRef);
+                querySnapshot.forEach((doc) => {
+                    allProfiles.push(doc.data());
+                });
+
+                if (searchQuery) {
+                    const lowercasedQuery = searchQuery.toLowerCase();
+                    const filteredProfiles = allProfiles.filter(profile => {
+                        const nameMatch = profile.fullName?.toLowerCase().includes(lowercasedQuery);
+                        const quoteMatch = profile.artistQuote?.toLowerCase().includes(lowercasedQuery);
+                        const gigMatch = profile.gigs?.some(gig => 
+                            gig.title?.toLowerCase().includes(lowercasedQuery) || 
+                            gig.description?.toLowerCase().includes(lowercasedQuery)
+                        );
+                        return nameMatch || quoteMatch || gigMatch;
+                    });
+                    return filteredProfiles;
+                }
+                return allProfiles;
+            } catch (error) {
+                console.error("Error fetching artist profiles:", error);
+                showToast("Could not fetch artist profiles.", "error");
+                return [];
+            }
+        }
+        
+        function renderArtistProfiles(profiles, container) {
+            container.innerHTML = '';
+            if (profiles.length === 0) {
+                container.innerHTML = '<p class="text-center text-[#C38370] col-span-full">No artists found.</p>';
+                return;
+            }
+
+            profiles.forEach(profile => {
+                if (!profile.fullName) return; // Skip profiles without a name
+
+                const gigsHTML = profile.gigs?.map(gig => `
+                    <div class="mt-2">
+                        <h4 class="font-semibold text-[#A45C40]">${gig.title}</h4>
+                        <p class="text-sm text-[#C38370]">${gig.description}</p>
+                    </div>
+                `).join('') || '<p class="text-sm text-[#C38370]">No services listed.</p>';
+
+                const artistCard = document.createElement('div');
+                artistCard.className = 'bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow';
+                artistCard.innerHTML = `
+                    <h3 class="text-2xl font-bold mb-2">${profile.fullName}</h3>
+                    <p class="text-[#A45C40] italic mb-4">"${profile.artistQuote || 'No bio available.'}"</p>
+                    <div class="border-t border-[#E4B7A0] pt-4">
+                        <h4 class="font-bold text-lg mb-2">Services:</h4>
+                        ${gigsHTML}
+                    </div>
+                `;
+                container.appendChild(artistCard);
+            });
+        }
+
+        async function handleArtistSearch() {
+            const query = searchInput.value;
+            if (!query.trim()) {
+                showToast("Please enter a search term.", "error");
+                return;
+            }
+            const results = await fetchAllArtists(query);
+            showSearchResultsPage();
+            renderArtistProfiles(results, searchResultsContainer);
+        }
+
+
         // --- ORIGINAL WEBSITE LOGIC (RENDERING, FILTERS, ETC.) ---
         
         function renderArtForms(forms) {
@@ -813,13 +925,20 @@
                 artEl.className = 'art-form-item';
                 artEl.dataset.status = art.status;
                 artEl.dataset.state = art.state;
+
+                const hasRealVideo = art.videoUrl && !art.videoUrl.includes('mixkit.co');
+
+                const mediaElementHTML = hasRealVideo 
+                    ? `<video class="w-full h-full object-cover" poster="${art.imageUrl}" muted loop>
+                           <source src="${art.videoUrl}" type="video/mp4">
+                           Your browser does not support the video tag.
+                       </video>`
+                    : `<img src="${art.imageUrl}" alt="${art.name}" class="w-full h-full object-cover transition-transform duration-[2000ms] ease-in-out group-hover:scale-110">`;
+
                 artEl.innerHTML = `
-                    <div class="flex flex-col md:flex-row items-center bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+                    <div class="flex flex-col md:flex-row items-center bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 group">
                         <div class="w-full md:w-1/3 h-64 rounded-lg mb-6 md:mb-0 md:mr-8 overflow-hidden">
-                            <video class="w-full h-full object-cover" poster="${art.imageUrl}" muted loop>
-                                <source src="${art.videoUrl}" type="video/mp4">
-                                Your browser does not support the video tag.
-                            </video>
+                           ${mediaElementHTML}
                         </div>
                         <div class="flex-1 text-left">
                             <span class="inline-block bg-[#E4B7A0]/40 text-[#A45C40] text-sm font-semibold px-3 py-1 rounded-full mb-2 capitalize">${art.status.replace('-', ' ')}</span>
@@ -832,9 +951,12 @@
                 `;
                 artFormsContainer.appendChild(artEl);
                 
-                const video = artEl.querySelector('video');
-                artEl.addEventListener('mouseover', () => video.play());
-                artEl.addEventListener('mouseout', () => video.pause());
+                if (hasRealVideo) {
+                    const video = artEl.querySelector('video');
+                    const card = artEl.querySelector('.group');
+                    card.addEventListener('mouseover', () => video.play());
+                    card.addEventListener('mouseout', () => video.pause());
+                }
             });
         }
         
@@ -849,18 +971,12 @@
             });
         }
 
-        function handleSearchAndFilter() {
-            const searchQuery = searchInput.value.trim().toLowerCase();
+        function handleArtFormFilter() {
             const selectedStatus = statusFilter.value;
             const selectedState = stateFilter.value;
 
             let filteredForms = allArtForms;
 
-            if (searchQuery) {
-                filteredForms = filteredForms.filter(art => 
-                    art.name.toLowerCase().includes(searchQuery)
-                );
-            }
             if (selectedStatus !== 'all') {
                 filteredForms = filteredForms.filter(art => art.status === selectedStatus);
             }
@@ -868,7 +984,6 @@
                 filteredForms = filteredForms.filter(art => art.state === selectedState);
             }
             
-            showArtFormsPage();
             renderArtForms(filteredForms);
         }
 
@@ -929,13 +1044,18 @@
             featuredArtContainer.innerHTML = '';
             featuredForms.forEach(art => {
                 const card = document.createElement('div');
-                card.className = "bg-white rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300 text-left";
+                card.className = "bg-white rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300 text-left group";
+                
+                const hasRealVideo = art.videoUrl && !art.videoUrl.includes('mixkit.co');
+                const mediaElementHTML = hasRealVideo 
+                    ? `<video class="w-full h-full object-cover" poster="${art.imageUrl}" muted loop>
+                           <source src="${art.videoUrl}" type="video/mp4">
+                       </video>`
+                    : `<img src="${art.imageUrl}" alt="${art.name}" class="w-full h-full object-cover transition-transform duration-[2000ms] ease-in-out group-hover:scale-110">`;
+
                 card.innerHTML = `
                     <div class="w-full h-56 overflow-hidden">
-                        <video class="w-full h-full object-cover" poster="${art.imageUrl}" muted loop>
-                            <source src="${art.videoUrl}" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
+                        ${mediaElementHTML}
                     </div>
                     <div class="p-6">
                         <h3 class="text-xl font-bold mb-2">${art.name}</h3>
@@ -945,9 +1065,11 @@
                 `;
                 featuredArtContainer.appendChild(card);
                 
-                const video = card.querySelector('video');
-                card.addEventListener('mouseover', () => video.play());
-                card.addEventListener('mouseout', () => video.pause());
+                if (hasRealVideo) {
+                    const video = card.querySelector('video');
+                    card.addEventListener('mouseover', () => video.play());
+                    card.addEventListener('mouseout', () => video.pause());
+                }
             });
         }
         
@@ -987,6 +1109,10 @@
                     renderArtForms(allArtForms);
                     showArtFormsPage();
                     break;
+                case 'show-artists':
+                    e.preventDefault();
+                    showArtistsPage();
+                    break;
                 case 'show-events':
                     e.preventDefault();
                     renderEvents(sampleEvents);
@@ -996,14 +1122,16 @@
                     const index = parseInt(target.dataset.index, 10);
                     handleDeleteGig(index);
                     break;
+                case 'search':
+                    handleArtistSearch();
+                    break;
             }
         });
 
         // --- OTHER EVENT LISTENERS ---
         mobileMenuButton.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
-        searchBtn.addEventListener('click', handleSearchAndFilter);
-        searchInput.addEventListener('keypress', (e) => e.key === 'Enter' && handleSearchAndFilter());
-        filterBtn.addEventListener('click', handleSearchAndFilter);
+        searchInput.addEventListener('keypress', (e) => e.key === 'Enter' && handleArtistSearch());
+        filterBtn.addEventListener('click', handleArtFormFilter);
         findEventsBtn.addEventListener('click', findNearbyEvents);
 
         // Auth Page Listeners
