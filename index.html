@@ -289,10 +289,8 @@
             <!-- ==    ARTIST DETAIL PAGE CONTENT   == -->
             <!-- =================================== -->
             <main id="artist-detail-page" class="hidden">
-                <div class="container mx-auto px-6 py-20">
-                    <div id="artist-detail-container" class="max-w-4xl mx-auto bg-white rounded-lg shadow-xl p-8">
-                        <!-- Artist details will be injected here -->
-                    </div>
+                <div id="artist-detail-container" class="container mx-auto px-6 py-20">
+                    <!-- Artist details will be injected here -->
                 </div>
             </main>
 
@@ -445,8 +443,11 @@
                                     <input type="text" id="full-name" name="fullName" class="w-full px-4 py-2 border border-[#E4B7A0] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#A45C40] transition" placeholder="e.g., Sunita Devi">
                                 </div>
                                 <div>
-                                    <label for="profile-picture-url" class="block font-medium text-[#A45C40] mb-2">Profile Picture URL</label>
-                                    <input type="url" id="profile-picture-url" name="profilePictureUrl" class="w-full px-4 py-2 border border-[#E4B7A0] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#A45C40] transition" placeholder="https://example.com/your-photo.jpg">
+                                    <label for="profile-picture-upload" class="block font-medium text-[#A45C40] mb-2">Profile Picture</label>
+                                    <div class="flex items-center space-x-4">
+                                        <img id="profile-picture-preview" src="https://placehold.co/100x100/F6EEE0/A45C40?text=Preview" class="w-24 h-24 rounded-full object-cover border-2 border-[#E4B7A0]">
+                                        <input type="file" id="profile-picture-upload" name="profilePictureUpload" accept="image/*" class="block w-full text-sm text-[#A45C40] file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-[#E4B7A0]/50 file:text-[#A45C40] hover:file:bg-[#E4B7A0] cursor-pointer">
+                                    </div>
                                 </div>
                                 <div>
                                     <label for="artist-quote" class="block font-medium text-[#A45C40] mb-2">Short Quote or Bio</label>
@@ -509,9 +510,24 @@
                             </div>
                         </div>
 
+                        <!-- My Portfolio Card -->
+                        <div class="bg-[#F6EEE0] p-8 rounded-lg shadow-md">
+                            <h2 class="text-2xl font-bold mb-6">3. My Portfolio</h2>
+                            <p class="text-[#C38370] mb-6">Upload your artwork images. These will be displayed in a gallery on your public profile. You need at least 3 images to get a verified badge.</p>
+                            <div>
+                                <label for="portfolio-upload" class="block font-medium text-[#A45C40] mb-2">Upload Artwork</label>
+                                <input type="file" id="portfolio-upload" name="portfolioUpload" multiple accept="image/*" class="block w-full text-sm text-[#A45C40] file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-[#E4B7A0]/50 file:text-[#A45C40] hover:file:bg-[#E4B7A0] cursor-pointer">
+                                
+                                <div id="portfolio-preview-container" class="mt-4 grid grid-cols-3 md:grid-cols-4 gap-4">
+                                    <!-- Existing and new image previews will be shown here -->
+                                </div>
+                            </div>
+                        </div>
+
+
                         <!-- Save Button -->
                         <div class="flex justify-center pt-8">
-                            <button type="submit" id="save-profile-btn" class="bg-[#A45C40] hover:bg-[#C38370] text-white font-bold py-3 px-8 rounded-full transition duration-300 text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                            <button type="submit" id="save-profile-btn" class="bg-[#A45C40] hover:bg-[#C38370] text-white font-bold py-3 px-8 rounded-full transition duration-300 text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed">
                                 Save & Publish Profile
                             </button>
                         </div>
@@ -523,7 +539,13 @@
         <!-- Footer -->
         <footer class="bg-[#A45C40] text-[#F6EEE0] py-12">
             <div class="container mx-auto px-6 text-center">
-                <p class="text-[#E4B7A0] mt-12">&copy; 2025 Akruti. All Rights Reserved.</p>
+                <p class="font-semibold text-lg">Akruti - A Digital Sanctuary for India's Folk & Tribal Art</p>
+                <div class="flex justify-center space-x-6 mt-4">
+                    <a href="#" class="hover:text-white transition-colors"><i class="fab fa-instagram fa-lg"></i></a>
+                    <a href="#" class="hover:text-white transition-colors"><i class="fab fa-facebook-f fa-lg"></i></a>
+                    <a href="#" class="hover:text-white transition-colors"><i class="fab fa-twitter fa-lg"></i></a>
+                </div>
+                <p class="text-[#E4B7A0] mt-8">&copy; 2025 Akruti. All Rights Reserved. Empowering artisans and preserving culture.</p>
             </div>
         </footer>
     </div>
@@ -549,6 +571,12 @@
             collection,
             getDocs
         } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { 
+            getStorage,
+            ref,
+            uploadBytes,
+            getDownloadURL
+        } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-storage.js";
 
         // --- FIREBASE CONFIGURATION ---
         const firebaseConfig = {
@@ -564,12 +592,33 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
+        const storage = getStorage(app);
 
         // --- GLOBAL STATE ---
-        let userProfile = { gigs: [] };
+        let userProfile = { gigs: [], portfolioImages: [] };
         let pageHistory = [];
+        let newProfilePictureFile = null;
+        let newPortfolioFiles = [];
 
-        // --- In-memory data for art forms (from original code) ---
+        // --- In-memory data ---
+        const sampleArtists = [
+            {
+                fullName: "Srinivas Barik",
+                email: "srinivas.barik@example.com",
+                artistQuote: "A Pattachitra artist from Odisha, dedicated to preserving the ancient art of storytelling on palm leaves and tussar silk.",
+                profilePictureUrl: "https://placehold.co/150x150/A45C40/F6EEE0?text=SB",
+                gigs: [
+                    { title: "Custom Pattachitra Scroll", description: "I will create a personalized Pattachitra scroll depicting a story of your choice." },
+                    { title: "Online Pattachitra Workshop", description: "Learn the basics of Pattachitra art in a 2-hour interactive online session." }
+                ],
+                portfolioImages: [
+                    "https://placehold.co/400x400/c38370/ffffff?text=Pattachitra+1",
+                    "https://placehold.co/400x400/a45c40/ffffff?text=Pattachitra+2",
+                    "https://placehold.co/400x400/e4b7a0/ffffff?text=Pattachitra+3"
+                ]
+            }
+        ];
+
         const allArtForms = [
             { 
                 name: "Warli Painting", 
@@ -656,10 +705,10 @@
         ];
 
         const sampleEvents = [
-            { name: "Karaga Festival", state: "Karnataka", city: "Bengaluru", date: "2025-04-15", description: "One of the oldest festivals in Bengaluru, celebrating Draupadi.", lat: 12.9716, lon: 77.5946 },
-            { name: "Bangalore Literature Festival", state: "Karnataka", city: "Bengaluru", date: "2025-12-07", description: "A celebration of literature and ideas, featuring authors from around the world.", lat: 12.9716, lon: 77.5946 },
-            { name: "Madhubani Exhibition", state: "Bihar", city: "Delhi", date: "2025-10-05", description: "A grand exhibition showcasing the finest Madhubani artworks.", lat: 28.7041, lon: 77.1025 },
-            { name: "Gond Art Festival", state: "Madhya Pradesh", city: "Bhopal", date: "2025-12-01", description: "Celebrate the tribal art of the Gond community.", lat: 23.2599, lon: 77.4126 },
+            { name: "Karaga Festival", state: "Karnataka", city: "Bengaluru", date: "2025-04-15", description: "One of the oldest festivals in Bengaluru, celebrating Draupadi.", lat: 12.9716, lon: 77.5946, imageUrl: "ev.karaga.png" },
+            { name: "Bangalore Literature Festival", state: "Karnataka", city: "Bengaluru", date: "2025-12-07", description: "A celebration of literature and ideas, featuring authors from around the world.", lat: 12.9716, lon: 77.5946, imageUrl: "ev.lit.png" },
+            { name: "Madhubani Exhibition", state: "Bihar", city: "Delhi", date: "2025-10-05", description: "A grand exhibition showcasing the finest Madhubani artworks.", lat: 28.7041, lon: 77.1025, imageUrl: "ev.madhu.png" },
+            { name: "Gond Art Festival", state: "Madhya Pradesh", city: "Bhopal", date: "2025-12-01", description: "Celebrate the tribal art of the Gond community.", lat: 23.2599, lon: 77.4126, imageUrl: "ev.gond.png" },
         ];
         
         const allIndianEvents = [
@@ -688,6 +737,7 @@
         const creatorHubPage = document.getElementById('creator-hub-page');
         const loginPage = document.getElementById('login-page');
         const artistsPage = document.getElementById('artists-page');
+        const artistDetailPage = document.getElementById('artist-detail-page'); // New detail page
         const searchResultsPage = document.getElementById('search-results-page');
         const artDetailPage = document.getElementById('art-detail-page'); // New detail page
         const exploreEventsPage = document.getElementById('explore-events-page'); // New explore events page
@@ -705,6 +755,7 @@
         const eventsContainer = document.getElementById('events-container');
         const featuredArtContainer = document.getElementById('featured-art-container');
         const artistsContainer = document.getElementById('artists-container');
+        const artistDetailContainer = document.getElementById('artist-detail-container');
         const searchResultsContainer = document.getElementById('search-results-container');
         const exploreEventsContainer = document.getElementById('explore-events-container');
         
@@ -723,9 +774,13 @@
 
         // Creator Hub Form Elements
         const creatorProfileForm = document.getElementById('creator-profile-form');
+        const saveProfileBtn = document.getElementById('save-profile-btn');
         const fullNameInput = document.getElementById('full-name');
-        const profilePictureUrlInput = document.getElementById('profile-picture-url');
+        const profilePictureUploadInput = document.getElementById('profile-picture-upload');
+        const profilePicturePreview = document.getElementById('profile-picture-preview');
         const artistQuoteInput = document.getElementById('artist-quote');
+        const portfolioUploadInput = document.getElementById('portfolio-upload');
+        const portfolioPreviewContainer = document.getElementById('portfolio-preview-container');
         const addGigBtn = document.getElementById('add-gig-btn');
         const gigFormContainer = document.getElementById('gig-form-container');
         const saveGigBtn = document.getElementById('save-gig-btn');
@@ -761,6 +816,10 @@
             }
         }
 
+        function closeMobileMenu() {
+            mobileMenu.classList.add('hidden');
+        }
+
         // --- PAGE NAVIGATION ---
         function hideAllPages() {
             homePage.classList.add('hidden');
@@ -769,6 +828,7 @@
             creatorHubPage.classList.add('hidden');
             loginPage.classList.add('hidden');
             artistsPage.classList.add('hidden');
+            artistDetailPage.classList.add('hidden');
             searchResultsPage.classList.add('hidden');
             artDetailPage.classList.add('hidden');
             exploreEventsPage.classList.add('hidden');
@@ -802,6 +862,7 @@
             eventsPage.classList.remove('hidden');
             backBtn.classList.remove('hidden');
             window.scrollTo(0, 0);
+            renderEvents(sampleEvents); // Show sample events by default
         }
 
         function showExploreEventsPage() {
@@ -833,6 +894,68 @@
             window.scrollTo(0, 0);
         }
 
+        async function showArtistDetailPage(artistEmail) {
+            hideAllPages();
+            const allProfiles = await fetchAllArtists();
+            const profile = allProfiles.find(p => p.email === artistEmail);
+
+            if (!profile) {
+                artistDetailContainer.innerHTML = `<p class="text-center">Artist not found.</p>`;
+                artistDetailPage.classList.remove('hidden');
+                backBtn.classList.remove('hidden');
+                return;
+            }
+            
+            let verifiedBadge = '';
+            if (profile.portfolioImages && profile.portfolioImages.length >= 3) {
+                verifiedBadge = '<i class="fas fa-check-circle text-blue-500 ml-2" title="Verified Artist"></i>';
+            }
+
+            const gigsHTML = profile.gigs?.map(gig => `
+                <div class="bg-[#F6EEE0] p-4 rounded-lg">
+                    <h4 class="font-bold text-[#A45C40]">${gig.title}</h4>
+                    <p class="text-sm text-[#C38370] mt-1">${gig.description}</p>
+                </div>
+            `).join('') || '<p class="text-sm text-[#C38370]">No services listed.</p>';
+
+            const portfolioImagesHTML = profile.portfolioImages?.map(url => `
+                <div class="aspect-square bg-gray-200 rounded-lg overflow-hidden">
+                    <img src="${url}" alt="Artwork by ${profile.fullName}" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/400x400/F6EEE0/A45C40?text=Art';">
+                </div>
+            `).join('') || '<p class="text-sm text-[#C38370] col-span-full">No portfolio images uploaded.</p>';
+
+            artistDetailContainer.innerHTML = `
+                <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-xl p-8 md:p-12">
+                    <div class="flex flex-col md:flex-row items-center text-center md:text-left">
+                        <img src="${profile.profilePictureUrl || 'https://placehold.co/150x150/F6EEE0/A45C40?text=Artist'}" alt="${profile.fullName}" class="w-40 h-40 rounded-full object-cover mb-6 md:mb-0 md:mr-8 border-4 border-[#E4B7A0]">
+                        <div>
+                            <h1 class="text-4xl font-bold flex items-center">${profile.fullName}${verifiedBadge}</h1>
+                            <a href="mailto:${profile.email}" class="text-lg text-[#C38370] hover:underline mt-1 block">${profile.email}</a>
+                            <p class="text-[#A45C40] font-normal mt-4 text-xl">"${profile.artistQuote || 'No bio available.'}"</p>
+                        </div>
+                    </div>
+
+                    <div class="border-t border-[#E4B7A0] mt-8 pt-8">
+                        <h2 class="text-2xl font-bold mb-4">Services</h2>
+                        <div class="space-y-4">
+                            ${gigsHTML}
+                        </div>
+                    </div>
+
+                    <div class="border-t border-[#E4B7A0] mt-8 pt-8">
+                        <h2 class="text-2xl font-bold mb-4">Portfolio</h2>
+                        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                            ${portfolioImagesHTML}
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            artistDetailPage.classList.remove('hidden');
+            backBtn.classList.remove('hidden');
+            window.scrollTo(0, 0);
+        }
+
         function showArtDetailPage(artFormName) {
             const art = allArtForms.find(a => a.name === artFormName);
             if (!art) return;
@@ -854,6 +977,7 @@
             'home-page': showHomePage,
             'art-forms-page': showArtFormsPage,
             'artists-page': showArtistsPage,
+            'artist-detail-page': showArtistDetailPage,
             'events-page': showEventsPage,
             'login-page': showLoginPage,
             'creator-hub-page': showCreatorHubPage,
@@ -869,6 +993,7 @@
                 pageHistory.push(currentPage.id);
             }
             pageFunction(...args);
+            closeMobileMenu(); // Close menu on any navigation
         }
 
         function handleGoBack() {
@@ -889,7 +1014,7 @@
             if (user) {
                 loadCreatorProfile(user.uid);
             } else {
-                userProfile = { gigs: [] };
+                userProfile = { gigs: [], portfolioImages: [] };
                 creatorProfileForm.reset();
                 renderGigs();
             }
@@ -961,13 +1086,15 @@
                 if (docSnap.exists()) {
                     userProfile = docSnap.data();
                     userProfile.gigs = userProfile.gigs || [];
+                    userProfile.portfolioImages = userProfile.portfolioImages || [];
                     fullNameInput.value = userProfile.fullName || '';
-                    profilePictureUrlInput.value = userProfile.profilePictureUrl || '';
+                    profilePicturePreview.src = userProfile.profilePictureUrl || 'https://placehold.co/100x100/F6EEE0/A45C40?text=Preview';
                     artistQuoteInput.value = userProfile.artistQuote || '';
                     renderGigs();
+                    renderPortfolioPreviews();
                 } else {
                     console.log("No profile found for this user.");
-                    userProfile = { gigs: [] }; 
+                    userProfile = { gigs: [], portfolioImages: [] }; 
                 }
             } catch (error) {
                 console.error("Error loading profile:", error);
@@ -983,18 +1110,52 @@
                 return;
             }
 
-            userProfile.fullName = fullNameInput.value;
-            userProfile.profilePictureUrl = profilePictureUrlInput.value;
-            userProfile.artistQuote = artistQuoteInput.value;
-            userProfile.email = user.email; // Save the user's email
-            
-            const docRef = doc(db, "profiles", user.uid);
+            saveProfileBtn.disabled = true;
+            saveProfileBtn.textContent = 'Saving...';
+
             try {
+                // 1. Upload Profile Picture if a new one is selected
+                if (newProfilePictureFile) {
+                    const filePath = `profiles/${user.uid}/profilePicture`;
+                    const fileRef = ref(storage, filePath);
+                    await uploadBytes(fileRef, newProfilePictureFile);
+                    userProfile.profilePictureUrl = await getDownloadURL(fileRef);
+                }
+
+                // 2. Upload new portfolio images if any are selected
+                if (newPortfolioFiles.length > 0) {
+                    const uploadPromises = newPortfolioFiles.map(file => {
+                        const filePath = `profiles/${user.uid}/portfolio/${Date.now()}-${file.name}`;
+                        const fileRef = ref(storage, filePath);
+                        return uploadBytes(fileRef, file).then(() => getDownloadURL(fileRef));
+                    });
+                    const newImageUrls = await Promise.all(uploadPromises);
+                    userProfile.portfolioImages = [...userProfile.portfolioImages, ...newImageUrls];
+                }
+
+                // 3. Update text fields and gigs
+                userProfile.fullName = fullNameInput.value;
+                userProfile.artistQuote = artistQuoteInput.value;
+                userProfile.email = user.email;
+                
+                // 4. Save everything to Firestore
+                const docRef = doc(db, "profiles", user.uid);
                 await setDoc(docRef, userProfile, { merge: true });
+
                 showToast("Profile saved successfully!", "success");
+                
+                // Reset file inputs after successful save
+                newProfilePictureFile = null;
+                newPortfolioFiles = [];
+                profilePictureUploadInput.value = '';
+                portfolioUploadInput.value = '';
+
             } catch (error) {
                 console.error("Error saving profile:", error);
                 showToast("There was an error saving your profile.", "error");
+            } finally {
+                saveProfileBtn.disabled = false;
+                saveProfileBtn.textContent = 'Save & Publish Profile';
             }
         }
 
@@ -1045,16 +1206,41 @@
              showToast("Service removed. Remember to save your profile.", "success");
         }
 
+        function renderPortfolioPreviews() {
+            portfolioPreviewContainer.innerHTML = '';
+            // Render existing images
+            userProfile.portfolioImages.forEach(url => {
+                const imgEl = document.createElement('img');
+                imgEl.src = url;
+                imgEl.className = 'w-full h-full object-cover rounded-md';
+                portfolioPreviewContainer.appendChild(imgEl);
+            });
+            // Render newly selected (but not yet uploaded) images
+            newPortfolioFiles.forEach(file => {
+                const imgEl = document.createElement('img');
+                imgEl.src = URL.createObjectURL(file);
+                imgEl.className = 'w-full h-full object-cover rounded-md border-2 border-blue-400';
+                portfolioPreviewContainer.appendChild(imgEl);
+            });
+        }
+
         // --- ARTISTS & SEARCH LOGIC ---
 
         async function fetchAllArtists(searchQuery = '') {
             const profilesRef = collection(db, "profiles");
-            let allProfiles = [];
+            const profilesMap = new Map();
+
+            // Add sample artists first
+            sampleArtists.forEach(artist => profilesMap.set(artist.email, artist));
+
             try {
                 const querySnapshot = await getDocs(profilesRef);
                 querySnapshot.forEach((doc) => {
-                    allProfiles.push(doc.data());
+                    // Real profiles from Firebase will overwrite sample profiles if email matches
+                    profilesMap.set(doc.data().email, doc.data());
                 });
+
+                let allProfiles = Array.from(profilesMap.values());
 
                 if (searchQuery) {
                     const lowercasedQuery = searchQuery.toLowerCase();
@@ -1073,7 +1259,7 @@
             } catch (error) {
                 console.error("Error fetching artist profiles:", error);
                 showToast("Could not fetch artist profiles.", "error");
-                return [];
+                return Array.from(profilesMap.values()); // Return samples even if fetch fails
             }
         }
         
@@ -1087,23 +1273,22 @@
             profiles.forEach(profile => {
                 if (!profile.fullName) return; // Skip profiles without a name
 
-                const gigsHTML = profile.gigs?.map(gig => `
-                    <div class="mt-2">
-                        <h4 class="font-semibold text-[#A45C40]">${gig.title}</h4>
-                        <p class="text-sm text-[#C38370]">${gig.description}</p>
-                    </div>
-                `).join('') || '<p class="text-sm text-[#C38370]">No services listed.</p>';
+                let verifiedBadge = '';
+                if (profile.portfolioImages && profile.portfolioImages.length >= 3) {
+                    verifiedBadge = '<i class="fas fa-check-circle text-blue-500 ml-2" title="Verified Artist"></i>';
+                }
 
                 const artistCard = document.createElement('div');
-                artistCard.className = 'bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow flex flex-col items-center text-center';
+                artistCard.className = 'bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 flex flex-col items-center text-center transform hover:-translate-y-1 cursor-pointer';
+                artistCard.dataset.action = 'show-artist-detail';
+                artistCard.dataset.artistEmail = profile.email;
+
                 artistCard.innerHTML = `
                     <img src="${profile.profilePictureUrl || 'https://placehold.co/128x128/F6EEE0/A45C40?text=Artist'}" alt="${profile.fullName}" class="w-32 h-32 rounded-full object-cover mb-4 border-4 border-[#E4B7A0]">
-                    <h3 class="text-2xl font-bold mb-2">${profile.fullName}</h3>
-                    <a href="mailto:${profile.email}" class="text-sm text-[#C38370] hover:underline mb-4">${profile.email}</a>
+                    <h3 class="text-2xl font-bold mb-2 flex items-center">${profile.fullName}${verifiedBadge}</h3>
                     <p class="text-[#A45C40] font-normal mb-4 text-lg">"${profile.artistQuote || 'No bio available.'}"</p>
-                    <div class="border-t border-[#E4B7A0] pt-4 w-full">
-                        <h4 class="font-bold text-lg mb-2">Services:</h4>
-                        ${gigsHTML}
+                    <div class="border-t border-[#E4B7A0] pt-4 w-full mt-auto">
+                        <span class="text-sm text-[#C38370]">${profile.gigs?.length || 0} services available</span>
                     </div>
                 `;
                 container.appendChild(artistCard);
@@ -1119,9 +1304,33 @@
             navigateTo(() => {
                 showSearchResultsPage();
                 fetchAllArtists(query).then(results => {
-                    renderArtistProfiles(results, searchResultsContainer);
+                    // We need a different render function for search results to make them clickable
+                    renderClickableArtistList(results, searchResultsContainer);
                 });
             }, 'search-results-page');
+        }
+
+        function renderClickableArtistList(profiles, container) {
+            container.innerHTML = '';
+            if (profiles.length === 0) {
+                container.innerHTML = '<p class="text-center text-[#C38370]">No results found.</p>';
+                return;
+            }
+            profiles.forEach(profile => {
+                if (!profile.fullName) return;
+
+                let verifiedBadge = '';
+                if (profile.portfolioImages && profile.portfolioImages.length >= 3) {
+                    verifiedBadge = '<i class="fas fa-check-circle text-blue-500 ml-2" title="Verified Artist"></i>';
+                }
+
+                const resultEl = document.createElement('div');
+                resultEl.className = 'bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow cursor-pointer';
+                resultEl.dataset.action = 'show-artist-detail';
+                resultEl.dataset.artistEmail = profile.email;
+                resultEl.innerHTML = `<h3 class="text-xl font-bold flex items-center">${profile.fullName}${verifiedBadge}</h3><p class="text-[#C38370]">${profile.artistQuote}</p>`;
+                container.appendChild(resultEl);
+            });
         }
 
 
@@ -1355,7 +1564,7 @@
                     break;
                 case 'show-home':
                     e.preventDefault();
-                    showHomePage();
+                    navigateTo(showHomePage, 'home-page');
                     break;
                 case 'show-art-forms':
                     e.preventDefault();
@@ -1366,14 +1575,17 @@
                     e.preventDefault();
                     navigateTo(showArtistsPage, 'artists-page');
                     break;
+                case 'show-artist-detail':
+                    const artistEmail = target.dataset.artistEmail;
+                    navigateTo(showArtistDetailPage, 'artist-detail-page', artistEmail);
+                    break;
                 case 'show-art-detail':
                     const artFormName = target.dataset.artform;
                     navigateTo(() => showArtDetailPage(artFormName), 'art-detail-page');
                     break;
                 case 'show-events':
                     e.preventDefault();
-                    navigateTo(() => renderEvents([]), 'events-page');
-                    showEventsPage();
+                    navigateTo(showEventsPage, 'events-page');
                     break;
                 case 'explore-events':
                     navigateTo(showExploreEventsPage, 'explore-events-page');
@@ -1417,6 +1629,21 @@
         addGigBtn.addEventListener('click', () => gigFormContainer.classList.remove('hidden'));
         cancelGigBtn.addEventListener('click', () => gigFormContainer.classList.add('hidden'));
         saveGigBtn.addEventListener('click', handleSaveGig);
+
+        // Creator Hub - File Upload Listeners
+        profilePictureUploadInput.addEventListener('change', (e) => {
+            if (e.target.files && e.target.files[0]) {
+                newProfilePictureFile = e.target.files[0];
+                profilePicturePreview.src = URL.createObjectURL(newProfilePictureFile);
+            }
+        });
+
+        portfolioUploadInput.addEventListener('change', (e) => {
+            if (e.target.files) {
+                newPortfolioFiles = [...newPortfolioFiles, ...Array.from(e.target.files)];
+                renderPortfolioPreviews();
+            }
+        });
         
         // --- INITIALIZATION ---
         function init() {
