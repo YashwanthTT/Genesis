@@ -332,6 +332,71 @@
             </main>
             
             <!-- =================================== -->
+            <!-- ==   ART FORM CATEGORY PAGE      == -->
+            <!-- =================================== -->
+            <main id="art-form-category-page" class="hidden bg-white/70">
+                <div class="container mx-auto px-6 py-20">
+                    <div class="max-w-3xl mx-auto text-center mb-12">
+                        <h1 id="art-form-category-title" class="text-4xl font-bold mb-4">Art Form Category</h1>
+                        <p id="art-form-category-description" class="text-[#C38370] mb-8">Discover beautiful artwork in this traditional art form.</p>
+                        <div id="art-form-category-info" class="bg-[#F6EEE0] p-6 rounded-lg">
+                            <!-- Art form info will be populated here -->
+                        </div>
+                    </div>
+
+                    <!-- Filter Section for Artists -->
+                    <div class="bg-[#F6EEE0]/80 backdrop-blur-sm p-6 rounded-lg shadow-md mb-12 sticky top-24 z-40">
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                            <select id="artist-skill-filter" class="w-full px-4 py-2 border border-[#E4B7A0] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#A45C40] transition">
+                                <option value="all">All Skill Levels</option>
+                                <option value="beginner">Beginner</option>
+                                <option value="intermediate">Intermediate</option>
+                                <option value="expert">Expert</option>
+                                <option value="master">Master</option>
+                            </select>
+                            <select id="price-range-filter" class="w-full px-4 py-2 border border-[#E4B7A0] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#A45C40] transition">
+                                <option value="all">All Price Ranges</option>
+                                <option value="budget">Under ₹5,000</option>
+                                <option value="mid">₹5,000 - ₹15,000</option>
+                                <option value="premium">₹15,000 - ₹50,000</option>
+                                <option value="luxury">Above ₹50,000</option>
+                            </select>
+                            <select id="export-ready-filter" class="w-full px-4 py-2 border border-[#E4B7A0] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#A45C40] transition">
+                                <option value="all">All Artists</option>
+                                <option value="export-ready">Export Ready Only</option>
+                                <option value="almost-ready">Almost Export Ready</option>
+                            </select>
+                            <button id="apply-category-filters" class="bg-[#A45C40] hover:bg-[#C38370] text-white font-bold py-2 px-4 rounded-lg flex items-center justify-center">
+                                <i class="fas fa-filter mr-2"></i> Apply Filters
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Artists specializing in this art form -->
+                    <div class="mb-12">
+                        <h2 class="text-2xl font-bold mb-6 flex items-center">
+                            <i class="fas fa-palette mr-3 text-[#A45C40]"></i>
+                            Artists Specializing in <span id="art-form-name-artists">This Art Form</span>
+                        </h2>
+                        <div id="art-form-artists-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                            <!-- Artists will be populated here -->
+                        </div>
+                    </div>
+
+                    <!-- Available Artwork/Services -->
+                    <div>
+                        <h2 class="text-2xl font-bold mb-6 flex items-center">
+                            <i class="fas fa-shopping-bag mr-3 text-[#A45C40]"></i>
+                            Available Services & Artwork
+                        </h2>
+                        <div id="art-form-services-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <!-- Services will be populated here -->
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+            <!-- =================================== -->
             <!-- ==      ARTISTS PAGE CONTENT     == -->
             <!-- =================================== -->
             <main id="artists-page" class="hidden">
@@ -584,6 +649,130 @@
                         <button id="close-order-modal" class="w-full bg-[#A45C40] hover:bg-[#C38370] text-white font-bold py-2 px-4 rounded-full">
                             Continue Shopping
                         </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- =================================== -->
+            <!-- ==    EVENT REGISTRATION MODAL   == -->
+            <!-- =================================== -->
+            <div id="event-registration-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+                <div class="bg-white rounded-lg shadow-2xl w-full max-w-md max-h-[90vh] overflow-y-auto">
+                    <div class="p-6 border-b border-gray-200">
+                        <div class="flex justify-between items-center">
+                            <h2 class="text-xl font-bold text-[#A45C40]">Event Registration</h2>
+                            <button id="close-event-registration" class="text-gray-500 hover:text-gray-700">
+                                <i class="fas fa-times text-xl"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div id="event-registration-details" class="mb-6">
+                            <!-- Event details will be populated here -->
+                        </div>
+
+                        <form id="event-registration-form" class="space-y-4">
+                            <div>
+                                <label for="reg-full-name" class="block text-sm font-medium text-[#A45C40] mb-1">Full Name *</label>
+                                <input type="text" id="reg-full-name" required class="w-full px-3 py-2 border border-[#E4B7A0] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#A45C40]">
+                            </div>
+
+                            <div>
+                                <label for="reg-email" class="block text-sm font-medium text-[#A45C40] mb-1">Email Address *</label>
+                                <input type="email" id="reg-email" required class="w-full px-3 py-2 border border-[#E4B7A0] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#A45C40]">
+                            </div>
+
+                            <div>
+                                <label for="reg-phone" class="block text-sm font-medium text-[#A45C40] mb-1">Phone Number *</label>
+                                <input type="tel" id="reg-phone" required class="w-full px-3 py-2 border border-[#E4B7A0] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#A45C40]">
+                            </div>
+
+                            <div>
+                                <label for="reg-participants" class="block text-sm font-medium text-[#A45C40] mb-1">Number of Participants</label>
+                                <select id="reg-participants" class="w-full px-3 py-2 border border-[#E4B7A0] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#A45C40]">
+                                    <option value="1">1 Person</option>
+                                    <option value="2">2 People</option>
+                                    <option value="3">3 People</option>
+                                    <option value="4">4 People</option>
+                                    <option value="5+">5+ People</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label for="reg-experience" class="block text-sm font-medium text-[#A45C40] mb-1">Experience Level</label>
+                                <select id="reg-experience" class="w-full px-3 py-2 border border-[#E4B7A0] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#A45C40]">
+                                    <option value="beginner">Beginner</option>
+                                    <option value="intermediate">Intermediate</option>
+                                    <option value="advanced">Advanced</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label for="reg-special-requirements" class="block text-sm font-medium text-[#A45C40] mb-1">Special Requirements</label>
+                                <textarea id="reg-special-requirements" rows="3" class="w-full px-3 py-2 border border-[#E4B7A0] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#A45C40]" placeholder="Any dietary restrictions, accessibility needs, or special requests..."></textarea>
+                            </div>
+
+                            <div class="bg-[#F6EEE0] p-4 rounded-lg">
+                                <h4 class="font-semibold text-[#A45C40] mb-2">Registration Fee</h4>
+                                <p id="registration-fee-details" class="text-sm text-[#C38370]">Fee details will be shown here</p>
+                            </div>
+
+                            <button type="submit" class="w-full bg-[#A45C40] hover:bg-[#C38370] text-white font-bold py-3 px-4 rounded-full transition duration-300">
+                                Complete Registration
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- =================================== -->
+            <!-- ==    EVENT CONTACT MODAL        == -->
+            <!-- =================================== -->
+            <div id="event-contact-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+                <div class="bg-white rounded-lg shadow-2xl w-full max-w-md">
+                    <div class="p-6 border-b border-gray-200">
+                        <div class="flex justify-between items-center">
+                            <h2 class="text-xl font-bold text-[#A45C40]">Contact Event Organizer</h2>
+                            <button id="close-event-contact" class="text-gray-500 hover:text-gray-700">
+                                <i class="fas fa-times text-xl"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div id="event-contact-details" class="mb-6">
+                            <!-- Event contact details will be populated here -->
+                        </div>
+
+                        <div class="space-y-4">
+                            <div class="bg-[#F6EEE0] p-4 rounded-lg">
+                                <h4 class="font-semibold text-[#A45C40] mb-3">Contact Options</h4>
+                                <div class="space-y-3">
+                                    <button id="call-organizer" class="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-full transition duration-300 flex items-center justify-center">
+                                        <i class="fas fa-phone mr-2"></i>Call Now
+                                    </button>
+                                    <button id="whatsapp-organizer" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full transition duration-300 flex items-center justify-center">
+                                        <i class="fab fa-whatsapp mr-2"></i>WhatsApp
+                                    </button>
+                                    <button id="email-organizer" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full transition duration-300 flex items-center justify-center">
+                                        <i class="fas fa-envelope mr-2"></i>Send Email
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="bg-yellow-50 border border-yellow-200 p-4 rounded-lg">
+                                <div class="flex items-start">
+                                    <i class="fas fa-info-circle text-yellow-600 mt-1 mr-2"></i>
+                                    <div>
+                                        <h5 class="font-semibold text-yellow-800">Quick Contact Tips</h5>
+                                        <ul class="text-sm text-yellow-700 mt-1 space-y-1">
+                                            <li>• Mention the event name when calling</li>
+                                            <li>• Ask about availability and requirements</li>
+                                            <li>• Inquire about group discounts</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1070,10 +1259,102 @@
         ];
 
         const sampleEvents = [
-            { name: "Karaga Festival", state: "Karnataka", city: "Bengaluru", date: "2025-04-15", description: "One of the oldest festivals in Bengaluru, celebrating Draupadi.", lat: 12.9716, lon: 77.5946, imageUrl: "ev.karaga.png" },
-            { name: "Bangalore Literature Festival", state: "Karnataka", city: "Bengaluru", date: "2025-12-07", description: "A celebration of literature and ideas, featuring authors from around the world.", lat: 12.9716, lon: 77.5946, imageUrl: "ev.lit.png" },
-            { name: "Madhubani Exhibition", state: "Bihar", city: "Delhi", date: "2025-10-05", description: "A grand exhibition showcasing the finest Madhubani artworks.", lat: 28.7041, lon: 77.1025, imageUrl: "ev.madhu.png" },
-            { name: "Gond Art Festival", state: "Madhya Pradesh", city: "Bhopal", date: "2025-12-01", description: "Celebrate the tribal art of the Gond community.", lat: 23.2599, lon: 77.4126, imageUrl: "ev.gond.png" },
+            {
+                name: "Warli Art Workshop",
+                state: "Maharashtra",
+                city: "Mumbai",
+                date: "2025-03-15T10:00:00",
+                description: "Learn the ancient tribal art of Warli painting with master artists. Create your own Warli masterpiece using traditional techniques and natural pigments.",
+                lat: 19.0760,
+                lon: 72.8777,
+                imageUrl: "ev.warli.png",
+                fee: 2500,
+                maxParticipants: 25,
+                currentParticipants: 18,
+                organizerName: "Warli Art Foundation",
+                organizerPhone: "+91-98765-43210",
+                organizerEmail: "workshops@warliarfoundation.org"
+            },
+            {
+                name: "Madhubani Painting Masterclass",
+                state: "Bihar",
+                city: "Delhi",
+                date: "2025-03-22T14:00:00",
+                description: "Intensive 3-day masterclass in traditional Madhubani painting techniques. Learn from renowned artists and create authentic Mithila art.",
+                lat: 28.7041,
+                lon: 77.1025,
+                imageUrl: "ev.madhu.png",
+                fee: 4500,
+                maxParticipants: 20,
+                currentParticipants: 15,
+                organizerName: "Mithila Art Center",
+                organizerPhone: "+91-87654-32109",
+                organizerEmail: "info@mithilaartcenter.com"
+            },
+            {
+                name: "Pattachitra Art Exhibition & Workshop",
+                state: "Odisha",
+                city: "Bhubaneswar",
+                date: "2025-04-05T09:00:00",
+                description: "Experience the beauty of Pattachitra scroll paintings. Exhibition followed by hands-on workshop with traditional artists from Raghurajpur.",
+                lat: 20.2961,
+                lon: 85.8245,
+                imageUrl: "ev.patta.png",
+                fee: "Free",
+                maxParticipants: 50,
+                currentParticipants: 32,
+                organizerName: "Odisha Cultural Society",
+                organizerPhone: "+91-76543-21098",
+                organizerEmail: "events@odishaculture.org"
+            },
+            {
+                name: "Gond Art Festival",
+                state: "Madhya Pradesh",
+                city: "Bhopal",
+                date: "2025-04-12T11:00:00",
+                description: "Celebrate the vibrant tribal art of the Gond community. Meet artists, watch live demonstrations, and purchase authentic Gond artworks.",
+                lat: 23.2599,
+                lon: 77.4126,
+                imageUrl: "ev.gond.png",
+                fee: 1500,
+                maxParticipants: 100,
+                currentParticipants: 67,
+                organizerName: "Tribal Art Collective",
+                organizerPhone: "+91-65432-10987",
+                organizerEmail: "festival@tribalartcollective.in"
+            },
+            {
+                name: "Kalamkari Textile Workshop",
+                state: "Andhra Pradesh",
+                city: "Hyderabad",
+                date: "2025-04-20T10:30:00",
+                description: "Learn the ancient art of Kalamkari hand-painting on textiles. Create beautiful fabric art using natural dyes and traditional motifs.",
+                lat: 17.3850,
+                lon: 78.4867,
+                imageUrl: "ev.kalamkari.png",
+                fee: 3200,
+                maxParticipants: 30,
+                currentParticipants: 28,
+                organizerName: "Heritage Textiles Academy",
+                organizerPhone: "+91-54321-09876",
+                organizerEmail: "workshops@heritagetextiles.com"
+            },
+            {
+                name: "Tanjore Painting Workshop",
+                state: "Tamil Nadu",
+                city: "Chennai",
+                date: "2025-02-28T09:30:00",
+                description: "Past Event: Learn the classical South Indian art of Tanjore painting with gold leaf work and precious stone embellishments.",
+                lat: 13.0827,
+                lon: 80.2707,
+                imageUrl: "ev.tanjore.png",
+                fee: 3800,
+                maxParticipants: 15,
+                currentParticipants: 15,
+                organizerName: "Classical Arts Institute",
+                organizerPhone: "+91-43210-98765",
+                organizerEmail: "classes@classicalarts.in"
+            }
         ];
         
         const allIndianEvents = [
@@ -1105,6 +1386,7 @@
         const artistDetailPage = document.getElementById('artist-detail-page'); // New detail page
         const searchResultsPage = document.getElementById('search-results-page');
         const artDetailPage = document.getElementById('art-detail-page'); // New detail page
+        const artFormCategoryPage = document.getElementById('art-form-category-page'); // New art form category page
         const exploreEventsPage = document.getElementById('explore-events-page'); // New explore events page
         const backBtn = document.getElementById('back-btn'); // Back button
         const mobileMenuButton = document.getElementById('mobile-menu-button');
@@ -1123,6 +1405,15 @@
         const artistDetailContainer = document.getElementById('artist-detail-container');
         const searchResultsContainer = document.getElementById('search-results-container');
         const exploreEventsContainer = document.getElementById('explore-events-container');
+
+        // Art Form Category Page Elements
+        const artFormCategoryTitle = document.getElementById('art-form-category-title');
+        const artFormCategoryDescription = document.getElementById('art-form-category-description');
+        const artFormCategoryInfo = document.getElementById('art-form-category-info');
+        const artFormArtistsContainer = document.getElementById('art-form-artists-container');
+        const artFormServicesContainer = document.getElementById('art-form-services-container');
+        const artFormNameArtists = document.getElementById('art-form-name-artists');
+        const applyCategoryFilters = document.getElementById('apply-category-filters');
         
         // Auth Page Elements
         const authTitlePage = document.getElementById('auth-title-page');
@@ -1196,6 +1487,7 @@
             artistDetailPage.classList.add('hidden');
             searchResultsPage.classList.add('hidden');
             artDetailPage.classList.add('hidden');
+            artFormCategoryPage.classList.add('hidden');
             exploreEventsPage.classList.add('hidden');
         }
 
@@ -1408,16 +1700,201 @@
             if (!art) return;
 
             hideAllPages();
-            
+
             document.getElementById('art-detail-title').textContent = art.name;
             document.getElementById('art-detail-description').innerHTML = art.detailedDescription;
             const videoEl = document.getElementById('art-detail-video');
             videoEl.poster = art.imageUrl;
             videoEl.innerHTML = '<source src="https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" type="video/mp4">';
-            
+
             artDetailPage.classList.remove('hidden');
             backBtn.classList.remove('hidden');
             window.scrollTo(0, 0);
+        }
+
+        async function showArtFormCategoryPage(artFormName) {
+            hideAllPages();
+
+            // Find the art form
+            const artForm = allArtForms.find(a => a.name === artFormName);
+            if (!artForm) {
+                artFormCategoryTitle.textContent = 'Art Form Not Found';
+                artFormCategoryDescription.textContent = 'The requested art form could not be found.';
+                artFormCategoryPage.classList.remove('hidden');
+                backBtn.classList.remove('hidden');
+                return;
+            }
+
+            // Set page title and description
+            artFormCategoryTitle.textContent = artForm.name;
+            artFormCategoryDescription.textContent = `Discover beautiful ${artForm.name} artwork and connect with skilled artists from ${artForm.state}.`;
+            artFormNameArtists.textContent = artForm.name;
+
+            // Set art form info
+            artFormCategoryInfo.innerHTML = `
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
+                    <div class="bg-white p-4 rounded-lg">
+                        <i class="fas fa-map-marker-alt text-2xl text-[#A45C40] mb-2"></i>
+                        <h3 class="font-bold text-[#A45C40]">Origin</h3>
+                        <p class="text-sm text-[#C38370]">${artForm.state}</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg">
+                        <i class="fas fa-users text-2xl text-[#A45C40] mb-2"></i>
+                        <h3 class="font-bold text-[#A45C40]">Practitioners</h3>
+                        <p class="text-sm text-[#C38370]">~${artForm.practitioners} artists</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg">
+                        <i class="fas fa-exclamation-triangle text-2xl text-red-500 mb-2"></i>
+                        <h3 class="font-bold text-red-600">Status</h3>
+                        <p class="text-sm text-red-600 capitalize">${artForm.status.replace('-', ' ')}</p>
+                    </div>
+                </div>
+                <div class="mt-4 bg-white p-4 rounded-lg">
+                    <p class="text-[#A45C40]">${artForm.description}</p>
+                </div>
+            `;
+
+            // Load and filter artists who specialize in this art form
+            try {
+                const allProfiles = await fetchAllArtists();
+                const specializedArtists = allProfiles.filter(profile => {
+                    // Check if artist has services related to this art form
+                    return profile.gigs && profile.gigs.some(gig =>
+                        gig.title.toLowerCase().includes(artForm.name.toLowerCase()) ||
+                        gig.description.toLowerCase().includes(artForm.name.toLowerCase())
+                    );
+                });
+
+                renderArtFormArtists(specializedArtists, artForm);
+                renderArtFormServices(specializedArtists, artForm);
+            } catch (error) {
+                console.error('Error loading artists:', error);
+                artFormArtistsContainer.innerHTML = '<p class="text-center text-red-500 col-span-full">Error loading artists.</p>';
+            }
+
+            artFormCategoryPage.classList.remove('hidden');
+            backBtn.classList.remove('hidden');
+            window.scrollTo(0, 0);
+        }
+
+        function renderArtFormArtists(artists, artForm) {
+            if (artists.length === 0) {
+                artFormArtistsContainer.innerHTML = `
+                    <div class="col-span-full text-center py-8">
+                        <i class="fas fa-palette text-4xl text-gray-300 mb-4"></i>
+                        <p class="text-gray-500">No artists specializing in ${artForm.name} found.</p>
+                        <p class="text-sm text-gray-400 mt-2">Check back later as more artists join our platform.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            artFormArtistsContainer.innerHTML = artists.map(profile => {
+                // Export compliance status
+                const exportCompliance = profile.exportCompliance || {};
+                const totalChecks = 12;
+                const completedChecks = Object.values(exportCompliance).filter(Boolean).length;
+                const exportProgress = Math.round((completedChecks / totalChecks) * 100);
+
+                let exportBadge = '';
+                if (exportProgress === 100) {
+                    exportBadge = '<span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800"><i class="fas fa-globe mr-1"></i>Export Ready</span>';
+                } else if (exportProgress >= 75) {
+                    exportBadge = '<span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800"><i class="fas fa-clock mr-1"></i>Almost Ready</span>';
+                }
+
+                const relevantGigs = profile.gigs?.filter(gig =>
+                    gig.title.toLowerCase().includes(artForm.name.toLowerCase()) ||
+                    gig.description.toLowerCase().includes(artForm.name.toLowerCase())
+                ) || [];
+
+                return `
+                    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                        <div class="text-center mb-4">
+                            <img src="${profile.profilePictureUrl || 'https://placehold.co/100x100/F6EEE0/A45C40?text=Artist'}" alt="${profile.fullName}" class="w-20 h-20 rounded-full object-cover mx-auto mb-3 border-3 border-[#E4B7A0]">
+                            <h3 class="text-lg font-bold text-[#A45C40]">${profile.fullName}</h3>
+                            ${exportBadge}
+                            <p class="text-sm text-[#C38370] mt-2">"${profile.artistQuote || 'Passionate about preserving traditional art.'}"</p>
+                        </div>
+
+                        <div class="border-t border-[#E4B7A0] pt-4">
+                            <p class="text-xs text-gray-600 mb-3">${relevantGigs.length} ${artForm.name} service(s) available</p>
+                            <div class="flex space-x-2">
+                                <button class="flex-1 bg-[#A45C40] hover:bg-[#C38370] text-white px-3 py-2 rounded-full text-sm font-semibold transition duration-300" data-action="show-artist-detail" data-artist-email="${profile.email}">
+                                    View Profile
+                                </button>
+                                <button class="flex-1 bg-[#E4B7A0] hover:bg-[#C38370] text-[#A45C40] hover:text-white px-3 py-2 rounded-full text-sm font-semibold transition duration-300" data-action="start-chat" data-artist-email="${profile.email}" data-artist-name="${profile.fullName}" data-artist-avatar="${profile.profilePictureUrl || 'https://placehold.co/100x100/F6EEE0/A45C40?text=Artist'}">
+                                    <i class="fas fa-comments mr-1"></i>Chat
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function renderArtFormServices(artists, artForm) {
+            const allServices = [];
+
+            artists.forEach(profile => {
+                const relevantGigs = profile.gigs?.filter(gig =>
+                    gig.title.toLowerCase().includes(artForm.name.toLowerCase()) ||
+                    gig.description.toLowerCase().includes(artForm.name.toLowerCase())
+                ) || [];
+
+                relevantGigs.forEach((gig, index) => {
+                    allServices.push({
+                        ...gig,
+                        artistName: profile.fullName,
+                        artistEmail: profile.email,
+                        artistAvatar: profile.profilePictureUrl,
+                        gigIndex: profile.gigs.indexOf(gig)
+                    });
+                });
+            });
+
+            if (allServices.length === 0) {
+                artFormServicesContainer.innerHTML = `
+                    <div class="col-span-full text-center py-8">
+                        <i class="fas fa-shopping-bag text-4xl text-gray-300 mb-4"></i>
+                        <p class="text-gray-500">No ${artForm.name} services available yet.</p>
+                        <p class="text-sm text-gray-400 mt-2">Artists are working on adding more services.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            artFormServicesContainer.innerHTML = allServices.map(service => {
+                const standardPrice = service.pricing?.standard?.price || 'Contact for pricing';
+
+                return `
+                    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 border border-[#E4B7A0]">
+                        <div class="flex items-center mb-4">
+                            <img src="${service.artistAvatar || 'https://placehold.co/40x40/F6EEE0/A45C40?text=Artist'}" alt="${service.artistName}" class="w-10 h-10 rounded-full object-cover mr-3">
+                            <div>
+                                <h4 class="font-bold text-[#A45C40]">${service.title}</h4>
+                                <p class="text-sm text-[#C38370]">by ${service.artistName}</p>
+                            </div>
+                        </div>
+
+                        <p class="text-sm text-gray-600 mb-4">${service.description}</p>
+
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-lg font-bold text-[#A45C40]">₹${standardPrice}</span>
+                            <span class="text-sm text-gray-500">Standard Package</span>
+                        </div>
+
+                        <div class="flex space-x-2">
+                            <button class="flex-1 bg-[#E4B7A0] hover:bg-[#C38370] text-[#A45C40] hover:text-white px-3 py-2 rounded-full text-sm font-semibold transition duration-300" data-action="add-to-cart" data-gig-index="${service.gigIndex}" data-artist-email="${service.artistEmail}" data-package="standard">
+                                <i class="fas fa-cart-plus mr-1"></i>Add to Cart
+                            </button>
+                            <button class="flex-1 bg-[#A45C40] hover:bg-[#C38370] text-white px-3 py-2 rounded-full text-sm font-semibold transition duration-300" data-action="show-artist-detail" data-artist-email="${service.artistEmail}">
+                                View Details
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
         }
 
         const pageFunctionsMap = {
@@ -1430,6 +1907,7 @@
             'creator-hub-page': showCreatorHubPage,
             'search-results-page': showSearchResultsPage,
             'art-detail-page': showArtDetailPage,
+            'art-form-category-page': showArtFormCategoryPage,
             'explore-events-page': showExploreEventsPage
         };
 
@@ -1868,16 +2346,28 @@
                     : `<img src="${art.imageUrl}" alt="${art.name}" class="w-full h-full object-cover transition-transform duration-[2000ms] ease-in-out group-hover:scale-110">`;
 
                 artEl.innerHTML = `
-                    <div class="flex flex-col md:flex-row items-center bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 group">
+                    <div class="flex flex-col md:flex-row items-center bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 group cursor-pointer transform hover:-translate-y-1" data-action="browse-art-form" data-art-form="${art.name}">
                         <div class="w-full md:w-1/3 h-64 rounded-lg mb-6 md:mb-0 md:mr-8 overflow-hidden">
                            ${mediaElementHTML}
                         </div>
                         <div class="flex-1 text-left">
-                            <span class="inline-block bg-[#E4B7A0]/40 text-[#A45C40] text-sm font-semibold px-3 py-1 rounded-full mb-2 capitalize">${art.status.replace('-', ' ')}</span>
-                            <h2 class="text-3xl font-bold mb-2">${art.name}</h2>
+                            <div class="flex justify-between items-start mb-2">
+                                <span class="inline-block bg-[#E4B7A0]/40 text-[#A45C40] text-sm font-semibold px-3 py-1 rounded-full capitalize">${art.status.replace('-', ' ')}</span>
+                                <div class="flex items-center text-[#A45C40] text-sm">
+                                    <i class="fas fa-mouse-pointer mr-1"></i>
+                                    <span>Click to Browse</span>
+                                </div>
+                            </div>
+                            <h2 class="text-3xl font-bold mb-2 group-hover:text-[#C38370] transition-colors">${art.name}</h2>
                             <p class="text-[#C38370] mb-4"><i class="fas fa-map-marker-alt mr-2 text-[#E4B7A0]"></i>${art.state}</p>
                             <p class="text-[#A45C40] mb-4">${art.description}</p>
-                            <p class="text-sm text-red-600 font-semibold">Estimated Practitioners Left: ~${art.practitioners}</p>
+                            <div class="flex justify-between items-center">
+                                <p class="text-sm text-red-600 font-semibold">Estimated Practitioners Left: ~${art.practitioners}</p>
+                                <div class="flex items-center space-x-4 text-sm text-[#C38370]">
+                                    <span><i class="fas fa-palette mr-1"></i>Browse Artists</span>
+                                    <span><i class="fas fa-shopping-bag mr-1"></i>View Services</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 `;
@@ -1925,18 +2415,94 @@
                 eventsContainer.innerHTML = '<p class="text-center text-[#C38370] col-span-full">No events found.</p>';
                 return;
             }
-            events.forEach(event => {
+            events.forEach((event, index) => {
                 const eventCard = document.createElement('div');
-                eventCard.className = 'bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow';
+                eventCard.className = 'bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1';
+
+                // Generate event details with registration info
+                const eventDate = new Date(event.date);
+                const isUpcoming = eventDate > new Date();
+                const registrationFee = event.fee || 'Free';
+                const maxParticipants = event.maxParticipants || 50;
+                const currentParticipants = event.currentParticipants || Math.floor(Math.random() * maxParticipants * 0.7);
+                const spotsLeft = maxParticipants - currentParticipants;
+
                 eventCard.innerHTML = `
-                    <div class="w-full h-48 mb-4 overflow-hidden rounded-lg">
+                    <div class="w-full h-48 mb-4 overflow-hidden rounded-lg relative">
                         <img src="${event.imageUrl}" alt="${event.name}" class="w-full h-full object-cover">
+                        ${isUpcoming ? `
+                            <div class="absolute top-2 right-2 bg-green-500 text-white px-2 py-1 rounded-full text-xs font-semibold">
+                                <i class="fas fa-calendar-check mr-1"></i>Upcoming
+                            </div>
+                        ` : `
+                            <div class="absolute top-2 right-2 bg-gray-500 text-white px-2 py-1 rounded-full text-xs font-semibold">
+                                <i class="fas fa-history mr-1"></i>Past Event
+                            </div>
+                        `}
+                        ${spotsLeft <= 10 && isUpcoming ? `
+                            <div class="absolute top-2 left-2 bg-red-500 text-white px-2 py-1 rounded-full text-xs font-semibold animate-pulse">
+                                <i class="fas fa-fire mr-1"></i>Only ${spotsLeft} spots left!
+                            </div>
+                        ` : ''}
                     </div>
-                    <h3 class="text-xl font-bold mb-2">${event.name}</h3>
-                    <p class="text-[#C38370] mb-2"><i class="fas fa-calendar-alt mr-2"></i>${new Date(event.date).toDateString()}</p>
-                    <p class="text-[#C38370] mb-4"><i class="fas fa-map-marker-alt mr-2"></i>${event.city}, ${event.state}</p>
-                    <p class="text-[#A45C40]">${event.description}</p>
-                    ${event.distance ? `<p class="text-sm text-[#A45C40] font-semibold mt-4">Distance: ${event.distance.toFixed(2)} km away</p>` : ''}
+
+                    <div class="mb-4">
+                        <h3 class="text-xl font-bold mb-2 text-[#A45C40]">${event.name}</h3>
+                        <div class="space-y-2 text-sm">
+                            <p class="text-[#C38370] flex items-center">
+                                <i class="fas fa-calendar-alt mr-2 w-4"></i>
+                                ${eventDate.toDateString()} at ${eventDate.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
+                            </p>
+                            <p class="text-[#C38370] flex items-center">
+                                <i class="fas fa-map-marker-alt mr-2 w-4"></i>
+                                ${event.city}, ${event.state}
+                            </p>
+                            <p class="text-[#C38370] flex items-center">
+                                <i class="fas fa-users mr-2 w-4"></i>
+                                ${currentParticipants}/${maxParticipants} participants
+                            </p>
+                            <p class="text-[#C38370] flex items-center">
+                                <i class="fas fa-tag mr-2 w-4"></i>
+                                ${registrationFee === 'Free' ? 'Free Event' : `₹${registrationFee}`}
+                            </p>
+                        </div>
+                        <p class="text-[#A45C40] mt-3 text-sm">${event.description}</p>
+                        ${event.distance ? `<p class="text-sm text-[#A45C40] font-semibold mt-2">Distance: ${event.distance.toFixed(2)} km away</p>` : ''}
+                    </div>
+
+                    <div class="border-t border-[#E4B7A0] pt-4">
+                        ${isUpcoming ? `
+                            <div class="flex space-x-2">
+                                <button class="flex-1 bg-[#A45C40] hover:bg-[#C38370] text-white font-bold py-2 px-4 rounded-full transition duration-300 text-sm"
+                                        data-action="register-event" data-event-index="${index}">
+                                    <i class="fas fa-user-plus mr-1"></i>Register Now
+                                </button>
+                                <button class="flex-1 bg-[#E4B7A0] hover:bg-[#C38370] text-[#A45C40] hover:text-white font-bold py-2 px-4 rounded-full transition duration-300 text-sm"
+                                        data-action="contact-organizer" data-event-index="${index}">
+                                    <i class="fas fa-phone mr-1"></i>Contact
+                                </button>
+                            </div>
+                            ${spotsLeft <= 5 && spotsLeft > 0 ? `
+                                <p class="text-center text-red-600 text-xs mt-2 font-semibold">
+                                    <i class="fas fa-exclamation-triangle mr-1"></i>Hurry! Only ${spotsLeft} spots remaining
+                                </p>
+                            ` : spotsLeft === 0 ? `
+                                <p class="text-center text-red-600 text-xs mt-2 font-semibold">
+                                    <i class="fas fa-times-circle mr-1"></i>Event Full - Join Waitlist
+                                </p>
+                            ` : ''}
+                        ` : `
+                            <div class="flex space-x-2">
+                                <button class="flex-1 bg-gray-400 text-white font-bold py-2 px-4 rounded-full text-sm cursor-not-allowed" disabled>
+                                    <i class="fas fa-clock mr-1"></i>Event Ended
+                                </button>
+                                <button class="flex-1 bg-[#E4B7A0] hover:bg-[#C38370] text-[#A45C40] hover:text-white font-bold py-2 px-4 rounded-full transition duration-300 text-sm"
+                                        data-action="contact-organizer" data-event-index="${index}">
+                                    <i class="fas fa-info-circle mr-1"></i>Event Info
+                                </button>
+                            </div>
+                        `}
+                    </div>
                 `;
                 eventsContainer.appendChild(eventCard);
             });
@@ -1964,9 +2530,35 @@
                        ${mediaElementHTML}
                     </div>
                     <div class="flex-1 text-left">
-                        <h2 class="text-3xl font-bold mb-2">${event.name}</h2>
-                        <p class="text-[#C38370] mb-4"><i class="fas fa-map-marker-alt mr-2 text-[#E4B7A0]"></i>${event.state}</p>
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <h2 class="text-3xl font-bold mb-2 group-hover:text-[#C38370] transition-colors">${event.name}</h2>
+                                <p class="text-[#C38370] mb-2"><i class="fas fa-map-marker-alt mr-2 text-[#E4B7A0]"></i>${event.state}</p>
+                            </div>
+                            <div class="text-right">
+                                <span class="inline-block bg-[#E4B7A0]/40 text-[#A45C40] text-sm font-semibold px-3 py-1 rounded-full mb-2">Cultural Festival</span>
+                                <p class="text-sm text-[#C38370]">
+                                    <i class="fas fa-calendar mr-1"></i>
+                                    ${event.duration || 'Multi-day event'}
+                                </p>
+                            </div>
+                        </div>
                         <p class="text-[#A45C40] mb-4">${event.description}</p>
+                        <div class="flex items-center space-x-4 text-sm text-[#C38370]">
+                            <span><i class="fas fa-users mr-1"></i>Community Event</span>
+                            <span><i class="fas fa-camera mr-1"></i>Photo Opportunities</span>
+                            <span><i class="fas fa-utensils mr-1"></i>Local Cuisine</span>
+                        </div>
+                        <div class="mt-4 flex space-x-3">
+                            <button class="bg-[#A45C40] hover:bg-[#C38370] text-white font-bold py-2 px-4 rounded-full transition duration-300 text-sm"
+                                    data-action="get-event-info" data-event-name="${event.name}" data-event-state="${event.state}">
+                                <i class="fas fa-info-circle mr-1"></i>Get Event Info
+                            </button>
+                            <button class="bg-[#E4B7A0] hover:bg-[#C38370] text-[#A45C40] hover:text-white font-bold py-2 px-4 rounded-full transition duration-300 text-sm"
+                                    data-action="contact-tourism-board" data-event-state="${event.state}">
+                                <i class="fas fa-phone mr-1"></i>Contact Tourism Board
+                            </button>
+                        </div>
                     </div>
                 `;
                 exploreEventsContainer.appendChild(eventEl);
@@ -2089,8 +2681,7 @@
                     navigateTo(showArtistDetailPage, 'artist-detail-page', target.dataset.artistEmail);
                     break;
                 case 'show-art-detail':
-                    const artFormName = target.dataset.artform;
-                    navigateTo(() => showArtDetailPage(artFormName), 'art-detail-page');
+                    navigateTo(() => showArtDetailPage(target.dataset.artform), 'art-detail-page');
                     break;
                 case 'show-events':
                     e.preventDefault();
@@ -2135,6 +2726,21 @@
                     break;
                 case 'open-chat-from-list':
                     openChatFromList(target.dataset.chatId);
+                    break;
+                case 'browse-art-form':
+                    navigateTo(() => showArtFormCategoryPage(target.dataset.artForm), 'art-form-category-page');
+                    break;
+                case 'register-event':
+                    showEventRegistration(target.dataset.eventIndex);
+                    break;
+                case 'contact-organizer':
+                    showEventContact(target.dataset.eventIndex);
+                    break;
+                case 'get-event-info':
+                    getEventInfo(target.dataset.eventName, target.dataset.eventState);
+                    break;
+                case 'contact-tourism-board':
+                    contactTourismBoard(target.dataset.eventState);
                     break;
             }
         });
@@ -2201,6 +2807,18 @@
             document.getElementById('chats-list-modal').classList.add('hidden');
         });
 
+        // Event Registration and Contact Modal Listeners
+        document.getElementById('close-event-registration').addEventListener('click', () => {
+            document.getElementById('event-registration-modal').classList.add('hidden');
+        });
+
+        document.getElementById('close-event-contact').addEventListener('click', () => {
+            document.getElementById('event-contact-modal').classList.add('hidden');
+        });
+
+        // Event Registration Form Listener
+        document.getElementById('event-registration-form').addEventListener('submit', handleEventRegistration);
+
         document.getElementById('close-cart').addEventListener('click', () => {
             document.getElementById('cart-modal').classList.add('hidden');
         });
@@ -2210,6 +2828,18 @@
         });
 
         document.getElementById('checkout-btn').addEventListener('click', processCheckout);
+
+        // Art Form Category Page Listeners
+        if (applyCategoryFilters) {
+            applyCategoryFilters.addEventListener('click', () => {
+                // Get current art form from page title
+                const currentArtForm = artFormCategoryTitle.textContent;
+                const artForm = allArtForms.find(a => a.name === currentArtForm);
+                if (artForm) {
+                    showArtFormCategoryPage(artForm.name);
+                }
+            });
+        }
 
         // Chat functionality
         document.getElementById('send-message').addEventListener('click', sendChatMessage);
@@ -2727,6 +3357,172 @@
 
             // In real implementation, save order to Firestore
             showToast("Order placed successfully!", "success");
+        }
+
+        // --- EVENT REGISTRATION & CONTACT FUNCTIONS ---
+        function showEventRegistration(eventIndex) {
+            const events = sampleEvents; // Use the current events array
+            const event = events[eventIndex];
+
+            if (!event) {
+                showToast("Event not found.", "error");
+                return;
+            }
+
+            // Populate event details
+            document.getElementById('event-registration-details').innerHTML = `
+                <div class="bg-[#F6EEE0] p-4 rounded-lg">
+                    <h3 class="font-bold text-[#A45C40] mb-2">${event.name}</h3>
+                    <div class="text-sm text-[#C38370] space-y-1">
+                        <p><i class="fas fa-calendar mr-2"></i>${new Date(event.date).toDateString()}</p>
+                        <p><i class="fas fa-map-marker-alt mr-2"></i>${event.city}, ${event.state}</p>
+                        <p><i class="fas fa-clock mr-2"></i>${new Date(event.date).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</p>
+                    </div>
+                </div>
+            `;
+
+            // Set registration fee details
+            const fee = event.fee || 'Free';
+            document.getElementById('registration-fee-details').innerHTML = `
+                <div class="flex justify-between items-center">
+                    <span>Registration Fee:</span>
+                    <span class="font-bold">${fee === 'Free' ? 'Free' : `₹${fee} per person`}</span>
+                </div>
+                ${fee !== 'Free' ? `
+                    <p class="text-xs mt-2">* Includes materials, refreshments, and certificate</p>
+                ` : `
+                    <p class="text-xs mt-2">* Free event with optional donations welcome</p>
+                `}
+            `;
+
+            // Store event data for form submission
+            document.getElementById('event-registration-form').dataset.eventIndex = eventIndex;
+
+            document.getElementById('event-registration-modal').classList.remove('hidden');
+        }
+
+        function showEventContact(eventIndex) {
+            const events = sampleEvents;
+            const event = events[eventIndex];
+
+            if (!event) {
+                showToast("Event not found.", "error");
+                return;
+            }
+
+            // Generate contact details
+            const organizerPhone = event.organizerPhone || '+91-98765-43210';
+            const organizerEmail = event.organizerEmail || 'events@akruti.com';
+            const organizerName = event.organizerName || 'Event Coordinator';
+
+            document.getElementById('event-contact-details').innerHTML = `
+                <div class="bg-[#F6EEE0] p-4 rounded-lg">
+                    <h3 class="font-bold text-[#A45C40] mb-2">${event.name}</h3>
+                    <div class="text-sm text-[#C38370] space-y-2">
+                        <p><i class="fas fa-user mr-2"></i>Organizer: ${organizerName}</p>
+                        <p><i class="fas fa-phone mr-2"></i>${organizerPhone}</p>
+                        <p><i class="fas fa-envelope mr-2"></i>${organizerEmail}</p>
+                        <p><i class="fas fa-map-marker-alt mr-2"></i>${event.city}, ${event.state}</p>
+                    </div>
+                </div>
+            `;
+
+            // Set up contact buttons
+            document.getElementById('call-organizer').onclick = () => {
+                window.open(`tel:${organizerPhone}`, '_self');
+            };
+
+            document.getElementById('whatsapp-organizer').onclick = () => {
+                const message = encodeURIComponent(`Hi! I'm interested in the ${event.name} event. Can you provide more details?`);
+                window.open(`https://wa.me/${organizerPhone.replace(/[^0-9]/g, '')}?text=${message}`, '_blank');
+            };
+
+            document.getElementById('email-organizer').onclick = () => {
+                const subject = encodeURIComponent(`Inquiry about ${event.name}`);
+                const body = encodeURIComponent(`Dear ${organizerName},\n\nI'm interested in attending the ${event.name} event. Could you please provide more information?\n\nThank you!`);
+                window.open(`mailto:${organizerEmail}?subject=${subject}&body=${body}`, '_self');
+            };
+
+            document.getElementById('event-contact-modal').classList.remove('hidden');
+        }
+
+        async function handleEventRegistration(e) {
+            e.preventDefault();
+
+            const eventIndex = e.target.dataset.eventIndex;
+            const event = sampleEvents[eventIndex];
+
+            if (!event) {
+                showToast("Event not found.", "error");
+                return;
+            }
+
+            // Get form data
+            const formData = {
+                fullName: document.getElementById('reg-full-name').value,
+                email: document.getElementById('reg-email').value,
+                phone: document.getElementById('reg-phone').value,
+                participants: document.getElementById('reg-participants').value,
+                experience: document.getElementById('reg-experience').value,
+                specialRequirements: document.getElementById('reg-special-requirements').value,
+                eventName: event.name,
+                eventDate: event.date,
+                eventLocation: `${event.city}, ${event.state}`
+            };
+
+            try {
+                // In a real implementation, this would save to Firestore
+                // For now, we'll simulate the registration process
+
+                // Generate registration ID
+                const registrationId = 'REG-' + Date.now().toString(36).toUpperCase();
+
+                // Simulate API call
+                await new Promise(resolve => setTimeout(resolve, 2000));
+
+                // Show success message
+                showToast(`Registration successful! Your registration ID is ${registrationId}`, "success");
+
+                // Close modal and reset form
+                document.getElementById('event-registration-modal').classList.add('hidden');
+                document.getElementById('event-registration-form').reset();
+
+                // Send confirmation email (simulated)
+                setTimeout(() => {
+                    showToast("Confirmation email sent to your registered email address.", "success");
+                }, 1000);
+
+            } catch (error) {
+                console.error('Registration error:', error);
+                showToast("Registration failed. Please try again.", "error");
+            }
+        }
+
+        function getEventInfo(eventName, eventState) {
+            const message = `Get detailed information about ${eventName} festival in ${eventState}. This includes dates, venues, cultural significance, and participation guidelines.`;
+            showToast(message, "success");
+
+            // In a real implementation, this could open a detailed info page or contact form
+            setTimeout(() => {
+                showToast("For detailed information, please contact the local tourism board.", "success");
+            }, 2000);
+        }
+
+        function contactTourismBoard(state) {
+            const tourismBoards = {
+                'West Bengal': '+91-33-2248-8271',
+                'Rajasthan': '+91-141-511-0598',
+                'Kerala': '+91-471-232-1132',
+                'Tamil Nadu': '+91-44-2538-3333',
+                'Maharashtra': '+91-22-2202-4482',
+                'Gujarat': '+91-79-2658-9683'
+            };
+
+            const phone = tourismBoards[state] || '+91-11-2336-0005'; // Default to India Tourism helpline
+
+            if (confirm(`Contact ${state} Tourism Board at ${phone}?`)) {
+                window.open(`tel:${phone}`, '_self');
+            }
         }
 
         // Make functions available globally
