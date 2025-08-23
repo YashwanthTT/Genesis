@@ -1,1 +1,3 @@
-first commit
+Akruti is a web platform dedicated to the preservation and promotion of traditional Indian folk art. Many of these beautiful art forms are facing extinction due to a lack of visibility in the modern world. Akruti aims to solve this problem by providing a platform for artists to showcase their work, connect with a wider audience, and for art lovers to discover, appreciate, and engage with these rich cultural traditions.
+
+Our platform features a Creator Hub where artists can share their work and connect with patrons. Users can explore various folk art forms, show their appreciation, and even hire artists for events. Akruti also keeps users informed about upcoming cultural events, helping to keep these vibrant art forms alive for future generations. By bridging the gap between artists and art enthusiasts, Akruti fosters a community that values and supports the rich heritage of Indian folk art.
