@@ -192,6 +192,11 @@
             </div>
         </header>
 
+        <!-- Back Button -->
+        <button id="back-btn" data-action="go-back" class="hidden fixed bottom-8 right-8 bg-[#A45C40] hover:bg-[#C38370] text-white font-bold py-3 px-4 rounded-full transition duration-300 z-50 shadow-lg">
+            <i class="fas fa-arrow-left"></i>
+        </button>
+
         <!-- MAIN CONTENT WRAPPER -->
         <div id="main-content">
             
@@ -212,7 +217,7 @@
                       <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center text-center rounded-2xl">
                           <div>
                               <img src="VSVY.png" alt="Akruti Logo" class="mx-auto h-80 md:h-108 drop-shadow-lg">
-                              <p class="text-white text-lg md:text-2xl mt-4 drop-shadow-md"></p>
+                              <p class="text-white text-lg md:text-2xl mt-4 drop-shadow-md">A Digital Sanctuary for India's Folk & Tribal Art</p>
                           </div>
                       </div>
                 </section>
@@ -281,6 +286,29 @@
             </main>
 
             <!-- =================================== -->
+            <!-- ==    ART FORM DETAIL PAGE CONTENT == -->
+            <!-- =================================== -->
+            <main id="art-detail-page" class="hidden">
+                <div class="container mx-auto px-6 py-20">
+                    <div class="max-w-5xl mx-auto">
+                        <h1 id="art-detail-title" class="text-4xl md:text-5xl font-bold text-center mb-8">Art Form Name</h1>
+                        <div class="bg-white rounded-lg shadow-xl overflow-hidden">
+                            <div class="w-full h-[40vh] md:h-[60vh] bg-black">
+                                <video id="art-detail-video" class="w-full h-full object-contain" controls poster="">
+                                    <source src="https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                            <div class="p-8 md:p-12">
+                                <div id="art-detail-description" class="prose max-w-none text-[#A45C40]">
+                                    <!-- Detailed description will be injected here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+            <!-- =================================== -->
             <!-- ==      EVENTS PAGE CONTENT      == -->
             <!-- =================================== -->
             <main id="events-page" class="hidden bg-white/70">
@@ -288,9 +316,18 @@
                     <div class="max-w-3xl mx-auto text-center">
                         <h1 class="text-4xl font-bold mb-4">Cultural Events</h1>
                         <p class="text-[#C38370] mb-8">Discover workshops, exhibitions, and performances happening around you.</p>
-                        <button id="find-events-btn" class="bg-[#A45C40] hover:bg-[#C38370] text-white font-bold py-3 px-8 rounded-full text-lg transition duration-300">
-                            <i class="fas fa-map-marker-alt mr-2"></i> Find Events Near Me
-                        </button>
+                        <div class="max-w-2xl mx-auto space-y-4">
+                            <div class="flex">
+                                <input type="text" id="city-search-input" placeholder="Enter a city name..." class="w-full px-4 py-3 border border-[#E4B7A0] rounded-l-lg focus:outline-none focus:ring-2 focus:ring-[#A45C40] transition bg-white">
+                                <button id="find-events-by-city-btn" class="bg-[#A45C40] hover:bg-[#C38370] text-white font-bold py-3 px-4 rounded-r-lg">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+
+                            <button id="find-events-btn" class="bg-[#A45C40]/80 hover:bg-[#A45C40] text-white font-bold py-3 px-8 rounded-full text-lg transition duration-300">
+                                <i class="fas fa-map-marker-alt mr-2"></i> Or, Find Events Near Me
+                            </button>
+                        </div>
                     </div>
 
                     <div id="events-container" class="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -386,8 +423,12 @@
                                     <input type="text" id="full-name" name="fullName" class="w-full px-4 py-2 border border-[#E4B7A0] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#A45C40] transition" placeholder="e.g., Sunita Devi">
                                 </div>
                                 <div>
+                                    <label for="profile-picture-url" class="block font-medium text-[#A45C40] mb-2">Profile Picture URL</label>
+                                    <input type="url" id="profile-picture-url" name="profilePictureUrl" class="w-full px-4 py-2 border border-[#E4B7A0] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#A45C40] transition" placeholder="https://example.com/your-photo.jpg">
+                                </div>
+                                <div>
                                     <label for="artist-quote" class="block font-medium text-[#A45C40] mb-2">Short Quote or Bio</label>
-                                    <textarea id="artist-quote" name="artistQuote" rows="3" class="w-full px-4 py-2 border border-[#E4B7A0] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#A45C40] transition" placeholder="e.g., 'I paint the stories my grandmother told me...'"></textarea>
+                                    <textarea id="artist-quote" name="artistQuote" rows="3" class="w-full px-4 py-2 border border-[#E4B7A0] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#A45C40] transition" placeholder="e.g., 'I am a canvas painter i teach for the student of a international school in banglore.'"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -501,14 +542,59 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
+        const ticketmasterApiKey = "xAj9CGC3cKjEPT98VGlg0SzJ0M7pPyHj"; // <-- IMPORTANT: Add your key here
 
         // --- GLOBAL STATE ---
         let userProfile = { gigs: [] };
+        let pageHistory = [];
 
         // --- In-memory data for art forms (from original code) ---
         const allArtForms = [
-            { name: "Warli Painting", state: "Maharashtra", status: "vulnerable", practitioners: 5000, description: "Monochromatic tribal art known for its geometric shapes representing the circle, triangle, and square.", imageUrl: "warli.vdo.img.png", videoUrl: "warli.vdo.mp4" },
-            { name: "Madhubani Painting", state: "Bihar", status: "endangered", practitioners: 2000, description: "Famous for its intricate patterns and vibrant colors, traditionally created by women in the Mithila region.", imageUrl: "vdo.image.madhu.png", videoUrl: "madhubani.vdo.mp4" },
+            { 
+                name: "Warli Painting", 
+                state: "Maharashtra", 
+                status: "vulnerable", 
+                practitioners: 5000, 
+                description: "Monochromatic tribal art known for its geometric shapes representing the circle, triangle, and square.", 
+                imageUrl: "warli.vdo.img.png", 
+                videoUrl: "warli.vdo.mp4",
+                detailedDescription: `
+                    <h2 class="text-2xl font-bold mb-4">The Essence of Simplicity</h2>
+                    <p class="mb-4">Warli painting is a form of tribal art mostly created by the tribal people from the North Sahyadri Range in Maharashtra, India. This art form is renowned for its elegant simplicity and use of basic geometric shapes: a circle, a triangle, and a square. These shapes are symbolic of nature's elements - the circle representing the sun and moon, the triangle representing mountains and pointed trees, and the square representing a sacred enclosure or a piece of land.</p>
+                    <h3 class="text-xl font-bold mb-2">Technique and Materials</h3>
+                    <p class="mb-4">Traditionally, Warli paintings are done on a mud base, using a white pigment made from rice paste and water, with a bamboo stick acting as a brush. The paintings depict scenes of human figures engaged in activities like hunting, dancing, sowing, and harvesting. These murals are traditionally painted on the walls of huts during festive occasions and weddings, celebrating life and the harmony between humans and nature.</p>
+                `
+            },
+            { 
+                name: "Madhubani Painting", 
+                state: "Bihar", 
+                status: "endangered", 
+                practitioners: 2000, 
+                description: "Famous for its intricate patterns and vibrant colors, traditionally created by women in the Mithila region.", 
+                imageUrl: "vdo.image.madhu.png", 
+                videoUrl: "madhubani.vdo.mp4",
+                detailedDescription: `
+                    <h2 class="text-2xl font-bold mb-4">A Legacy of Color</h2>
+                    <p class="mb-4">Madhubani art, also known as Mithila painting, originated in the Mithila region of the Indian subcontinent. It is characterized by its complex geometric patterns and vibrant colors derived from natural sources. Traditionally, these paintings were created by the women of the region on the freshly plastered mud walls and floors of their homes.</p>
+                    <h3 class="text-xl font-bold mb-2">Themes and Styles</h3>
+                    <p class="mb-4">The themes of Madhubani paintings revolve around Hindu deities like Krishna, Rama, and Durga, as well as natural objects like the sun, moon, and religious plants like tulsi. The paintings are filled with intricate details, and no space is left empty. The art is divided into five distinct styles: Bharni, Katchni, Tantrik, Godna, and Kohbar, each with its unique characteristics and conventions.</p>
+                `
+            },
+            { 
+                name: "Pithora Painting", 
+                state: "Gujarat", 
+                status: "critically-endangered", 
+                practitioners: 100, 
+                description: "A ritualistic art form of the Rathwa tribe, characterized by vibrant colors and depictions of nature.", 
+                imageUrl: "pithora.vdo.img.png", 
+                videoUrl: "pithora.vdo.mp4",
+                detailedDescription: `
+                    <h2 class="text-2xl font-bold mb-4">Rituals on the Wall</h2>
+                    <p class="mb-4">Pithora is a ritualistic painting done by the Rathwa and Bhilala tribes in Gujarat and Madhya Pradesh. It is more than an art form; it is a ritual performed to thank the gods or to ask for a wish or a boon. The entire painting, known as the Pithoro, is considered a living entity and is executed by the main male members of the community, called 'lakharas'.</p>
+                    <h3 class="text-xl font-bold mb-2">Symbolism and Depiction</h3>
+                    <p class="mb-4">These paintings depict a world of gods, goddesses, animals, and mythological figures. The most prominent feature is the depiction of horses, which are considered sacred. The entire painting is enclosed in a rectangular fence, which is considered the sacred boundary of the Pithoro. The vibrant colors used are made from natural pigments mixed with milk and liquor from the Mahuda tree.</p>
+                `
+            },
             { name: "Pattachitra", state: "Odisha", status: "vulnerable", practitioners: 3000, description: "A traditional, cloth-based scroll painting, known for its mythological narratives and folktales.", imageUrl: "f.pattachitra.jpg", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
             { name: "Kalamkari", state: "Andhra Pradesh", status: "endangered", practitioners: 1500, description: "A type of hand-painted or block-printed cotton textile, produced in Isfahan and Indian states.", imageUrl: "f.kalamkari.jpg", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
             { name: "Gond Painting", state: "Madhya Pradesh", status: "vulnerable", practitioners: 4000, description: "A folk and tribal art form by the Gondi people, characterized by a sense of movement and detail.", imageUrl: "f.gond.jpg", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
@@ -516,7 +602,6 @@
             { name: "Phad Painting", state: "Rajasthan", status: "severely-endangered", practitioners: 200, description: "A religious, scroll-type art that narrates elaborate religious stories of local deities and gods.", imageUrl: "f.phad.jpg", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
             { name: "Cheriyal Scrolls", state: "Telangana", status: "critically-endangered", practitioners: 50, description: "A stylized version of Nakashi art, rich in the local motifs that are peculiar to the Telangana region.", imageUrl: "f.cheriyal.jpg", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
             { name: "Kalighat Painting", state: "West Bengal", status: "nearly-extinct", practitioners: 20, description: "Originated in the 19th century as a local style that developed in the vicinity of Kalighat Kali Temple.", imageUrl: "f.kalighat.jpg", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
-            { name: "Pithora Painting", state: "Gujarat", status: "critically-endangered", practitioners: 100, description: "A ritualistic art form of the Rathwa tribe, characterized by vibrant colors and depictions of nature.", imageUrl: "pithora.vdo.img.png", videoUrl: "pithora.vdo.mp4" },
             { name: "Saura Painting", state: "Odisha", status: "endangered", practitioners: 800, description: "A style of wall mural painting associated with the Saura tribe, it has a religious significance.", imageUrl: "f.saura.jpg", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
             { name: "Mughal Miniature", state: "Uttar Pradesh", status: "endangered", practitioners: 500, description: "A small, brightly colored, and highly detailed painting, which grew from Persian miniature painting.", imageUrl: "f.mughal.jpg", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
             { name: "Mysore Painting", state: "Karnataka", status: "endangered", practitioners: 600, description: "An important form of classical South Indian painting that originated in and around the town of Mysore.", imageUrl: "f.mysore.jpg", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" },
@@ -560,22 +645,26 @@
         const artFormsPage = document.getElementById('art-forms-page');
         const eventsPage = document.getElementById('events-page');
         const creatorHubPage = document.getElementById('creator-hub-page');
-        const loginPage = document.getElementById('login-page'); // New login page
-        const artistsPage = document.getElementById('artists-page'); // New artists page
-        const searchResultsPage = document.getElementById('search-results-page'); // New search results page
+        const loginPage = document.getElementById('login-page');
+        const artistsPage = document.getElementById('artists-page');
+        const searchResultsPage = document.getElementById('search-results-page');
+        const artDetailPage = document.getElementById('art-detail-page'); // New detail page
+        const backBtn = document.getElementById('back-btn'); // Back button
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
         const searchBtn = document.getElementById('search-btn');
         const searchInput = document.getElementById('search-input');
         const findEventsBtn = document.getElementById('find-events-btn');
+        const citySearchInput = document.getElementById('city-search-input');
+        const findEventsByCityBtn = document.getElementById('find-events-by-city-btn');
         const statusFilter = document.getElementById('status-filter');
         const stateFilter = document.getElementById('state-filter');
         const filterBtn = document.getElementById('filter-btn');
         const artFormsContainer = document.getElementById('art-forms-container');
         const eventsContainer = document.getElementById('events-container');
         const featuredArtContainer = document.getElementById('featured-art-container');
-        const artistsContainer = document.getElementById('artists-container'); // New artists container
-        const searchResultsContainer = document.getElementById('search-results-container'); // New search results container
+        const artistsContainer = document.getElementById('artists-container');
+        const searchResultsContainer = document.getElementById('search-results-container');
         
         // Auth Page Elements
         const authTitlePage = document.getElementById('auth-title-page');
@@ -593,6 +682,7 @@
         // Creator Hub Form Elements
         const creatorProfileForm = document.getElementById('creator-profile-form');
         const fullNameInput = document.getElementById('full-name');
+        const profilePictureUrlInput = document.getElementById('profile-picture-url');
         const artistQuoteInput = document.getElementById('artist-quote');
         const addGigBtn = document.getElementById('add-gig-btn');
         const gigFormContainer = document.getElementById('gig-form-container');
@@ -638,22 +728,27 @@
             loginPage.classList.add('hidden');
             artistsPage.classList.add('hidden');
             searchResultsPage.classList.add('hidden');
+            artDetailPage.classList.add('hidden');
         }
 
         function showHomePage() {
             hideAllPages();
             homePage.classList.remove('hidden');
+            backBtn.classList.add('hidden');
+            pageHistory = []; // Reset history when going home
         }
         
         function showArtFormsPage() {
             hideAllPages();
             artFormsPage.classList.remove('hidden');
+            backBtn.classList.remove('hidden');
             window.scrollTo(0, 0);
         }
 
         async function showArtistsPage() {
             hideAllPages();
             artistsPage.classList.remove('hidden');
+            backBtn.classList.remove('hidden');
             window.scrollTo(0, 0);
             const allProfiles = await fetchAllArtists();
             renderArtistProfiles(allProfiles, artistsContainer);
@@ -662,19 +757,77 @@
         function showEventsPage() {
             hideAllPages();
             eventsPage.classList.remove('hidden');
+            backBtn.classList.remove('hidden');
             window.scrollTo(0, 0);
         }
 
         function showLoginPage() {
             hideAllPages();
             loginPage.classList.remove('hidden');
+            backBtn.classList.remove('hidden');
             window.scrollTo(0, 0);
         }
 
         function showSearchResultsPage() {
             hideAllPages();
             searchResultsPage.classList.remove('hidden');
+            backBtn.classList.remove('hidden');
             window.scrollTo(0, 0);
+        }
+        
+        function showCreatorHubPage() {
+            hideAllPages();
+            creatorHubPage.classList.remove('hidden');
+            backBtn.classList.remove('hidden');
+            window.scrollTo(0, 0);
+        }
+
+        function showArtDetailPage(artFormName) {
+            const art = allArtForms.find(a => a.name === artFormName);
+            if (!art) return;
+
+            hideAllPages();
+            
+            document.getElementById('art-detail-title').textContent = art.name;
+            document.getElementById('art-detail-description').innerHTML = art.detailedDescription;
+            const videoEl = document.getElementById('art-detail-video');
+            videoEl.poster = art.imageUrl;
+            videoEl.innerHTML = '<source src="https://assets.mixkit.co/videos/preview/mixkit-woman-in-a-floral-dress-in-a-field-of-flowers-42228-small.mp4" type="video/mp4">';
+            
+            artDetailPage.classList.remove('hidden');
+            backBtn.classList.remove('hidden');
+            window.scrollTo(0, 0);
+        }
+
+        const pageFunctionsMap = {
+            'home-page': showHomePage,
+            'art-forms-page': showArtFormsPage,
+            'artists-page': showArtistsPage,
+            'events-page': showEventsPage,
+            'login-page': showLoginPage,
+            'creator-hub-page': showCreatorHubPage,
+            'search-results-page': showSearchResultsPage,
+            'art-detail-page': showArtDetailPage 
+        };
+
+        function navigateTo(pageFunction, pageId, ...args) {
+            const mainContent = document.getElementById('main-content');
+            const currentPage = mainContent.querySelector('main:not(.hidden)');
+            if (currentPage && currentPage.id !== pageId) {
+                pageHistory.push(currentPage.id);
+            }
+            pageFunction(...args);
+        }
+
+        function handleGoBack() {
+            const lastPageId = pageHistory.pop();
+            const pageFunction = pageFunctionsMap[lastPageId];
+
+            if (pageFunction) {
+                pageFunction();
+            } else {
+                showHomePage();
+            }
         }
 
         // --- AUTHENTICATION LOGIC ---
@@ -757,6 +910,7 @@
                     userProfile = docSnap.data();
                     userProfile.gigs = userProfile.gigs || [];
                     fullNameInput.value = userProfile.fullName || '';
+                    profilePictureUrlInput.value = userProfile.profilePictureUrl || '';
                     artistQuoteInput.value = userProfile.artistQuote || '';
                     renderGigs();
                 } else {
@@ -778,7 +932,9 @@
             }
 
             userProfile.fullName = fullNameInput.value;
+            userProfile.profilePictureUrl = profilePictureUrlInput.value;
             userProfile.artistQuote = artistQuoteInput.value;
+            userProfile.email = user.email; // Save the user's email
             
             const docRef = doc(db, "profiles", user.uid);
             try {
@@ -887,11 +1043,13 @@
                 `).join('') || '<p class="text-sm text-[#C38370]">No services listed.</p>';
 
                 const artistCard = document.createElement('div');
-                artistCard.className = 'bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow';
+                artistCard.className = 'bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow flex flex-col items-center text-center';
                 artistCard.innerHTML = `
+                    <img src="${profile.profilePictureUrl || 'https://placehold.co/128x128/F6EEE0/A45C40?text=Artist'}" alt="${profile.fullName}" class="w-32 h-32 rounded-full object-cover mb-4 border-4 border-[#E4B7A0]">
                     <h3 class="text-2xl font-bold mb-2">${profile.fullName}</h3>
-                    <p class="text-[#A45C40] italic mb-4">"${profile.artistQuote || 'No bio available.'}"</p>
-                    <div class="border-t border-[#E4B7A0] pt-4">
+                    <a href="mailto:${profile.email}" class="text-sm text-[#C38370] hover:underline mb-4">${profile.email}</a>
+                    <p class="text-[#A45C40] font-normal mb-4 text-lg">"${profile.artistQuote || 'No bio available.'}"</p>
+                    <div class="border-t border-[#E4B7A0] pt-4 w-full">
                         <h4 class="font-bold text-lg mb-2">Services:</h4>
                         ${gigsHTML}
                     </div>
@@ -906,9 +1064,12 @@
                 showToast("Please enter a search term.", "error");
                 return;
             }
-            const results = await fetchAllArtists(query);
-            showSearchResultsPage();
-            renderArtistProfiles(results, searchResultsContainer);
+            navigateTo(() => {
+                showSearchResultsPage();
+                fetchAllArtists(query).then(results => {
+                    renderArtistProfiles(results, searchResultsContainer);
+                });
+            }, 'search-results-page');
         }
 
 
@@ -989,8 +1150,8 @@
 
         function renderEvents(events) {
             eventsContainer.innerHTML = '';
-            if (events.length === 0) {
-                eventsContainer.innerHTML = '<p class="text-center text-[#C38370] col-span-full">No events found.</p>';
+            if (!events || events.length === 0) {
+                eventsContainer.innerHTML = '<p class="text-center text-[#C38370] col-span-full">No events found nearby.</p>';
                 return;
             }
             events.forEach(event => {
@@ -1001,37 +1162,44 @@
                     <p class="text-[#C38370] mb-2"><i class="fas fa-calendar-alt mr-2"></i>${new Date(event.date).toDateString()}</p>
                     <p class="text-[#C38370] mb-4"><i class="fas fa-map-marker-alt mr-2"></i>${event.city}</p>
                     <p class="text-[#A45C40]">${event.description}</p>
-                    ${event.distance ? `<p class="text-sm text-[#A45C40] font-semibold mt-4">Distance: ${event.distance.toFixed(2)} km away</p>` : ''}
                 `;
                 eventsContainer.appendChild(eventCard);
             });
         }
 
-        function calculateDistance(lat1, lon1, lat2, lon2) {
-            const R = 6371; // Radius of the Earth in km
-            const dLat = (lat2 - lat1) * Math.PI / 180;
-            const dLon = (lon2 - lon1) * Math.PI / 180;
-            const a =
-                0.5 - Math.cos(dLat) / 2 +
-                Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
-                (1 - Math.cos(dLon)) / 2;
-            return R * 2 * Math.asin(Math.sqrt(a));
-        }
-
-        function findNearbyEvents() {
+        async function findNearbyEvents() {
             if (!navigator.geolocation) {
                 showToast("Geolocation is not supported by your browser.", "error");
                 return;
             }
 
-            navigator.geolocation.getCurrentPosition(position => {
+            navigator.geolocation.getCurrentPosition(async position => {
                 const { latitude, longitude } = position.coords;
-                const eventsWithDistance = sampleEvents.map(event => ({
-                    ...event,
-                    distance: calculateDistance(latitude, longitude, event.lat, event.lon)
-                }));
-                eventsWithDistance.sort((a, b) => a.distance - b.distance);
-                renderEvents(eventsWithDistance);
+                
+                const url = `https://app.ticketmaster.com/discovery/v2/events.json?apikey=${ticketmasterApiKey}&latlong=${latitude},${longitude}&radius=50&unit=km&classificationName=Arts & Theatre`;
+
+                try {
+                    const response = await fetch(url);
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch events from Ticketmaster API.');
+                    }
+                    const data = await response.json();
+                    
+                    const formattedEvents = data._embedded?.events.map(event => ({
+                        name: event.name,
+                        city: event._embedded?.venues[0]?.city?.name || 'N/A',
+                        date: event.dates.start.localDate,
+                        description: event.info || 'No description available.'
+                    })) || [];
+
+                    renderEvents(formattedEvents);
+
+                } catch (error) {
+                    console.error("Error fetching events:", error);
+                    showToast("Could not fetch nearby events.", "error");
+                    renderEvents([]); // Render an empty state
+                }
+
             }, () => {
                 showToast("Unable to retrieve your location.", "error");
             });
@@ -1044,14 +1212,16 @@
             featuredArtContainer.innerHTML = '';
             featuredForms.forEach(art => {
                 const card = document.createElement('div');
-                card.className = "bg-white rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300 text-left group";
+                card.className = "bg-white rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300 text-left group cursor-pointer";
+                card.dataset.action = "show-art-detail";
+                card.dataset.artform = art.name;
                 
                 const hasRealVideo = art.videoUrl && !art.videoUrl.includes('mixkit.co');
                 const mediaElementHTML = hasRealVideo 
-                    ? `<video class="w-full h-full object-cover" poster="${art.imageUrl}" muted loop>
+                    ? `<video class="w-full h-full object-cover pointer-events-none" poster="${art.imageUrl}" muted loop>
                            <source src="${art.videoUrl}" type="video/mp4">
                        </video>`
-                    : `<img src="${art.imageUrl}" alt="${art.name}" class="w-full h-full object-cover transition-transform duration-[2000ms] ease-in-out group-hover:scale-110">`;
+                    : `<img src="${art.imageUrl}" alt="${art.name}" class="w-full h-full object-cover transition-transform duration-[2000ms] ease-in-out group-hover:scale-110 pointer-events-none">`;
 
                 card.innerHTML = `
                     <div class="w-full h-56 overflow-hidden">
@@ -1082,7 +1252,7 @@
             
             switch(action) {
                 case 'show-login':
-                    showLoginPage();
+                    navigateTo(showLoginPage, 'login-page');
                     break;
                 case 'login-google':
                     handleGoogleLogin();
@@ -1092,11 +1262,9 @@
                     break;
                 case 'creator-hub':
                     if (auth.currentUser) {
-                        hideAllPages();
-                        creatorHubPage.classList.remove('hidden');
-                        window.scrollTo(0, 0);
+                        navigateTo(showCreatorHubPage, 'creator-hub-page');
                     } else {
-                        showLoginPage();
+                        navigateTo(showLoginPage, 'login-page');
                         showToast("Please log in to access the Creator Hub.", "error");
                     }
                     break;
@@ -1106,16 +1274,20 @@
                     break;
                 case 'show-art-forms':
                     e.preventDefault();
-                    renderArtForms(allArtForms);
+                    navigateTo(() => renderArtForms(allArtForms), 'art-forms-page');
                     showArtFormsPage();
                     break;
                 case 'show-artists':
                     e.preventDefault();
-                    showArtistsPage();
+                    navigateTo(showArtistsPage, 'artists-page');
+                    break;
+                case 'show-art-detail':
+                    const artFormName = target.dataset.artform;
+                    navigateTo(() => showArtDetailPage(artFormName), 'art-detail-page');
                     break;
                 case 'show-events':
                     e.preventDefault();
-                    renderEvents(sampleEvents);
+                    navigateTo(() => renderEvents([]), 'events-page'); // Show empty state initially
                     showEventsPage();
                     break;
                 case 'delete-gig':
@@ -1124,6 +1296,9 @@
                     break;
                 case 'search':
                     handleArtistSearch();
+                    break;
+                case 'go-back':
+                    handleGoBack();
                     break;
             }
         });
